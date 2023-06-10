@@ -25,7 +25,7 @@
 
 ---
 <br><br>
-# Tener en cuenta que el Servidor arranca con la instrucción: npm run dev
+# Tener en cuenta que el Servidor arranca con la instrucción: npm run start-server
 
 <br><br>
 
