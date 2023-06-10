@@ -9,6 +9,7 @@ import exphbs from 'express-handlebars';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { Command } from 'commander';
+import cors from 'cors';
 
 
 
@@ -201,6 +202,10 @@ app.use('/admin_panel', admin_panel);
 app.use((req, res) => {
     res.status(404).render('error/error404');
 });
+//
+
+// Configuracion de Cors
+app.use(cors())
 
 //Chat Socket
 import Messages from '../models/messages.model.js';
