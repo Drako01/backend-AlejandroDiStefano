@@ -3,9 +3,13 @@ import Product from '../models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import multer from 'multer';
 import path from 'path';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const router = express.Router();
-
+const secret = process.env.PRIVATE_KEY;
+const cokieName = process.env.JWT_COOKIE_NAME;
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
