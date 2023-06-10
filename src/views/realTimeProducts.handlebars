@@ -1,0 +1,80 @@
+<title>Carga de Productos</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<div class="container botones_admin">
+    <a href="/admin_panel" class="btn btn-primary ">Volver</a>
+</div>
+
+
+<div class="container text-center">
+    <h1>Carga de Productos en Tiempo Real</h1>
+</div>
+<section class="products" id="products">
+    <div id="product-container" class="container products">
+        <div class="card" style="width: 18rem;">
+            <form action="/realtimeproducts" method="POST" enctype="multipart/form-data" id="product-form">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="title">Nombre</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Categoría</label>
+                        <input type="text" class="form-control" id="category" name="category">
+                    </div>
+                    <div class="form-group">
+                        <label for="thumbnail">Foto</label>
+                        <input type="file" class="form-control" id="thumbnail" name="thumbnail">
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Tamaño</label>
+                        <input type="text" class="form-control" id="size" name="size">
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Código</label>
+                        <input type="text" class="form-control" id="code" name="code">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Precio</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" class="form-control" id="price" name="price">
+                            <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="number" class="form-control" id="stock" name="stock" />
+                    </div>
+                    <div class="form-group align-center text-center">
+                        <button type="submit" class="btn btn-success">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div class="line"></div>
+
+<h1 class="text-center my-3">Vista de Productos en tiempo Real</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="product-list" class="d-flex flex-wrap justify-content-center">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/products.js"></script>

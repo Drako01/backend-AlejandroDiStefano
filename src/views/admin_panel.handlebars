@@ -1,0 +1,85 @@
+{{!-- Seccion Administrador --}}
+<div class="container  text-center">
+    {{#if user}}
+    <h1>Bienvenido <span>{{user.first_name}} {{user.last_name}}</span></h1>
+    {{/if}}
+</div>
+
+{{#if user.role}}
+{{#ifEqual user.role "admin"}}
+<div class="line"></div>
+<div class="container  text-center">
+    <h1>Panel Administrativo</h1>
+</div>
+<div class="line"></div>
+<div class="container botones_admin">
+    <a class="btn btn-success btnusuaios" href="/users">Ver Usuarios</a>
+    <a class="btn btn-success btnusuaios" href='/productstable'>Administrador de Productos</a>
+    <a class="btn btn-success btnusuaios" href="/realtimeproducts">Productos Web Sockets</a>
+</div>
+<div class="line"></div>
+
+<div class="container  text-center usuarios">
+    <h2>Carga de Productos Nivel Administrador</h2>
+</div>
+
+<section class="products">
+    <div id="product-container" class="container products">
+        <div class="card" style="width: 18rem;">
+            <form action="/products" method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="title">Nombre</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ title }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Categoría</label>
+                        <input type="text" class="form-control" id="category" name="category" value="{{ category }}"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="thumbnail">Foto</label>
+                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Tamaño</label>
+                        <input type="text" class="form-control" id="size" name="size" value="{{ size }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Código</label>
+                        <input type="text" class="form-control" id="code" name="code" value="{{ code }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"
+                            required>{{ description }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Precio</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" class="form-control" id="price" name="price" value="{{ price }}"
+                                required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="number" class="form-control" id="stock" name="stock" value="{{ stock }}" required>
+                    </div>
+                    <div class="form-group align-center text-center">
+                        <button type="submit" class="btn btn-success">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{{/ifEqual}}
+{{/if}}
+{{!-- Seccion Administrador --}}

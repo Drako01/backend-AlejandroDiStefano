@@ -1,0 +1,77 @@
+[{
+  "_id": {
+    "$oid": "6461281545c3c19a45331e28"
+  },
+  "first_name": "Administrador",
+  "last_name": "CoderHouse",
+  "email": "adminCoder@coder.com",
+  "age": "45",
+  "role": "admin",
+  "password": "$2b$10$EH75nZrsN/JFjoIc/fO25ufwVCzCg2FHpQtPlPDUP4ThtO0yNdftW",
+  "__v": 0,
+  "phone": "1155554444"
+},
+{
+  "_id": {
+    "$oid": "6461283f45c3c19a45331e2a"
+  },
+  "first_name": "Alejandro",
+  "last_name": "Di Stefano",
+  "email": "alejandro@mail.com",
+  "age": "47",
+  "role": "admin",
+  "password": "$2b$10$CPeiQp2oQXUqlLflg4Y4IeoOnxntDJXu2/bAFhuSKKzDKlYQz4APm",
+  "__v": 0,
+  "phone": "1166665555"
+},
+{
+  "_id": {
+    "$oid": "64692102741cb4fb3e7afaaa"
+  },
+  "first_name": "Alejandro Daniel Di Stefano",
+  "email": "addistefano@live.com.ar",
+  "role": "user",
+  "__v": 0,
+  "age": "",
+  "last_name": "",
+  "phone": ""
+},
+{
+  "_id": {
+    "$oid": "646a1bbcf4db5c8bd75ea6a6"
+  },
+  "first_name": "Lola Giovanna",
+  "last_name": "Di Stefano",
+  "email": "lola@mail.com",
+  "phone": "1144446666",
+  "age": "10",
+  "role": "user",
+  "password": "$2b$10$cxg12AD2dbn.z8DmXbxOhurYojg7EN67/yCkmBOGWh7XACyG/BFz.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646a29ce71d1edce4c51d63c"
+  },
+  "first_name": "Federico",
+  "last_name": "Di Stefano",
+  "email": "fede@mail.com",
+  "phone": "1144446665",
+  "age": "14",
+  "role": "user",
+  "password": "$2b$10$OF/IyMwLdi9wiHaSdDp7buJ0GYwtmSgXBQHEszUocfixNl7USxn/C",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "647cf49ba859705933ea7181"
+  },
+  "first_name": "Usuario",
+  "last_name": "Prueba",
+  "email": "usuario@coder.com",
+  "phone": "1126637555",
+  "age": "50",
+  "role": "user",
+  "password": "$2b$10$f9p2XtvGy2T2c5Z72t8cHuFCMWBtYJMdZsitVmAaFwhvRHVnUnf92",
+  "__v": 0
+}]

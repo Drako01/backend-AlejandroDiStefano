@@ -1,0 +1,36 @@
+<div class="container tablaUsuarios">
+    <h1>Lista de Usuarios</h1>
+    <table class="table table-striped">
+        <thead class="headTable">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Edad</th>
+                <th>Rol</th>
+                <th class="actions-column-todo">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{this.first_name}}</td>
+                <td>{{this.last_name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.age}}</td>
+                <td>{{this.role}}</td>
+                <td class="actions-column">
+                    <a href="/users/edit/{{this._id}}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="/users/delete/{{this._id}}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="input-group group-comprar">
+        <a href="/signupadmin" class="btn btn-secondary ">Agregar un usuario</a>
+        <a href="/admin_panel" class="btn btn-primary ">Volver</a>
+    </div>
+</div>

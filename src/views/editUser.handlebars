@@ -1,0 +1,37 @@
+<section class="editUser">
+    <div class="container">
+        <h1>Editar Usuario</h1>
+        <form action="/users/edit/{{ user._id }}" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+            <div class="form-group">
+                <label for="first_name">Nombre</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Apellido</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+            </div>
+            <div class="form-group">
+                <label for="number">Teléfono:</label>
+                <input type="text" class="form-control" id="phone" name="phone"  value="{{ user.phone }}">
+            </div>
+            <div class="form-group">
+                <label for="age">Edad</label>
+                <input type="number" class="form-control" id="age" name="age" value="{{ user.age }}">
+            </div>
+            <div class="form-group">
+                <label for="role">Rol</label>
+                <select id="role" name="role" class="form-control">
+                    <option value="admin" name="admin" >Admin</option>
+                    <option value="user" name="user" selected>User</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/users" class="btn btn-danger">Cancelar</a>
+        </form>
+    </div>
+</section>

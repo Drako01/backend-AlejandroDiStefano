@@ -1,0 +1,120 @@
+<div class="container">
+    <h1>Carrito de Compras</h1>
+    <table class="table">
+        <thead>
+            <tr class="totalPrice">
+                <th>Producto</th>
+                <th>Precio
+                    <form action="/carts" method="get" id="sortForm">
+                        <select name="sortOption" onchange="document.getElementById('sortForm').submit()">
+                            <option value="">Filtrar</option>
+                            <option value="asc">Menor Precio</option>
+                            <option value="desc">Mayor Precio</option>
+                        </select>
+                        <input type="hidden" name="sort" value="{{ sortOption }}">
+                    </form>
+                </th>
+                <th>Imagen</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {{#each cart.items as |item|}}
+            <tr>
+                <td>{{ item.producto.title }}</td>
+                <td>${{ item.producto.price }}.-</td>
+                <td class="ImgTable">
+                    <img src="{{ item.producto.thumbnail }}" alt="{{ item.producto.title }}">
+                </td>
+                <td>
+                    <form method="POST" action="/carts/{{ ../cartId }}/{{item._id}}?_method=PUT"
+                        style="display: flex; justify-content: space-evenly;" class="input-con-botones">
+                        <input type="hidden" name="cartId" value="{{ cartId }}">
+                        <input type="number" value="{{ item.cantidad }}" class="form-control input-width"
+                            name="cantidad" min="1" style="max-height: 2rem;">
+                        <button type="submit" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-lg" viewBox="0 0 16 16">
+                                <path
+                                    d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                            </svg>
+                        </button>
+                    </form>                   
+
+                </td>
+                <td>${{ multiply item.producto.price item.cantidad }}.-</td>
+                <td>
+                    <a href="/cartsDeleteById/{{ ../cartId }}/{{ item._id }}" 
+                        class="btn btn-danger input-con-botones enlaces">                        
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="currentColor" class="bi bi-cart-x" viewBox="0 0 16 16">
+
+                            <path
+                                d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z" />
+                            <path
+                                d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg></a></td>
+                </td>
+            </tr>
+            {{/each}}
+            <tr class="totalPrice">
+                <td colspan="6">{{#with totalPrice}}
+                    TOTAL: ${{this}}.-
+                    {{/with}}
+                </td>
+            </tr>
+        </tbody>
+
+
+    </table>
+    <form action="/checkout" method="get">
+        <input type="hidden" name="cartId" value="{{ cartId }}">
+        <div class="input-group group-comprar">
+            <button type="submit" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-cart-check" viewBox="0 0 16 16">
+                    <path
+                        d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                    <path
+                        d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg>
+                Comprar Carrito</button>
+        </div>
+    </form>
+
+    <form method="POST" action="/carts/{{ cartId }}/vaciar" id="emptyCartForm">
+    <input type="hidden" name="cartId" value="{{ cartId }}">
+        <div class="input-group group-comprar">
+            <button type="submit" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart-x"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z" />
+                    <path
+                        d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg>
+                Vaciar Carrito</button>
+        </div>
+    </form>
+
+    <form action="/carts/{{ cartId }}/eliminar" method="POST">
+    <input type="hidden" name="cartId" value="{{ cartId }}">
+        <div class="input-group group-comprar">
+            <button type="submit" class="btn btn-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart-x"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z" />
+                    <path
+                        d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg>
+                Eliminar Carrito</button>
+        </div>
+    </form>
+
+
+</div>

@@ -1,0 +1,52 @@
+.actions-column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 160px;
+}
+
+.actions-column .btn {
+    flex: 1;
+    margin-right: 5px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.actions-column-todo {
+    width: 160px;
+    text-align: center;
+}
+
+.user-eliminado span {
+    color: red;
+    font-size: 1.5rem;
+}
+
+.github-button {
+    display: inline-block;
+    background-color: #24292e;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.github-button:hover {
+    background-color: #1c1f23;
+}
+
+.github-button:active {
+    background-color: #111;
+}
+.botones_admin{
+    display: flex;
+    justify-content: space-evenly;
+}
+.botones_admin a{
+    margin: 1rem;
+    min-width: 8rem;
+    width: max-content;
+}

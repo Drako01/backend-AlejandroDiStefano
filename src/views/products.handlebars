@@ -1,0 +1,80 @@
+<div class="container text-center index_div">
+    <h1>Todos nuestros Productos</h1>
+</div>
+
+<div class="container text-center index_div">
+    <h2>Filtro por Categorías</h2>
+    <form action="/products" method="GET">
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="category">
+            {{#each allCategories}}
+            <option value="{{ this }}">{{ this }}</option>
+            {{/each}}
+        </select>
+        <div class="container botones-filtro">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <a href="/products" class="btn btn-secondary">Volver</a>
+        </div>
+    </form>
+</div>
+
+<section class="products">
+    <div id="product-container" class="container products">
+        {{#productos}}
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src={{ this.thumbnail }} alt={{ this.title }}>
+            <div class="card-body">
+                <h4 class="card-title">{{ this.title }}</h4>
+                <p class="card-text">{{ this.description }} </p>
+                <h5 class="card-text">${{ this.price }}.- </h5>
+                <div class="Buttons_Pay">
+                    <form action="/carts/{{this._id}}" method="POST">
+                        <div class="input-group group-comprar">
+                            <input type="number" name="cantidad" class="form-control" value="1" min="1"
+                                max={{productos.stock}}>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-success">Agregar al Carrito</button>
+                            </div>
+                        </div>
+                    </form>
+                    <a href="/productsid/{{this._id}}" class="btn btn-secondary">Detalles</a>
+
+                </div>
+            </div>
+        </div>
+        {{/productos}}
+
+        {{!-- Paginación --}}
+
+        <nav aria-label="Pagination">
+            <div class="container text-center">
+                <h2>Paginación</h2>
+            </div>
+
+            <ul class="pagination justify-content-center">
+                {{#if prevLink}}
+                <li class="page-item">
+                    <a class="page-link" href="{{prevLink}}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {{/if}}
+                {{#each pages}}
+                <li class="page-item{{#if current}} active{{/if}}">
+                    <a class="page-link" href="{{this.link}}">{{this.page}}</a>
+                </li>
+                {{/each}}
+                {{#if nextLink}}
+                <li class="page-item">
+                    <a class="page-link" href="{{nextLink}}" aria-label="Siguiente">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {{/if}}
+            </ul>
+        </nav>
+
+        {{!-- Fin Paginación --}}
+
+    </div>
+
+</section>

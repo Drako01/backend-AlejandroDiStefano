@@ -1,0 +1,49 @@
+<div class="container text-center index_div">
+    <h1>Todos nuestros Productos</h1>
+</div>
+<div class="container botones_admin">
+    <a href="/admin_panel" class="btn btn-primary ">Volver</a>
+</div>
+
+<section class="products">
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Ordenar por
+                        <br>
+                        <form action="/productstable" method="get" id="sortForm">
+                            <select name="sortOption" onchange="document.getElementById('sortForm').submit()">
+                                <option>Filtrar</option>
+                                <option value="unorder">Desordenado</option>
+                                <option value="asc">Menor Precio</option>
+                                <option value="desc">Mayor Precio</option>
+                            </select>
+                        </form>
+                    </th>
+                    <th scope="col" class="center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#products}}
+                <tr>
+                    <td>{{this.title}}</td>
+                    <td class="ImgTable">
+                        <img src="{{this.thumbnail}}" alt="{{this.title}}">
+                    </td>
+                    <td>{{this.description}}</td>
+                    <td>${{this.price}}.-</td>
+
+                    <td class="buttonsTable">
+                        <a href="/productsedit/{{this._id}}" class="btn btn-primary">Editar</a>
+                        <a href="/productsdeletebyid/{{this._id}}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {{/products}}
+            </tbody>
+        </table>
+    </div>
+</section>

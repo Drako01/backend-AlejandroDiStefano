@@ -1,0 +1,89 @@
+.index_div{
+    padding: 2rem;
+}
+.index_div h1,
+.index_div h2,
+.index_div h3{
+    padding: 1rem;
+}
+.index_div h1{
+    font-size: 2rem;
+    color: var(--first);
+}
+.index_div h1 span{
+    color: var(--gold);
+}
+.index_div__div{
+    display: flex;
+    justify-content: space-evenly;
+}
+.index_div__div a{
+    max-width: 10rem;
+}
+.login{
+    padding: 4rem;
+    max-width: 30rem;
+    border: 1px solid var(--gold);
+    border-radius: 2rem;
+    margin: 2rem;
+}
+.michat,
+.iniciodesession,
+.noAutorizado{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 6rem 0;
+}
+.nonono{
+    border: 2px solid var(--brick);    
+}
+.red{
+    color: red;
+    font-weight: bold;
+}
+.green{
+    color: green;
+    font-weight: bold;
+}
+.line{
+    width: 100%;
+    height: 4px;
+    background-color: var(--first);
+    border-radius: 50%;
+    margin: 3rem 0;
+}
+.form-group{
+    margin-bottom: .8rem;
+}
+.headTable{
+    background-color: var(--first);
+    color: var(--light);
+}
+.tablaUsuarios{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+.usuarios{
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+.btnusuaios{
+    width: 8rem;
+}
+.bienvenida{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 3rem 0; 
+}
+.bienvenida img{
+    width: 3rem;   
+}
