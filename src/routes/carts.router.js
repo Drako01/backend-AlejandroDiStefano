@@ -43,13 +43,12 @@ async function getOrCreateCart(userEmail = null) {
 
 // Visualizar el Carrito
 router.get('/', async (req, res) => {
+    user = getUserFromToken(req);
     try {
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
 
-
-        if (userToken) {
-            user = getUserFromToken(req);
+        if (userToken) {            
             userEmail = user.email || user.user.email;
         } else {
             return res.render('login');
@@ -63,7 +62,7 @@ router.get('/', async (req, res) => {
         }
 
         if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
-            return res.render('notCart');
+            return res.render('notCart', { user });
         }
         const cartId = cart._id.toString();
 
