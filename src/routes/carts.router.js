@@ -64,9 +64,8 @@ router.get('/', async (req, res) => {
             cart = await getOrCreateCart();
         }
 
-        if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
-            req.flash('info', 'No hay productos en el carrito');
-            return res.redirect('/');
+        if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {            
+            return res.render('notCart');
         }
         const cartId = cart._id.toString();
 
