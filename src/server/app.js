@@ -174,11 +174,6 @@ app.use(express.static(path.resolve('..', 'public')));
 app.set('views', '../views/');
 
 
-// Configurar el middleware express-flash
-import flash from 'express-flash';
-app.use(flash());
-
-
 // Vistas
 app.use('/', indexRouter);
 app.use('/products', productRouter);
