@@ -199,9 +199,20 @@ app.use('/users', usersRouter);
 app.use('/signupadmin', signupAdminRouter);
 app.use('/github', loginGithubRouter);
 app.use('/admin_panel', admin_panel);
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 app.use((req, res) => {
-    res.status(404).render('error/error404');
+    try {
+        const user = getUserFromToken(req);
+        if (!user) {
+            res.status(404).render('error/error404', { user: null});
+        } else {
+            res.status(404).render('error/error404', { user });
+        }
+    } catch (error) {
+        res.status(404).render('error/error404');
+    }
 });
+
 //
 
 // Configuracion de Cors

@@ -5,17 +5,23 @@ dotenv.config();
 
 const secret = process.env.PRIVATE_KEY;
 const cookieName = process.env.JWT_COOKIE_NAME;
+import { generateToken } from './passport.js';
 
 export function getUserFromToken(req) {
     try {
-        const userToken = req.cookies[cookieName];
-        if (!userToken) {
-            return res.status(403).render('notAuthorized');
+        if (!req.cookies || !req.cookies[cookieName]) {
+            function token() {
+                generateToken('404');
+                const user = null
+            }
+            return token;
         }
-        const user = jwt.verify(userToken, secret);
-        return user;
+        const userToken = req.cookies[cookieName];
+        const decodedToken = jwt.verify(userToken, secret);
+        return decodedToken;
     } catch (error) {
-        throw new Error('Error al verificar el token');
+        console.error('Error al verificar el token:', error);
+        return null;
     }
 }
 
@@ -27,6 +33,7 @@ export function getUserId(req) {
         }
         return user.userId;
     } catch (error) {
-        throw new Error('Error al obtener el ID de usuario');
+        console.error('Error al obtener el ID de usuario:', error);
+        return null;
     }
 }
