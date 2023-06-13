@@ -1,27 +1,3 @@
-/* footer{
-    position: sticky;
-    margin-bottom: 0;
-    background-color: var(--first);
-    padding: 2rem 4rem;
-}
-
-footer p{
-    color: var(--light);
-    font-family: var(--fontB);
-    font-size: 1.2rem;
-    text-align: center;
-}
-footer a li{
-    text-decoration: none;
-    list-style: none;
-    color: var(--light);
-}
-footer img{
-    width: 4rem;
-}
-.iconos-social img {
-    max-width: 3rem;
-} */
 
 .footer{
     position: sticky;
