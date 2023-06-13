@@ -1,20 +1,12 @@
 import { Router } from 'express';
 import User from '../models/users.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 const router = Router();
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
-
 
 // Ruta para crear un nuevo usuario
 router.get('/', isAdmin, async (req, res) => {
-    const userToken = req.cookies[cokieName];
-    const decodedToken = jwt.verify(userToken, secret);
-    const user = decodedToken;
+    const user = getUserFromToken(req);
     try {
         const users = await User.find();
         const userObjects = users.map(user => user.toObject());
@@ -32,7 +24,7 @@ router.get('/edit/:id', isAdmin, async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            return res.status(404).send('Usuario no encontrado');
+            return res.status(404).render('error/error404');
         }
 
         res.render('editUser', { user });
@@ -59,7 +51,7 @@ router.post('/edit/:id', isAdmin, async (req, res) => {
         }, { new: true });
 
         if (!updatedUser) {
-            return res.status(404).send('Usuario no encontrado');
+            return res.status(404).render('error/error404');
         }
 
         res.redirect('/users');
@@ -78,7 +70,7 @@ router.get('/delete/:id', isAdmin, async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            return res.status(404).send('Usuario no encontrado');
+            return res.status(404).render('error/error404');
         }
 
         // Eliminar el usuario de la base de datos

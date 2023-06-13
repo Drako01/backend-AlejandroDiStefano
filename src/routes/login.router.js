@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.js';
 const router = Router();
+
 import dotenv from 'dotenv';
 dotenv.config();
 const secret = process.env.PRIVATE_KEY;
@@ -20,7 +21,7 @@ router.post('/', async (req, res) => {
         const user = await User.findOne({ email: email }).exec();
 
         if (!user) {
-            return res.status(400).send({ status: 'error', error: 'Invalid credentials' });
+            return res.status(401).send({ status: 'error', error: 'Invalid credentials' });
         }
 
         bcrypt.compare(password, user.password)
@@ -34,7 +35,7 @@ router.post('/', async (req, res) => {
 
                     res.cookie(cokieName, userToken).redirect('/');
                 } else {
-                    return res.status(400).send({ status: 'error', error: 'Invalid credentials' });
+                    return res.status(403).send({ status: 'error', error: 'Invalid credentials' });
                 }
             })
     } catch (err) {

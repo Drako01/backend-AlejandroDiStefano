@@ -2,22 +2,18 @@ import multer from 'multer';
 import path from 'path';
 import Product from '../models/products.model.js';
 import express from 'express';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const router = express.Router();
-const secret = process.env.PRIVATE_KEY;
 const cookieName = process.env.JWT_COOKIE_NAME;
-
+let user = null;
 router.get('/', async (req, res, next) => {
     try {
-        const userToken = req.cookies[cookieName];
-
-        let user = null;
-        if (userToken) {
-            const decodedToken = jwt.verify(userToken, secret);
-            user = decodedToken;
+        const userToken = req.cookies[cookieName];        
+        if (userToken) {            
+            user = getUserFromToken(req) ;
         }
 
         const page = parseInt(req.query.page) || 1;
@@ -96,11 +92,8 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
 router.get('/filter/:category', async (req, res, next) => {
     try {
         const userToken = req.cookies[cookieName];
-
-        let user = null;
-        if (userToken) {
-            const decodedToken = jwt.verify(userToken, secret);
-            user = decodedToken;
+        if (userToken) {            
+            user = getUserFromToken(req) ;
         }
 
         const page = parseInt(req.query.page) || 1;

@@ -4,13 +4,16 @@ import Cart from '../models/carts.model.js';
 import Handlebars from 'handlebars';
 import Swal from 'sweetalert2';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
 const router = Router();
-const secret = process.env.PRIVATE_KEY;
+// const secret = process.env.PRIVATE_KEY;
 const cokieName = process.env.JWT_COOKIE_NAME;
+let user = null;
+let userEmail = null;
 
 Handlebars.registerHelper('reduce', function (array, prop) {
     return array.reduce((acc, item) => acc + item[prop], 0);
@@ -45,12 +48,10 @@ router.get('/', async (req, res) => {
     try {
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
-        let user = null;
-        let userEmail = null;
+        
 
         if (userToken) {
-            const decodedToken = jwt.verify(userToken, secret);
-            user = decodedToken;
+            user = getUserFromToken(req);
             userEmail = user.email || user.user.email;
         }else{
             return res.render('login');
@@ -110,13 +111,10 @@ router.get('/', async (req, res) => {
 
 // Vaciar el carrito por su ID
 router.post('/:cartId/vaciar', async (req, res) => {
-    const userToken = req.cookies[cokieName];
-    let user = null;
-    let userEmail = null;
+    const userToken = req.cookies[cokieName];    
 
     if (userToken) {
-        const decodedToken = jwt.verify(userToken, secret);
-        user = decodedToken;
+        user = getUserFromToken(req)
         userEmail = user.email || user.user.email;
     }
     try {
@@ -143,13 +141,10 @@ router.post('/:cartId/vaciar', async (req, res) => {
 
 // Eliminar el carrito de la base de datos
 router.post('/:cartId/eliminar', async (req, res) => {
-    const userToken = req.cookies[cokieName];
-    let user = null;
-    let userEmail = null;
+    const userToken = req.cookies[cokieName];    
 
     if (userToken) {
-        const decodedToken = jwt.verify(userToken, secret);
-        user = decodedToken;
+        user = getUserFromToken(req);
         userEmail = user.email || user.user.email;
     }
 
@@ -172,13 +167,10 @@ router.post('/:cartId/eliminar', async (req, res) => {
 
 // Actualizar la cantidad de un producto en el carrito
 router.put('/:cartId/:itemId', async (req, res) => {
-    const userToken = req.cookies[cokieName];
-    let user = null;
-    let userEmail = null;
+    const userToken = req.cookies[cokieName];    
 
     if (userToken) {
-        const decodedToken = jwt.verify(userToken, secret);
-        user = decodedToken;
+        user = getUserFromToken(req);
         userEmail = user.email || user.user.email;
     }
 
@@ -215,12 +207,9 @@ router.put('/:cartId/:itemId', async (req, res) => {
 router.post('/:pid', async (req, res) => {
     try {
         const userToken = req.cookies[cokieName];
-        let user = null;
-        let userEmail = null;
-
+        
         if (userToken) {
-            const decodedToken = jwt.verify(userToken, secret);
-            user = decodedToken;
+            user = getUserFromToken(req);
             userEmail = user.email || user.user.email;
         }
         const { cantidad } = req.body;

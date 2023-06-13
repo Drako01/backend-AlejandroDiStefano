@@ -1,18 +1,11 @@
 import passport from 'passport';
 import { Router } from 'express';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
-
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 const router = Router();
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
 
 
 router.get('/', (req, res) => {
-    const userToken = req.cookies[cookieName];
-    const decodedToken = jwt.verify(userToken, secret); 
-    const user = decodedToken;
+    const user = getUserFromToken(req);
     res.render('signupadmin', { user });
 });
 

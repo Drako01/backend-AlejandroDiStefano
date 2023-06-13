@@ -3,9 +3,7 @@ import Product from '../models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import multer from 'multer';
 import path from 'path';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -13,8 +11,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const router = express.Router();
-const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -30,9 +26,7 @@ const upload = multer({ storage });
 
 
 router.get('/:pid', isAdmin, async (req, res) => {
-    const userToken = req.cookies[cokieName];
-    const decodedToken = jwt.verify(userToken, secret); 
-    const user = decodedToken;
+    const user = getUserFromToken(req);
     try {
         const productId = req.params.pid;
         const producto = await Product.findById(productId).lean();
@@ -40,7 +34,7 @@ router.get('/:pid', isAdmin, async (req, res) => {
 
             res.status(200).render('productseditbyid', { producto, user });
         } else {
-            res.status(404).send('Producto no encontrado');
+            res.status(404).render('error/error404');
         }
     } catch (error) {
         console.error(error);
