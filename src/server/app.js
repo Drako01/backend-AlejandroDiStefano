@@ -10,7 +10,7 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { Command } from 'commander';
 import cors from 'cors';
-
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 
 const app = express();
@@ -201,7 +201,7 @@ app.use('/github', loginGithubRouter);
 app.use('/admin_panel', admin_panel);
 
 // Error 404
-import { getUserFromToken } from '../middlewares/user.middleware.js';
+
 app.get('*', (req, res) => {
     const user = getUserFromToken(req);    
     (!user) ? res.status(404).render('error/error404'):
