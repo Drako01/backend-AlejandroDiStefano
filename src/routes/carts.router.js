@@ -2,7 +2,6 @@ import { Router } from 'express';
 import Product from '../models/products.model.js';
 import Cart from '../models/carts.model.js';
 import Handlebars from 'handlebars';
-import Swal from 'sweetalert2';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 
