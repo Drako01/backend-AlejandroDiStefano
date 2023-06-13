@@ -10,7 +10,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const router = Router();
-// const secret = process.env.PRIVATE_KEY;
 const cokieName = process.env.JWT_COOKIE_NAME;
 let user = null;
 let userEmail = null;
@@ -48,12 +47,12 @@ router.get('/', async (req, res) => {
     try {
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
-        
+
 
         if (userToken) {
             user = getUserFromToken(req);
             userEmail = user.email || user.user.email;
-        }else{
+        } else {
             return res.render('login');
         }
 
@@ -64,7 +63,7 @@ router.get('/', async (req, res) => {
             cart = await getOrCreateCart();
         }
 
-        if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {            
+        if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
             return res.render('notCart');
         }
         const cartId = cart._id.toString();
@@ -110,7 +109,7 @@ router.get('/', async (req, res) => {
 
 // Vaciar el carrito por su ID
 router.post('/:cartId/vaciar', async (req, res) => {
-    const userToken = req.cookies[cokieName];    
+    const userToken = req.cookies[cokieName];
 
     if (userToken) {
         user = getUserFromToken(req)
@@ -124,13 +123,11 @@ router.post('/:cartId/vaciar', async (req, res) => {
         );
 
         if (!cart) {
-            req.flash('error', 'No se encontró el carrito');
             return res.redirect('/');
         }
 
         cart.items = [];
         await cart.save();
-        req.flash('success', 'Carrito vaciado exitosamente');
         res.redirect('/');
     } catch (err) {
         console.error(err);
@@ -140,7 +137,7 @@ router.post('/:cartId/vaciar', async (req, res) => {
 
 // Eliminar el carrito de la base de datos
 router.post('/:cartId/eliminar', async (req, res) => {
-    const userToken = req.cookies[cokieName];    
+    const userToken = req.cookies[cokieName];
 
     if (userToken) {
         user = getUserFromToken(req);
@@ -152,11 +149,9 @@ router.post('/:cartId/eliminar', async (req, res) => {
         const result = await Cart.deleteOne({ _id: cartId, 'user.email': userEmail });
 
         if (result.deletedCount === 0) {
-            req.flash('error', 'No se encontró el carrito');
             return res.redirect('/');
         }
 
-        req.flash('success', 'Carrito vaciado exitosamente');
         res.redirect('/');
     } catch (err) {
         console.error(err);
@@ -166,7 +161,7 @@ router.post('/:cartId/eliminar', async (req, res) => {
 
 // Actualizar la cantidad de un producto en el carrito
 router.put('/:cartId/:itemId', async (req, res) => {
-    const userToken = req.cookies[cokieName];    
+    const userToken = req.cookies[cokieName];
 
     if (userToken) {
         user = getUserFromToken(req);
@@ -179,7 +174,6 @@ router.put('/:cartId/:itemId', async (req, res) => {
         const { cantidad } = req.body;
 
         if (!mongoose.Types.ObjectId.isValid(cartId)) {
-            req.flash('error', 'ID de carrito inválido');
             return res.redirect('/');
         }
 
@@ -190,11 +184,9 @@ router.put('/:cartId/:itemId', async (req, res) => {
         );
 
         if (!cart) {
-            req.flash('error', 'No se encontró el carrito');
             return res.redirect('/');
         }
 
-        req.flash('success', 'Cantidad actualizada exitosamente');
         res.redirect('/carts');
     } catch (err) {
         console.error(err);
@@ -206,7 +198,7 @@ router.put('/:cartId/:itemId', async (req, res) => {
 router.post('/:pid', async (req, res) => {
     try {
         const userToken = req.cookies[cokieName];
-        
+
         if (userToken) {
             user = getUserFromToken(req);
             userEmail = user.email || user.user.email;
@@ -216,35 +208,15 @@ router.post('/:pid', async (req, res) => {
         const producto = await Product.findOne({ _id: productId });
 
         if (!userEmail) {
-            req.flash('error', 'Usuario no autenticado');
-            res.status(500).redirect('/login');
-            return;
+            return res.status(500).redirect('/login');            
         }
 
         let cart = await getOrCreateCart(userEmail);
+        cart.items.push({ producto: producto, cantidad: cantidad });
+        cart.user.email = userEmail;
+        await cart.save();
+        res.redirect('/');
 
-        // Verificar si el producto ya está en el carrito
-        const itemExists = cart.items.some(item => item.producto.toString() === productId);
-        if (itemExists) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-                footer: '<a href="">Why do I have this issue?</a>'
-            });
-        } else {
-            cart.items.push({ producto: producto, cantidad: cantidad });
-
-            cart.user.email = userEmail;
-            await cart.save();
-            Swal.fire({
-                icon: 'success',
-                title: 'Bien..!!',
-                text: 'Producto agregado al carrito'
-            });
-            const referer = req.header('Referer');
-            res.redirect(referer || '/');
-        }
     } catch (err) {
         res.status(500).redirect('/login');
     }
