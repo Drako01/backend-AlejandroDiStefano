@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
         if (userToken) {            
             userEmail = user.email || user.user.email;
         } else {
-            return res.render('login');
+            return res.redirect('/login');
         }
 
         let cart;
