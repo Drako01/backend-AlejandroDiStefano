@@ -25,7 +25,7 @@ router.get('/edit/:id', isAdmin, async (req, res) => {
 
         if (!user) {
             user = getUserFromToken(req);
-            return res.status(404).render('../views/error/error404', { user });
+            return res.status(404).render('error/error404', { user });
         }
 
         res.render('editUser', { user });
