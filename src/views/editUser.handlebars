@@ -1,6 +1,6 @@
 <section class="editUser">
     <div class="container">
-        <h1>Editar Usuario</h1>
+        <h1>Editar Usuario: {{ user.first_name }} {{ user.last_name }}</h1>
         <form action="/users/edit/{{ user._id }}" method="POST">
         <input type="hidden" name="_method" value="PUT">
             <div class="form-group">

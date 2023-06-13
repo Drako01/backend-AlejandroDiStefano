@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-
+import { generateToken } from './passport.js';
 dotenv.config();
 
 const secret = process.env.PRIVATE_KEY;
@@ -9,8 +9,8 @@ const cookieName = process.env.JWT_COOKIE_NAME;
 export function getUserFromToken(req) {
     try {
         if (!req.cookies || !req.cookies[cookieName]) {                        
-            const user = null    
-            return user;            
+            const token = generateToken('404');
+            return token ;           
         }
         
         const userToken = req.cookies[cookieName];

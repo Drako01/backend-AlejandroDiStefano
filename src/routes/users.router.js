@@ -21,10 +21,11 @@ router.get('/', isAdmin, async (req, res) => {
 router.get('/edit/:id', isAdmin, async (req, res) => {
     try {
         const userId = req.params.id;
-        const user = await User.findById(userId);
+        let user = await User.findById(userId);
 
         if (!user) {
-            return res.status(404).render('error/error404');
+            user = getUserFromToken(req);
+            return res.status(404).render('../views/error/error404', { user });
         }
 
         res.render('editUser', { user });
