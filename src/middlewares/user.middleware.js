@@ -5,17 +5,14 @@ dotenv.config();
 
 const secret = process.env.PRIVATE_KEY;
 const cookieName = process.env.JWT_COOKIE_NAME;
-import { generateToken } from './passport.js';
 
 export function getUserFromToken(req) {
     try {
-        if (!req.cookies || !req.cookies[cookieName]) {
-            function token() {
-                generateToken('404');
-                const user = null
-            }
-            return token;
+        if (!req.cookies || !req.cookies[cookieName]) {                        
+            const user = null    
+            return user;            
         }
+        
         const userToken = req.cookies[cookieName];
         const decodedToken = jwt.verify(userToken, secret);
         return decodedToken;
