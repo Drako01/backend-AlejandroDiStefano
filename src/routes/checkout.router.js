@@ -36,21 +36,22 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         const emailContent = {
             body: {
                 greeting: `Hola ${user.email || user.user.email}`,
-                intro: 'Su compra en Lonne Open se ha realizado exitosamente. A continuación se muestran los detalles de la compra:',
+                intro: 'Su compra en Lonne Open se ha realizado exitosamente. A continuación se muestran los detalles de la misma:',
                 table: {
                     data: cart.items.map((item) => ({
-                        Imagen: `<img src="cid:carrito@lonneopen.com" alt="${item.producto.title}" width="30">`,
-                        Nombre: item.producto.title,                        
+                        Imagen: `<img src="cid:${item.producto.thumbnail}@lonneopen.com" alt="${item.producto.title}" width="60">`,
+                        Nombre: item.producto.title,
                         Cantidad: item.cantidad,
                         Subtotal: `$ ${item.producto.price}.-`,
                     })),
                     columns: {
                         Imagen: 'Imagen',
-                        Nombre: 'Nombre del producto',                        
+                        Nombre: 'Nombre del producto',
                         Cantidad: 'Cantidad',
                         Subtotal: 'Precio',
                     },
                 },
+                
                 outro: [
                     `Precio total: $ ${totalPrice}.-`,
                     `Código de compra: ${cart.code}`,
@@ -61,8 +62,18 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         };
 
         const emailBody = mailGenerator.generate(emailContent);
+        const attachments = cart.items.reduce((acc, item) => {
+            const attachment = {
+                filename: item.producto.thumbnail,
+                path: `http://localhost:8080/${item.producto.thumbnail}`,
+                cid: `${item.producto.thumbnail}@lonneopen.com`
+            };
+            acc.push(attachment);
+            return acc;
+        }, []);
+
         const mailOptions = {
-            from: 'Ventas Lonne Open | <addistefano76@gmail.com>',
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
             to: userEmail,
             subject: 'Confirmación de compra en Lonne Open',
             html: emailBody,
@@ -77,8 +88,10 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                     path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
                     cid: 'carrito@lonneopen.com',
                 },
+                ...attachments
             ],
         };
+
 
         await transporter.sendMail(mailOptions);
     } catch (err) {
