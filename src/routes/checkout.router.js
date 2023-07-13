@@ -3,9 +3,17 @@ import Cart from '../models/carts.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
+import twilio from 'twilio';
 
 const router = Router();
-const urlActual = process.env.URL_LOCAL
+import dotenv from 'dotenv';
+dotenv.config();
+
+const urlActual = process.env.URL_LOCAL;
+const twilioNumberPhone = process.env.TWILIO_NUMBER_PHONE;
+const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+
 // Configuración de transporte para el envío de correos electrónicos
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -14,6 +22,9 @@ const transporter = nodemailer.createTransport({
         pass: process.env.GOOGLE_PASS,
     },
 });
+
+// Configuración de Twilio
+const twilioClient = twilio(twilioAccountSid, twilioAuthToken);
 
 // Función para generar y enviar el correo electrónico de confirmación de compra
 const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
@@ -51,7 +62,7 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                         Subtotal: 'Precio',
                     },
                 },
-                
+
                 outro: [
                     `Precio total: $ ${totalPrice}.-`,
                     `Código de compra: ${cart.code}`,
@@ -92,12 +103,29 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
             ],
         };
 
-
         await transporter.sendMail(mailOptions);
     } catch (err) {
         console.error('Error al enviar el correo electrónico', err);
     }
 };
+
+// Función para enviar un SMS utilizando Twilio
+const sendSMS = async (userPhone) => {
+    try {        
+        const message = `El usuario con el número de celular: ${userPhone} acaba de realizar una compra en Lonne Open.`;       
+        
+        await twilioClient.messages.create({
+            body: message,
+            from: twilioNumberPhone,
+            to: '+54 11 4084 3848',
+        });
+    } catch (err) {
+        console.error('Error al enviar el SMS', err);
+    }
+};
+
+
+
 
 router.get('/', async (req, res) => {
     try {
@@ -129,6 +157,8 @@ router.post('/', async (req, res) => {
         }
 
         await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
+        await sendSMS(user.phone);
+
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (err) {
