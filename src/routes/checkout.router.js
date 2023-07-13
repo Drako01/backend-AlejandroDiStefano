@@ -39,7 +39,7 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                 intro: 'Su compra en Lonne Open se ha realizado exitosamente. A continuación se muestran los detalles de la compra:',
                 table: {
                     data: cart.items.map((item) => ({
-                        Imagen: `<img src="cid:logo@lonneopen.com" alt="${item.producto.title}" width="30">`,
+                        Imagen: `<img src="cid:carrito@lonneopen.com" alt="${item.producto.title}" width="30">`,
                         Nombre: item.producto.title,                        
                         Cantidad: item.cantidad,
                         Subtotal: `$ ${item.producto.price}.-`,
@@ -71,6 +71,11 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                     filename: 'logo.webp',
                     path: 'https://lonneopen.com/img/logo.webp',
                     cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
                 },
             ],
         };
