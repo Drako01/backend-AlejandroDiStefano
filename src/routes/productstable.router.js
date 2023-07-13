@@ -1,23 +1,22 @@
-import express from 'express';
 import Product from '../models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import Handlebars from 'handlebars';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import { Router } from 'express';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', isAdmin, async (req, res) => {
     const user = getUserFromToken(req);
     const sortOption = req.query.sortOption;
-    let sortQuery = {};
-    if (sortOption === 'desc') {
-        sortQuery = { price: -1 };
-    } else {
-        sortQuery = { price: 1 };
-    }
+    const sortQuery = {};
 
-    if (sortOption === 'unorder') {
-        return res.redirect('/productos');
+    if (sortOption === 'desc') {
+        sortQuery.price = -1;
+    } else if (sortOption === 'unorder') {
+        sortQuery.price = null;
+    } else {
+        sortQuery.price = 1;
     }
 
     try {
@@ -29,12 +28,8 @@ router.get('/', isAdmin, async (req, res) => {
     }
 });
 
-Handlebars.registerHelper("ifEqual", function (a, b, options) {
-    if (a === b) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
+Handlebars.registerHelper('ifEqual', (a, b, options) => {
+    return a === b ? options.fn(this) : options.inverse(this);
 });
 
-export default router
+export default router;

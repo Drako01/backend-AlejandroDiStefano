@@ -27,6 +27,21 @@
     border-radius: 2rem;
     margin: 2rem;
 }
+.checkout{
+    padding: 4rem;   
+    border: 1px solid var(--gold);
+    border-radius: 2rem;
+    margin: 2rem;
+}
+.checkout h1{
+    font-size: 1.2rem;
+    color: var(--first);
+    text-align: left;
+}
+.checkout h2{
+    color: var(--gold);
+    font-size: 1.5rem;
+}
 .michat,
 .iniciodesession,
 .noAutorizado{

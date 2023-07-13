@@ -5,10 +5,8 @@ import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.js';
 const router = Router();
 
-import dotenv from 'dotenv';
-dotenv.config();
 const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
+const cookieName = process.env.JWT_COOKIE_NAME;
 
 router.get('/', (req, res) => {
     res.render('login');
@@ -33,7 +31,7 @@ router.post('/', async (req, res) => {
                     const decodedToken = jwt.verify(userToken, secret); 
                     const userId = decodedToken.userId;
 
-                    res.cookie(cokieName, userToken).redirect('/');
+                    res.cookie(cookieName, userToken).redirect('/');
                 } else {
                     return res.status(403).send({ status: 'error', error: 'Invalid credentials' });
                 }
@@ -46,14 +44,14 @@ router.post('/', async (req, res) => {
 
 // Ruta para obtener los datos del usuario almacenados en la cookie
 router.get('/user', (req, res) => {
-    const userToken = req.cookies[cokieName];
+    const userToken = req.cookies[cookieName];
     
     if (!userToken) {
         return res.status(401).send({ status: 'error', error: 'Unauthorized' });
     }
 
     try {
-        const decodedToken = jwt.verify(userToken, cokieName);
+        const decodedToken = jwt.verify(userToken, cookieName);
         const userId = decodedToken.userId;
         User.findById(userId, (err, user) => {
             if (err || !user) {

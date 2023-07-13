@@ -1,12 +1,10 @@
 import multer from 'multer';
 import path from 'path';
 import Product from '../models/products.model.js';
-import express from 'express';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import dotenv from 'dotenv';
-dotenv.config();
+import { Router } from 'express';
+const router = Router();
 
-const router = express.Router();
 const cookieName = process.env.JWT_COOKIE_NAME;
 let user = null;
 router.get('/', async (req, res, next) => {

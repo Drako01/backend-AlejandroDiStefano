@@ -1,8 +1,8 @@
-import express from 'express';
 import Product from '../models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 
 router.get('/:id', isAdmin, async (req, res) => {

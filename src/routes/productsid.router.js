@@ -1,8 +1,8 @@
-import express from 'express';
 import Product from '../models/products.model.js';
 import Handlebars from 'handlebars';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 
 router.get('/:pid', async (req, res) => {
@@ -22,12 +22,8 @@ router.post('/', (req, res) => {
     res.redirect('/products');
 });
 
-Handlebars.registerHelper("ifEqual", function (a, b, options) {
-    if (a === b) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
+Handlebars.registerHelper('ifEqual', (a, b, options) => {
+    return a === b ? options.fn(this) : options.inverse(this);
 });
 
 

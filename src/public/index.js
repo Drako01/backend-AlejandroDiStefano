@@ -1,6 +1,8 @@
+import { getUserFromToken } from '../middlewares/user.middleware.js';
+
 let socket;
-let user = '';
 let chatBox = document.getElementById('chatBox');
+const user = '' || getUserFromToken(req)
 
 Swal.fire({
     title: 'Chat de Lonne Open',

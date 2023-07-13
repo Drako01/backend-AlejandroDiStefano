@@ -2,8 +2,7 @@ import Handlebars from 'handlebars';
 import { Router } from 'express';
 import Product from '../models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import dotenv from 'dotenv';
-dotenv.config();
+
 
 const router = Router();
 const cookieName = process.env.JWT_COOKIE_NAME;
@@ -15,13 +14,13 @@ router.get('/', async (req, res) => {
         const userToken = req.cookies[cookieName];
         
         if (!userToken) {
-            res.status(200).render('index', { products, productLength: products.length, user: null });
+            res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
             return;
         }
         const user = getUserFromToken(req) ;      
 
         if (!user) {
-            res.status(200).render('index', { products, productLength: products.length, user: null });
+            res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
             return;
         }
 
@@ -37,12 +36,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-Handlebars.registerHelper('ifEqual', function (a, b, options) {
-    if (a === b) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
+Handlebars.registerHelper('ifEqual', (a, b, options) => {
+    return a === b ? options.fn(this) : options.inverse(this);
 });
 
 export default router;

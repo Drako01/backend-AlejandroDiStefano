@@ -1,7 +1,32 @@
 <section class="noAutorizado">
-    <div class="container login nonono">
-        <h1>Su compra se realizó exitosamente.!!</h1>
-        <h1> Gracias por comprar en Lonne Open!</h1>
-        <a href="/" class="btn btn-danger">Salir</a>
+    <div class="container checkout ">
+        <h2>Su compra se realizó exitosamente!</h2>
+        <h2>Gracias {{user.first_name}} {{user.last_name}} {{user.user.first_name}} por comprar en Lonne Open!</h2>
+        <h1>Mail del Usuario: {{ cart.user.email }}</h1>
+        <h2>Detalles de la compra:</h2>
+        <ul>
+            {{#each cart.items}}
+            <section class="flex-card">
+                <div>
+                    <img class="card-img-top checkout-img" src="{{this.producto.thumbnail}}" alt="Imagen del producto">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{this.producto.title}}</h4>
+                    <h3 class="card-text">Cantidad: {{this.cantidad}}</h3>
+                    <h5 class="card-text">Precio unitario: $ {{this.producto.price}}.-</h5>
+                </div>
+            </section>
+            {{/each}}
+        </ul>
+        <h5 class="card-text">Precio total: $ {{totalPrice}}.-</h5>
+        <h3>Código de compra: {{ cart.code }}</h3>
+        <h3>Fecha y hora de compra: {{ cart.purchase_datetime }}</h3>
+        <form action="/carts/{{ cart._id }}/eliminar" method="POST">
+            <input type="hidden" name="cartId" value="{{ cart._id }}">
+            <div class="input-group group-comprar">
+                <button type="submit" class="btn btn-danger">
+                    Ok</button>
+            </div>
+        </form>
     </div>
 </section>

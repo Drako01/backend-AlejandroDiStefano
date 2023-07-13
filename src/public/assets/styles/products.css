@@ -150,3 +150,12 @@ button {
     width: 3rem;
     height: 3rem;
 }
+
+.checkout-img{
+    width: 10rem;   
+}
+.flex-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -4,9 +4,7 @@ import Cart from '../models/carts.model.js';
 import Handlebars from 'handlebars';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-
-import dotenv from 'dotenv';
-dotenv.config();
+import shortid from 'shortid';
 
 const router = Router();
 const cokieName = process.env.JWT_COOKIE_NAME;
@@ -21,13 +19,13 @@ Handlebars.registerHelper('multiply', function (a, b) {
 });
 Handlebars.noEscape = true;
 
-async function getOrCreateCart(userEmail = null) {
+export async function getOrCreateCart(userEmail = null) {
     if (userEmail) {
         const cart = await Cart.findOne({ 'user.email': userEmail }).exec();
         if (cart) {
             return cart;
         } else {
-            const newCart = new Cart({ user: { email: userEmail }, items: [] });
+            const newCart = new Cart({ user: { email: userEmail }, items: [], purchase_datetime: new Date(), code: shortid.generate() });
             return newCart.save();
         }
     } else {
@@ -35,7 +33,7 @@ async function getOrCreateCart(userEmail = null) {
         if (cart) {
             return cart;
         } else {
-            const newCart = new Cart({ items: [] });
+            const newCart = new Cart({ items: [], purchase_datetime: new Date(), code: shortid.generate() });
             return newCart.save();
         }
     }
@@ -48,7 +46,7 @@ router.get('/', async (req, res) => {
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
 
-        if (userToken) {            
+        if (userToken) {
             userEmail = user.email || user.user.email;
         } else {
             return res.redirect('/login');
@@ -206,12 +204,14 @@ router.post('/:pid', async (req, res) => {
         const producto = await Product.findOne({ _id: productId });
 
         if (!userEmail) {
-            return res.status(500).redirect('/login');            
+            return res.status(500).redirect('/login');
         }
 
         let cart = await getOrCreateCart(userEmail);
         cart.items.push({ producto: producto, cantidad: cantidad });
         cart.user.email = userEmail;
+        cart.code = shortid.generate();
+        cart.purchase_datetime = new Date();
         await cart.save();
         res.redirect('/');
 

@@ -1,16 +1,12 @@
 import passport from 'passport';
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
-dotenv.config();
+
 
 const router = Router();
 const secret = process.env.PRIVATE_KEY;
 const cookieName = process.env.JWT_COOKIE_NAME;
 
-// Middleware de cookie-parser
-router.use(cookieParser());
 
 router.get('/', passport.authenticate('github', { scope: ['user:email'] }));
 
