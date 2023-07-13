@@ -10,7 +10,7 @@ const router = Router();
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'addistefano76@gmail.com', 
+        user: 'addistefano76@gmail.com',
         pass: process.env.GOOGLE_PASS,
     },
 });
@@ -36,7 +36,7 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                     data: cart.items.map((item) => ({
                         name: item.producto.title,
                         quantity: item.cantidad,
-                        price: `$ ${item.producto.price}.-`,                        
+                        price: `$ ${item.producto.price}.-`,
                     })),
                     columns: {
                         name: 'Nombre del producto',
@@ -58,6 +58,13 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
             to: userEmail,
             subject: 'Confirmación de compra en Lonne Open',
             html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp', 
+                    cid: 'contacto@lonneopen.com', 
+                }
+            ]
         };
 
         await transporter.sendMail(mailOptions);
@@ -95,7 +102,7 @@ router.post('/', async (req, res) => {
             return;
         }
 
-        await sendPurchaseConfirmationEmail(user.email  || user.user.email , cart, user);
+        await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (err) {
