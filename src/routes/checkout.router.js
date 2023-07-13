@@ -22,7 +22,12 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
             theme: 'default',
             product: {
                 name: 'Lonne Open',
-                link: 'https://www.lonneopen.com/',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
             },
         });
 
@@ -34,20 +39,23 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                 intro: 'Su compra en Lonne Open se ha realizado exitosamente. A continuación se muestran los detalles de la compra:',
                 table: {
                     data: cart.items.map((item) => ({
-                        name: item.producto.title,
-                        quantity: item.cantidad,
-                        price: `$ ${item.producto.price}.-`,
+                        Imagen: `<img src="cid:logo@lonneopen.com" alt="${item.producto.title}" width="30">`,
+                        Nombre: item.producto.title,                        
+                        Cantidad: item.cantidad,
+                        Subtotal: `$ ${item.producto.price}.-`,
                     })),
                     columns: {
-                        name: 'Nombre del producto',
-                        quantity: 'Cantidad',
-                        price: 'Precio',
+                        Imagen: 'Imagen',
+                        Nombre: 'Nombre del producto',                        
+                        Cantidad: 'Cantidad',
+                        Subtotal: 'Precio',
                     },
                 },
                 outro: [
                     `Precio total: $ ${totalPrice}.-`,
                     `Código de compra: ${cart.code}`,
                     `Fecha y hora de compra: ${cart.purchase_datetime}`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
                 ],
             },
         };
@@ -61,10 +69,10 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
             attachments: [
                 {
                     filename: 'logo.webp',
-                    path: 'https://lonneopen.com/img/logo.webp', 
-                    cid: 'contacto@lonneopen.com', 
-                }
-            ]
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+            ],
         };
 
         await transporter.sendMail(mailOptions);
