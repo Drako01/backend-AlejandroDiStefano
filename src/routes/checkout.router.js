@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 
 const router = Router();
-
+const urlActual = process.env.URL_LOCAL
 // Configuración de transporte para el envío de correos electrónicos
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -65,7 +65,7 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         const attachments = cart.items.reduce((acc, item) => {
             const attachment = {
                 filename: item.producto.thumbnail,
-                path: `http://localhost:8080/${item.producto.thumbnail}`,
+                path: `${urlActual}${item.producto.thumbnail}`,
                 cid: `${item.producto.thumbnail}@lonneopen.com`
             };
             acc.push(attachment);
