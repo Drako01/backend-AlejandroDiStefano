@@ -35,7 +35,7 @@
                         style="display: flex; justify-content: space-evenly;" class="input-con-botones">
                         <input type="hidden" name="cartId" value="{{ cartId }}">
                         <input type="number" value="{{ item.cantidad }}" class="form-control input-width"
-                            name="cantidad" min="1" style="max-height: 2rem;">
+                            name="cantidad" min="1" max="{{ item.producto.stock }}" style="max-height: 2rem;">
                         <button type="submit" class="btn btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-check-lg" viewBox="0 0 16 16">

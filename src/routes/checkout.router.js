@@ -18,7 +18,7 @@ const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'addistefano76@gmail.com',
+        user: process.env.GOOGLE_USER,
         pass: process.env.GOOGLE_PASS,
     },
 });
@@ -117,7 +117,7 @@ const sendSMS = async (userPhone) => {
         await twilioClient.messages.create({
             body: message,
             from: twilioNumberPhone,
-            to: '+54 11 4084 3848',
+            to: process.env.MY_PHONE_NUMBER,
         });
     } catch (err) {
         console.error('Error al enviar el SMS', err);
@@ -157,7 +157,7 @@ router.post('/', async (req, res) => {
         }
 
         await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
-        await sendSMS(user.phone);
+        //await sendSMS(user.phone);
 
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
