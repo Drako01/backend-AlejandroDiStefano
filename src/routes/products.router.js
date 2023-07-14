@@ -3,9 +3,12 @@ import path from 'path';
 import Product from '../models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { Router } from 'express';
-const router = Router();
+import config from '../server/config.js';
 
-const cookieName = process.env.JWT_COOKIE_NAME;
+const router = Router();
+const cookieName = config.jwt.cookieName;
+
+
 let user = null;
 router.get('/', async (req, res, next) => {
     try {

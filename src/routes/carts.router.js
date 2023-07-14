@@ -5,9 +5,10 @@ import Handlebars from 'handlebars';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import shortid from 'shortid';
+import config from '../server/config.js';
 
 const router = Router();
-const cokieName = process.env.JWT_COOKIE_NAME;
+const cokieName = config.jwt.cookieName;
 let user = null;
 let userEmail = null;
 

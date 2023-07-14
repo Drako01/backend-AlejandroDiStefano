@@ -1,9 +1,11 @@
 import { Router } from 'express';
-const router = Router();
+import config from '../server/config.js';
 
-const cokieName = process.env.JWT_COOKIE_NAME;
+const router = Router();
+const cookieName = config.jwt.cookieName;
+
 router.get('/', async (req, res) => {
-    res.clearCookie(cokieName); 
+    res.clearCookie(cookieName); 
     res.redirect('/');
 });
 

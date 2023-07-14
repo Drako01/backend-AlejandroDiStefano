@@ -2,10 +2,10 @@ import Handlebars from 'handlebars';
 import { Router } from 'express';
 import Product from '../models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-
+import config from '../server/config.js';
 
 const router = Router();
-const cookieName = process.env.JWT_COOKIE_NAME;
+const cookieName = config.jwt.cookieName;
 
 router.get('/', async (req, res) => {
     try {

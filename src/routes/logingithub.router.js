@@ -1,11 +1,11 @@
 import passport from 'passport';
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-
+import config from '../server/config.js';
 
 const router = Router();
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
+const cookieName = config.jwt.cookieName;
+const secret = config.jwt.secret;
 
 
 router.get('/', passport.authenticate('github', { scope: ['user:email'] }));

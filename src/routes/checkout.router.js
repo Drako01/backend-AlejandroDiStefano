@@ -4,22 +4,21 @@ import { getUserFromToken } from '../middlewares/user.middleware.js';
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import twilio from 'twilio';
-
+import config from '../server/config.js';
 const router = Router();
-import dotenv from 'dotenv';
-dotenv.config();
 
-const urlActual = process.env.URL_LOCAL;
-const twilioNumberPhone = process.env.TWILIO_NUMBER_PHONE;
-const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
-const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+
+const urlActual = config.urls.urlLocal;
+const twilioNumberPhone = config.twilio.numberPhone;
+const twilioAccountSid = config.twilio.accountSid;
+const twilioAuthToken = config.twilio.authToken;
 
 // Configuración de transporte para el envío de correos electrónicos
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.GOOGLE_USER,
-        pass: process.env.GOOGLE_PASS,
+        user: config.gmail.user,
+        pass: config.gmail.pass,
     },
 });
 
@@ -117,7 +116,7 @@ const sendSMS = async (userPhone) => {
         await twilioClient.messages.create({
             body: message,
             from: twilioNumberPhone,
-            to: process.env.MY_PHONE_NUMBER,
+            to: config.twilio.myPhone,
         });
     } catch (err) {
         console.error('Error al enviar el SMS', err);

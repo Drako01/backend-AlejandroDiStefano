@@ -10,7 +10,7 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { Command } from 'commander';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-
+import config from './config.js';
 
 const app = express();
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -44,26 +44,23 @@ program
     .option('--database <database>', 'Base de Datos', 'atlas')
 program.parse();
 
-// Cargar las variables de entorno
-import dotenv from 'dotenv';
-dotenv.config();
 
-const prodPort = process.env.PROD_PORT;
-const devPort = process.env.DEV_PORT;
+const prodPort = config.ports.prodPort;
+const devPort = config.ports.devPort;
 
-const prodMongo = process.env.MONGO_CONNECTION;
-const prodBD = process.env.MONGO_DATABASE;
-const localBD = process.env.LOCAL_CONNECTION;
-const localBDName = process.env.LOCAL_DATABASE;
+const prodMongo = config.db.mongo_connection
+const prodBD = config.db.mongo_database
+const localBD = config.db.local_connection
+const localBDName = config.db.local_database
 
 
 // Verificar el valor de la opción --database
 if (program.opts().database === 'atlas') {
-    process.env.MONGO_CONNECTION = prodMongo;
-    process.env.MONGO_DATABASE = prodBD;
+    config.db.mongo_connection = prodMongo;
+    config.db.mongo_database = prodBD;
 } else {
-    process.env.MONGO_CONNECTION = localBD;
-    process.env.MONGO_DATABASE = localBDName;
+    config.db.mongo_connection = localBD;
+    config.db.mongo_database = localBDName;
 }
 
 //Server Up
@@ -73,8 +70,8 @@ const socketServer = new Server(httpServer)
 
 
 // Obtener los valores de las variables de entorno
-const mongoConnection = process.env.MONGO_CONNECTION;
-const mongoDatabase = process.env.MONGO_DATABASE;
+const mongoConnection = config.db.mongo_connection;
+const mongoDatabase = config.db.mongo_database;
 
 
 
@@ -101,7 +98,7 @@ initializePassport();
 
 
 // Configurar el middleware express-session con MongoStore 
-const secret = process.env.SECRET;
+const secret = config.db.secret;
 app.use(
     session({
         secret: secret,

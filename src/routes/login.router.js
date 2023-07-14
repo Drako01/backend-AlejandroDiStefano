@@ -3,10 +3,11 @@ import User from '../models/users.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.js';
-const router = Router();
+import config from '../server/config.js';
 
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
+const router = Router();
+const cookieName = config.jwt.cookieName;
+const secret = config.jwt.secret;
 
 router.get('/', (req, res) => {
     res.render('login');
