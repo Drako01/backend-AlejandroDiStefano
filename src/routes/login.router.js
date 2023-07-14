@@ -7,7 +7,7 @@ import config from '../server/config.js';
 
 const router = Router();
 const cookieName = config.jwt.cookieName;
-const secret = config.jwt.secret;
+const secret = config.jwt.privateKey;
 
 router.get('/', (req, res) => {
     res.render('login');

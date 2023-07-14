@@ -33,8 +33,8 @@ export default {
     },
     github: {
         client_Id: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackUrl: process.env.GITHUB_CALLBACK_URL,
+        client_Secret: process.env.GITHUB_CLIENT_SECRET,
+        callback_URL: process.env.GITHUB_CALLBACK_URL,
         appId: process.env.GITHUB_APP_ID,
     },
     urls: {
