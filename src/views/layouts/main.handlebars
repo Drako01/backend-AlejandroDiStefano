@@ -49,7 +49,7 @@
         <footer class='top'>
             <a href='/'>
                 <img src="/img/logo.ico" alt='Lonne Open' />
-            </a>            
+            </a>
         </footer>
         <footer class='bottom'>
             <div class='legal'>
@@ -63,10 +63,11 @@
                 <img src="/assets/icons/facebook.svg" alt="icono" />
             </section>
         </footer>
+        {{#if user}}
         <a href="/chat">
             <img src="/img/chat.png" class="WhatsApp" alt="Chat icono" />
         </a>
-
+        {{/if}}
     </div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

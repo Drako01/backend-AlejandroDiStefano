@@ -1,5 +1,4 @@
 import Messages from '../models/messages.model.js';
-
 const chatApp = (socketServer) => {
     let log = [];
     let newproduct = [];
@@ -8,24 +7,23 @@ const chatApp = (socketServer) => {
         let queryUser = socketClient.handshake.query.user;
         console.log(`Nuevo cliente "${queryUser}" conectado...`);
 
+
         socketClient.on('message', (data) => {
             console.log(`${data.user} Envió: ${data.message}`);
             log.push(data);
             socketClient.emit('history', log);
             socketClient.broadcast.emit('history', log);
 
-            Messages.findOneAndUpdate(
-                { user: data.user }, // Modifica esta línea
-                { $push: { message: data.message } },
-                { upsert: true }
-            )
+
+            Messages.findOneAndUpdate({ user: data.user }, { $push: { message: data.message } }, { upsert: true })
                 .then(() => {
                     console.log(`El Mensaje de ${data.user} se guardó en el modelo`);
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.error('Error al guardar el mensaje en el modelo:', err);
                 });
         });
+
 
         socketClient.on('product', (dataProd) => {
             newproduct.push(dataProd);
@@ -35,6 +33,5 @@ const chatApp = (socketServer) => {
 
         socketClient.broadcast.emit('newUser', queryUser);
     });
-};
-
+}
 export default chatApp;

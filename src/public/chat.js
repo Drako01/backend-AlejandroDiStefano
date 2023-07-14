@@ -1,7 +1,3 @@
-const username = document.getElementById('username');
-const history = document.getElementById('history');
-
-
 fetch('/chat')
     .then(response => response.json())
     .then(messages => {
