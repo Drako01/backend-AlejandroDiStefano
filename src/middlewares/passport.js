@@ -3,11 +3,10 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 import User from '../models/users.model.js';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+import config from '../server/config.js';
 
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
+const secret = config.jwt.privateKey;
+
 
 export const generateToken = (user) => {
     const payload = {
