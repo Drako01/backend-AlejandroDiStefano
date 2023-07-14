@@ -2,12 +2,15 @@
 <section class="col d-flex flex-column justify-content-center align-items-center michat">
     <div class="container">
         <div class="col-sm-6 col-sm-offset-3 form-box">
-            <h3>Bienvenido al Chat de Lonne Open</h3>
+            {{#if user}}
+            <h3>Bienvenido {{user.first_name}} {{user.last_name}} {{user.user.first_name }} al Chat de Lonne Open</h3>
+            {{/if}}
             <p id="username"></p>
             <input type="text" id="chatBox" class="form-control" placeholder="Escribe un mensaje">
             <hr>
             <h3>Historial de Mensajes</h3>
             <div id="history"></div>
+            
         </div>
     </div>
 </section>

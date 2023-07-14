@@ -1,5 +1,4 @@
 const username = document.getElementById('username');
-const chatBox = document.getElementById('chatBox');
 const history = document.getElementById('history');
 
 
