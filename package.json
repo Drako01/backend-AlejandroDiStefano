@@ -50,6 +50,7 @@
     "socket.io-client": "^4.6.1",
     "sweetalert2": "^11.7.5",
     "twilio": "^4.13.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "winston": "^3.10.0"
   }
 }

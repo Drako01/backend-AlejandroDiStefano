@@ -1,6 +1,5 @@
 import express from 'express';
 import { Server } from 'socket.io';
-import mongoose from 'mongoose';
 import path from 'path';
 import session from 'express-session';
 import methodOverride from 'method-override';
@@ -11,6 +10,8 @@ import cookieParser from 'cookie-parser';
 import { Command } from 'commander';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from './config.js';
+import MongoClient from '../daos/MongoClient.js'
+
 
 const app = express();
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -44,29 +45,12 @@ program
     .option('--database <database>', 'Base de Datos', 'atlas')
 program.parse();
 
-
-const prodPort = config.ports.prodPort;
-const devPort = config.ports.devPort;
-
-const prodMongo = config.db.mongo_connection
-const prodBD = config.db.mongo_database
-const localBD = config.db.local_connection
-const localBDName = config.db.local_database
-
-
-// Verificar el valor de la opción --database
-if (program.opts().database === 'atlas') {
-    config.db.mongo_connection = prodMongo;
-    config.db.mongo_database = prodBD;
-} else {
-    config.db.mongo_connection = localBD;
-    config.db.mongo_database = localBDName;
-}
-
+import loggers from './logger.js'
 //Server Up
-const port = program.opts().mode === 'prod' ? prodPort : devPort;
-const httpServer = app.listen(port, () => console.log(`Server Up en http://localhost:${port}`))
+const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
+const httpServer = app.listen(port, () => loggers.info(`Server Up! => http://localhost:${port}`))
 const socketServer = new Server(httpServer)
+
 
 
 // Obtener los valores de las variables de entorno
@@ -74,18 +58,9 @@ const mongoConnection = config.db.mongo_connection;
 const mongoDatabase = config.db.mongo_database;
 
 
-
-async function connectToDatabase() {
-    try {
-        await mongoose.connect(mongoConnection);
-        console.log(`Conexión exitosa a la base de datos "${mongoDatabase}"`);
-    } catch (error) {
-        console.log(`No se puede conectar a la Base de Datos ${mongoDatabase}. Error: ${error}`);
-        process.exit();
-    }
-}
-
-connectToDatabase();
+// Conexión a la base de datos
+let client = new MongoClient()
+client.connect()
 
 
 // Passport Github
@@ -192,11 +167,14 @@ app.use('/github', loginGithubRouter);
 app.use('/admin_panel', admin_panel);
 
 // Error 404
+import { loggermid } from './utils.js'
+app.use(loggermid)
 
-app.get('*', (req, res) => {
+app.get('*', (req, res) => {    
+    loggers.fatal('Intentaron ingresar a una Pagina No Existente.!! => Error 404')       
     const user = getUserFromToken(req);    
     (!user) ? res.status(404).render('error/error404'):
-    res.status(404).render('error/error404', { user });  
+    res.status(404).render('error/error404', { user }); 
 });
 
 

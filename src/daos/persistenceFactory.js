@@ -1,4 +1,4 @@
-import config from "../config/config.js";
+import config from "../server/config.js";
 
 export default class PersistenceFactory {
     static getPersistence = async() => {
