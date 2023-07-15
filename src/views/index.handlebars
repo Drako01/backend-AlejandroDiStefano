@@ -1,7 +1,7 @@
 <div class="container text-center index_div">
     <section class="bienvenida">
         {{#if user}}
-        <h1>Bienvenido <span>{{user.first_name}} {{user.last_name}} {{user.user.first_name }}</span></h1>        
+        <h1>Bienvenido <span>{{user.first_name}} {{user.last_name}} {{user.user.first_name }}</span></h1>
         {{else}}
         <h1>Bienvenido</h1>
         {{/if}}
@@ -35,11 +35,15 @@
                 <div class="buttons_pay">
                     <form action="/carts/{{this._id}}" method="POST">
                         <div class="input-group group-comprar">
+                            {{#if this.stock}}
                             <input type="number" name="cantidad" class="form-control" value="1" min="1"
                                 max={{this.stock}}>
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-success">Agregar al Carrito</button>
                             </div>
+                            {{else}}
+                            <h1>¡No hay stock!</h1>
+                            {{/if}}
                         </div>
                     </form>
 

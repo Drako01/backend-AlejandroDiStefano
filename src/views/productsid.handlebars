@@ -19,11 +19,15 @@
                 <div class="buttons_pay">
                     <form action="/carts/{{product._id}}" method="POST">
                         <div class="input-group group-comprar">
+                            {{#if this.stock}}
                             <input type="number" name="cantidad" class="form-control" value="1" min="1"
-                                max={{product.stock}}>
+                                max={{this.stock}}>
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-success">Agregar al Carrito</button>
                             </div>
+                            {{else}}
+                            <h1>¡No hay stock!</h1>
+                            {{/if}}
                         </div>
                     </form>
 
