@@ -32,14 +32,12 @@
                     </form>
 
                     <div class="links">
-                        {{!-- Seccion Administrador --}}
-                        {{#if user.role}}
-                        {{#ifEqual user.role "admin"}}
+                        {{#if adminRole}}
+                        <!-- Sección Administrador -->
                         <a href="/productsedit/{{product._id}}" class="btn btn-secondary">Editar</a>
                         <a href="/productsdeletebyid/{{product._id}}" class="btn btn-danger">Eliminar</a>
-                        {{/ifEqual}}
                         {{/if}}
-                        {{!-- Seccion Administrador --}}
+
                         <a href="/products" class="btn btn-primary">Volver</a>
                     </div>
 

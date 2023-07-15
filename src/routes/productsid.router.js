@@ -9,8 +9,9 @@ router.get('/:pid', async (req, res) => {
     const productId = req.params.pid;
     const product = await Product.findById(productId).lean();
     const user = getUserFromToken(req);
+    const adminRole = user ? user.role === 'admin' : false;
     if (product) {
-        res.render('productsid', { product, user });
+        res.render('productsid', { product, user, adminRole });
     } else {
         res.status(404).render('error/error404');
     }
