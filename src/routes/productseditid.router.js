@@ -15,7 +15,7 @@ router.get('/:pid', isAdmin, async (req, res) => {
             res.status(404).render('error/error404');
         }
     } catch (error) {
-        res.status(500).send('Error al obtener información del producto');
+        res.status(500).render('notProduct' , { user })
     }
 });
 
