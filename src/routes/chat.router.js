@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import Chat from '../models/messages.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import isLoggedIn from '../middlewares/isLoggedIn.js';
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', isLoggedIn, async (req, res) => {
     try {        
         let user = getUserFromToken(req);        
         const messages = await Chat.find();

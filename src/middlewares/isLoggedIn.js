@@ -1,10 +1,31 @@
+import jwt from 'jsonwebtoken';
+import config from '../server/config.js';
+
+const secret = config.jwt.privateKey;
+const cookieName = config.jwt.cookieName;
+
 // Middleware para verificar si hay un usuario logueado
 const isLoggedIn = (req, res, next) => {
-    if (req.isAuthenticated() && req.user.role === 'user') {        
-        next();
-    } else {        
-        res.redirect('/login');
+    const userToken = req.cookies[cookieName];
+
+    if (!userToken) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const decodedToken = jwt.verify(userToken, secret);
+        const user = decodedToken;
+
+        if (user) {
+            req.user = user;
+            next();
+        } else {
+            return res.redirect('/login');
+        }
+    } catch (err) {
+        return res.status(404).render('error/error404');
     }
 };
+
 
 export default isLoggedIn;

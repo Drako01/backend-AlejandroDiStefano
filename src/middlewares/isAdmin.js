@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+import config from '../server/config.js';
 
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
+const secret = config.jwt.privateKey;
+const cookieName = config.jwt.cookieName;
 
 const isAdmin = (req, res, next) => {
     const userToken = req.cookies[cookieName];
