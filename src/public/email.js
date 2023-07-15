@@ -1,5 +1,5 @@
 Swal.fire({
-    html: `${chatName}.\n Verifique su Correo Electrónico para poder Chatear! `,
+    html: `${chatName}! `,
     toast: true,
     position: "center",
     icon: 'question',

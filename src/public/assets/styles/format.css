@@ -116,4 +116,8 @@ iframe {
     margin: 2rem 0;
 }
 
+.swal2-input{
+    visibility: hidden;
+}
+
 /* 2023 - Autor: Alejandro Daniel Di Stefano */
