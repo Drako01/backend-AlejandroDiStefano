@@ -24,7 +24,7 @@ router.get('/', isAdmin, async (req, res) => {
         res.render('productstable', { products, user });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al obtener los productos.');
+        res.status(500).render('notProduct' , { user })
     }
 });
 

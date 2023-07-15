@@ -86,7 +86,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
         res.render('products', { productos, prevLink, nextLink });
 
     } catch (err) {
-        res.status(500).send('Error al guardar el producto en la base de datos');
+        res.status(500).render('Error al guardar el producto en la base de datos');
     }
 });
 

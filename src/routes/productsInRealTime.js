@@ -55,7 +55,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
         res.render('realtimeproducts', { product: product });
 
     } catch (err) {
-        res.status(500).send('Error al guardar el producto en la base de datos');
+        res.status(500).render('notProduct' , { user })
     }
 });
 
