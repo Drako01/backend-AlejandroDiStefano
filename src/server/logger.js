@@ -1,31 +1,34 @@
 import winston from 'winston'
 import config from './config.js'
-import dotenv from 'dotenv'
-dotenv.config()
+
 
 const customWinstonOptions = {
     levels: {
         debug: 0,
         http: 1,
         info: 2,
-        warning: 3,
-        error: 4,
-        fatal: 5
+        notice: 3,
+        warning: 4,
+        error: 5,
+        fatal: 6
     },
     colors: {
         debug: 'white',
         http: 'green',
+        notice: 'blue',
         info: 'blue',
         warning: 'yellow',
-        error: 'orange',
+        error: 'red',
         fatal: 'red'
     }
 }
 
 winston.addColors(customWinstonOptions.colors)
 
-const createLogger = env => {
-    if (env === 'PROD') {
+const prod = config.log.level === 'PROD'
+
+const createLogger = () => {
+    if (prod) {
         return winston.createLogger({
             levels: customWinstonOptions.levels,
             level: 'fatal',

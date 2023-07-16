@@ -5,6 +5,7 @@ import isAdmin from '../middlewares/isAdmin.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import loggers from '../server/logger.js'
 import { Router } from 'express';
 const router = Router();
 
@@ -55,6 +56,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
         res.render('realtimeproducts', { product: product });
 
     } catch (err) {
+        loggers.error(err);
         res.status(500).render('notProduct' , { user })
     }
 });

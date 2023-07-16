@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 const secret = config.jwt.privateKey;
 const cookieName = config.jwt.cookieName;
@@ -23,6 +24,7 @@ const isLoggedIn = (req, res, next) => {
             return res.redirect('/login');
         }
     } catch (err) {
+        loggers.error(err);
         return res.status(404).render('error/error404');
     }
 };

@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.js';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 const router = Router();
 const cookieName = config.jwt.cookieName;
@@ -20,7 +21,7 @@ router.post('/', async (req, res) => {
         const user = await User.findOne({ email: email }).exec();
 
         if (!user) {
-            return res.status(401).send({ status: 'error', error: 'Invalid credentials' });
+            return res.status(401).render('notLoggedIn');
         }
 
         bcrypt.compare(password, user.password)
@@ -34,12 +35,12 @@ router.post('/', async (req, res) => {
 
                     res.cookie(cookieName, userToken).redirect('/');
                 } else {
-                    return res.status(403).send({ status: 'error', error: 'Invalid credentials' });
+                    return res.status(401).render('notLoggedIn');
                 }
             })
     } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: 'Internal server error' });
+        loggers.error(err);
+        return res.status(500).render('Internal server error' );
     }
 });
 
@@ -48,7 +49,7 @@ router.get('/user', (req, res) => {
     const userToken = req.cookies[cookieName];
     
     if (!userToken) {
-        return res.status(401).send({ status: 'error', error: 'Unauthorized' });
+        return res.status(401).render('notLoggedIn');
     }
 
     try {
@@ -56,14 +57,14 @@ router.get('/user', (req, res) => {
         const userId = decodedToken.userId;
         User.findById(userId, (err, user) => {
             if (err || !user) {
-                return res.status(404).send({ status: 'error', error: 'User not found' });
+                return res.status(404).render('error/error404');
             }
 
-            return res.status(200).send({ status: 'success', user });
+            return res.status(200).redirect('/');
         });
     } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: 'Internal server error' });
+        loggers.error(err);
+        return res.status(500).render( 'Internal server error' );
     }
 });
 

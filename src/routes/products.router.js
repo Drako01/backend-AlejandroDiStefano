@@ -4,6 +4,7 @@ import Product from '../models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { Router } from 'express';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 const router = Router();
 const cookieName = config.jwt.cookieName;
@@ -37,6 +38,7 @@ router.get('/', async (req, res, next) => {
         res.render('products', { productos, prevLink, nextLink, allCategories, user });
 
     } catch (err) {
+        loggers.error(err);
         next(err);
     }
 });
@@ -86,6 +88,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
         res.render('products', { productos, prevLink, nextLink });
 
     } catch (err) {
+        loggers.error(err);
         res.status(500).render('Error al guardar el producto en la base de datos');
     }
 });
@@ -120,6 +123,7 @@ router.get('/filter/:category', async (req, res, next) => {
         res.render('products', { productos, prevLink, nextLink, allProducts, currentPage, totalPages, user });
 
     } catch (err) {
+        loggers.error(err);
         next(err);
     }
 });

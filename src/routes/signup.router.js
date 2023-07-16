@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { Router } from 'express';
+import loggers from '../server/logger.js'
 const router = Router();
 
 
@@ -10,7 +11,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res, next) => {
     passport.authenticate('signup', (err, user, info) => {
         if (err) {
-            console.error(err);
+            loggers.error(err);
             return res.status(500).send('Error de servidor');
         }
 
@@ -24,7 +25,7 @@ router.post('/', (req, res, next) => {
 
         req.login(user, (err) => {
             if (err) {
-                console.error(err);
+                loggers.error(err);
                 return res.status(500).send('Error de servidor');
             }
 

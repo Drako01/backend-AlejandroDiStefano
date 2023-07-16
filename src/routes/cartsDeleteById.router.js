@@ -2,7 +2,7 @@ import { Router } from 'express';
 import Cart from '../models/carts.model.js';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-
+import loggers from '../server/logger.js'
 
 const router = Router();
 
@@ -28,7 +28,7 @@ router.get('/:cartId/:itemId', async (req, res) => {
         await cart.save();
         return res.render('cartsDeleteById', { cartId, itemId, user });
     } catch (error) {
-        console.error(error);
+        loggers.error(error);
         return res.status(500).render('notCart');
     }
 });

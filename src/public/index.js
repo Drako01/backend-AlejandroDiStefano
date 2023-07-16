@@ -1,4 +1,3 @@
-
 const username = document.getElementById('username');
 const history = document.getElementById('history');
 const chatName = document.getElementById('UserNameChat').innerText;

@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import Cart from '../models/carts.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import Producto from '../models/products.model.js';
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import twilio from 'twilio';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 const router = Router();
 
 
@@ -103,10 +105,33 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         };
 
         await transporter.sendMail(mailOptions);
+
+        // Reducción del stock después de enviar el correo
+        for (const item of cart.items) {
+            try {
+                const product = await Producto.findById(item.producto._id);
+                if (!product) {
+                    loggers.warning(`Producto no encontrado con el id: ${item.producto._id}`);
+                    continue;
+                }
+
+                const newStock = product.stock - item.cantidad;
+                if (newStock < 0) {
+                    loggers.warning(`No hay suficiente stock para el producto: ${product.title}`);
+                    continue;
+                }
+
+                product.stock = newStock;
+                await product.save();
+            } catch (err) {
+                loggers.error('Error al actualizar el stock', err);
+            }
+        }
     } catch (err) {
-        console.error('Error al enviar el correo electrónico', err);
+        loggers.error('Error al enviar el correo electrónico', err);
     }
 };
+
 
 // Función para enviar un SMS utilizando Twilio
 const sendSMS = async (userPhone) => {
@@ -119,20 +144,18 @@ const sendSMS = async (userPhone) => {
             to: config.twilio.myPhone,
         });
     } catch (err) {
-        console.error('Error al enviar el SMS', err);
+        loggers.error('Error al enviar el SMS', err);
     }
 };
 
-
-
-
+// Endpoint para mostrar el carrito de compras
 router.get('/', async (req, res) => {
     try {
         const user = getUserFromToken(req);
         const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
 
         if (!cart) {
-            res.status(404).send('No se encontró un carrito para el usuario');
+            res.status(404).render('error/error404', { user });
             return;
         }
 
@@ -140,8 +163,8 @@ router.get('/', async (req, res) => {
 
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error al procesar la compra');
+        loggers.error(err);
+        res.status(500).render('Error al procesar la compra');
     }
 });
 
@@ -151,19 +174,43 @@ router.post('/', async (req, res) => {
         const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
 
         if (!cart) {
-            res.status(404).send('No se encontró un carrito para el usuario');
+            res.status(404).render('error/error404', { user });
             return;
         }
 
+        // Reducción del stock en el carrito antes de enviar el correo
+        for (const item of cart.items) {
+            try {
+                const product = await Producto.findById(item.producto._id);
+                if (!product) {
+                    loggers.warning(`Producto no encontrado con el id: ${item.producto._id}`);
+                    continue;
+                }
+
+                const newStock = product.stock - item.cantidad;
+                if (newStock == 0) {
+                    loggers.warning(`El producto: ${product.title} se ha quedado sin stock!!`);
+                    continue;
+                }
+
+                product.stock = newStock;
+                await product.save();
+            } catch (err) {
+                loggers.error('Error al actualizar el stock', err);
+            }
+        }
+
+        // Envío del correo electrónico y el SMS
         await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
         //await sendSMS(user.phone);
 
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error al procesar la compra');
+        loggers.error(err);
+        res.status(500).render('Error al procesar la compra');
     }
 });
+
 
 export default router;

@@ -3,6 +3,7 @@ import GitHubStrategy from 'passport-github2';
 import Users from '../models/users.model.js';
 import jwt from 'jsonwebtoken';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 // Variables de entorno
 const secret = config.jwt.privateKey;
@@ -41,6 +42,7 @@ const initializePassportGH = () => {
                     });
                     return done(null, newUser);
                 } catch (err) {
+                    loggers.error(err);
                     return done('Error to login with GitHub');
                 }
             }

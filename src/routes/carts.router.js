@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import shortid from 'shortid';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 const router = Router();
 const cokieName = config.jwt.cookieName;
@@ -99,7 +100,7 @@ router.get('/', async (req, res) => {
 
         res.render('carts', { cart: { ...cart, items: sortedItems }, totalPrice, cartId, user });
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).render('notCart');
     }
 });
@@ -127,7 +128,7 @@ router.post('/:cartId/vaciar', async (req, res) => {
         await cart.save();
         res.redirect('/');
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error al vaciar el carrito');
     }
 });
@@ -151,7 +152,7 @@ router.post('/:cartId/eliminar', async (req, res) => {
 
         res.redirect('/');
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error al vaciar el carrito');
     }
 });
@@ -186,7 +187,7 @@ router.put('/:cartId/:itemId', async (req, res) => {
 
         res.redirect('/carts');
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error al actualizar la cantidad del producto');
     }
 });

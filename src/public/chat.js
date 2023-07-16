@@ -1,3 +1,5 @@
+import loggers from '../server/logger.js'
+
 fetch('/chat')
     .then(response => response.json())
     .then(messages => {
@@ -8,7 +10,7 @@ fetch('/chat')
             history.appendChild(messageElement);
         });
     })
-    .catch(err => console.error(err));
+    .catch(err => loggers.error(err));
 
 
 chatBox.addEventListener('keyup', event => {
@@ -31,9 +33,9 @@ chatBox.addEventListener('keyup', event => {
                     history.appendChild(messageElement);
                     chatBox.value = '';
                 } else {
-                    console.error('Error al enviar el mensaje');
+                    loggers.error('Error al enviar el mensaje');
                 }
             })
-            .catch(err => console.error(err));
+            .catch(err => loggers.error(err));
     }
 });

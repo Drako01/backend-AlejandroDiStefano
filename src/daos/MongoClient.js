@@ -16,7 +16,7 @@ export default class MongoClient {
             await this.client.connect(mongoConnection);
             loggers.info(`Conexión exitosa a la base de datos "${mongoDatabase}" en MongoDB Atlas`);
         } catch(err) {
-            throw new Error('cannot connect to database')
+            loggers.error('cannot connect to database')
         }
     }
 }

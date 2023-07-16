@@ -2,6 +2,7 @@ import passport from 'passport';
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 const router = Router();
 const cookieName = config.jwt.cookieName;
@@ -22,6 +23,7 @@ router.get('/githubcallback', passport.authenticate('github', { failureRedirect:
 
         res.redirect('/');
     } catch (err) {
+        loggers.error(err);
         res.redirect('/login');
     }
 });

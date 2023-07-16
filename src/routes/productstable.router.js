@@ -3,6 +3,7 @@ import isAdmin from '../middlewares/isAdmin.js';
 import Handlebars from 'handlebars';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { Router } from 'express';
+import loggers from '../server/logger.js'
 
 const router = Router();
 
@@ -23,7 +24,7 @@ router.get('/', isAdmin, async (req, res) => {
         const products = await Product.find().sort(sortQuery).lean();
         res.render('productstable', { products, user });
     } catch (error) {
-        console.error(error);
+        loggers.error(error);
         res.status(500).render('notProduct' , { user })
     }
 });

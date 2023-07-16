@@ -21,7 +21,7 @@
                         <div class="input-group group-comprar">
                             {{#if product.stock}}
                             <input type="number" name="cantidad" class="form-control" value="1" min="1"
-                                max={{this.stock}}>
+                                max={{product.stock}}>
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-success">Agregar al Carrito</button>
                             </div>

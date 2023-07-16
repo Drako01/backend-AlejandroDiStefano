@@ -6,6 +6,8 @@ import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Router } from 'express';
+import loggers from '../server/logger.js'
+
 const router = Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -36,7 +38,7 @@ router.get('/:pid', isAdmin, async (req, res) => {
             res.status(404).render('error/error404');
         }
     } catch (error) {
-        console.error(error);
+        loggers.error(error);
         res.status(500).render('notProduct' , { user })
     }
 });
@@ -60,7 +62,7 @@ router.post('/:id', upload.single('thumbnail'), async (req, res) => {
 
         res.redirect(`/productseditbyid/${productId}`);
     } catch (error) {
-        console.error(error);
+        loggers.error(error);
         res.status(500).render('notProduct' , { user })
     }
 });

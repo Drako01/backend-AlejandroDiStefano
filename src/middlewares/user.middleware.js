@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 // Variables de entorno
 const secret = config.jwt.privateKey;
@@ -16,7 +17,7 @@ export function getUserFromToken(req) {
         const decodedToken = jwt.verify(userToken, secret);
         return decodedToken;
     } catch (error) {
-        console.error('Error al verificar el token:', error);
+        loggers.error('Error al verificar el token:', error);
         return null;
     }
 }
@@ -25,11 +26,11 @@ export function getUserId(req) {
     try {
         const user = getUserFromToken(req);
         if (!user || !user.userId) {
-            throw new Error('No se pudo obtener el ID de usuario del token');
+            loggers.error('No se pudo obtener el ID de usuario del token');
         }
         return user.userId;
     } catch (error) {
-        console.error('Error al obtener el ID de usuario:', error);
+        loggers.error('Error al obtener el ID de usuario:', error);
         return null;
     }
 }

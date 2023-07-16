@@ -2,6 +2,7 @@ import { Router } from 'express';
 import User from '../models/users.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import loggers from '../server/logger.js'
 const router = Router();
 
 // Ruta para crear un nuevo usuario
@@ -12,7 +13,7 @@ router.get('/', isAdmin, async (req, res) => {
         const userObjects = users.map(user => user.toObject());
         res.render('users', { users: userObjects, user });
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error del servidor');
     }
 });
@@ -31,7 +32,7 @@ router.get('/edit/:id', isAdmin, async (req, res) => {
         res.render('editUser', { user });
 
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error del servidor');
     }
 });
@@ -57,7 +58,7 @@ router.post('/edit/:id', isAdmin, async (req, res) => {
 
         res.redirect('/users');
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error del servidor');
     }
 });
@@ -79,7 +80,7 @@ router.get('/delete/:id', isAdmin, async (req, res) => {
 
         res.render('userDelete', { user });
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error del servidor');
     }
 });

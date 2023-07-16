@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import User from '../models/users.model.js';
 import jwt from 'jsonwebtoken';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 const secret = config.jwt.privateKey;
 
@@ -34,6 +35,7 @@ export const authenticateJWT = (req, res, next) => {
 
     jwt.verify(token, secret, (err, decodedToken) => {
         if (err) {
+            loggers.error(err);
             return res.status(403).json({ message: 'Invalid token' });
         }
 
@@ -48,7 +50,7 @@ export const authenticateJWT = (req, res, next) => {
                 next();
             })
             .catch(err => {
-                console.error(err);
+                loggers.error(err);
                 return res.status(500).json({ message: 'Internal server error' });
             });
     });
@@ -89,7 +91,7 @@ passport.use(
                 await newUser.save();
                 return done(null, newUser);
             } catch (err) {
-                console.error(err);
+                loggers.error(err);
                 return done(err);
             }
         }

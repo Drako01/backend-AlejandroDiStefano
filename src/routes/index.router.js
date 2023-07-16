@@ -3,6 +3,7 @@ import { Router } from 'express';
 import Product from '../models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../server/config.js';
+import loggers from '../server/logger.js'
 
 const router = Router();
 const cookieName = config.jwt.cookieName;
@@ -31,8 +32,8 @@ router.get('/', async (req, res) => {
             
         }
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
+        loggers.error(err);
+        res.status(500).render({ message: 'Internal server error' });
     }
 });
 

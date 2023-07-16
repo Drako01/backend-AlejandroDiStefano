@@ -2,6 +2,8 @@ import { Router } from 'express';
 import Chat from '../models/messages.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import isLoggedIn from '../middlewares/isLoggedIn.js';
+import loggers from '../server/logger.js'
+
 const router = Router();
 
 router.get('/', isLoggedIn, async (req, res) => {
@@ -11,7 +13,7 @@ router.get('/', isLoggedIn, async (req, res) => {
         
         res.render('chat', { messages, user });
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error al obtener los mensajes');
     }
 });
@@ -33,7 +35,7 @@ router.post('/', async (req, res) => {
         await newMessage.save();
         res.redirect('/chat');
     } catch (err) {
-        console.error(err);
+        loggers.error(err);
         res.status(500).send('Error al guardar el mensaje');
     }
 });
