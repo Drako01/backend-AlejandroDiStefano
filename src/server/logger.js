@@ -10,16 +10,16 @@ const customWinstonOptions = {
         notice: 3,
         warning: 4,
         error: 5,
-        fatal: 6
+        fatal: 6,
     },
     colors: {
         debug: 'white',
         http: 'green',
-        notice: 'blue',
+        notice: 'cyan',
         info: 'blue',
         warning: 'yellow',
         error: 'red',
-        fatal: 'red'
+        fatal: 'magenta',
     }
 }
 
