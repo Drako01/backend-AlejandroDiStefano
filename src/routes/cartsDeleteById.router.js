@@ -16,12 +16,12 @@ router.get('/:cartId/:itemId', async (req, res) => {
     try {
         const cart = await Cart.findById(cartId);
         if (!cart) {
-            return res.status(404).render('error/error404');
+            return res.status(404).render('error/error404', { user });
         }
 
         const itemIndex = cart.items.findIndex((item) => item._id.equals(itemId));
         if (itemIndex === -1) {
-            return res.status(404).json({ error: 'Producto no encontrado en el carrito' });
+            return res.status(404).render('notCartProducts', { cartId, itemId, user });
         }
 
         cart.items.splice(itemIndex, 1);

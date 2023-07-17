@@ -35,7 +35,7 @@ router.get('/', isAdmin, (req, res) => {
 router.post('/', upload.single('thumbnail'), async (req, res) => {
     const { title, category, size, code, description, price, stock } = req.body;
     if (!title) {
-        return res.status(400).send('El campo "title" es obligatorio');
+        return res.status(400).render('El campo "title" es obligatorio');
     }
 
     const newProduct = new Product({

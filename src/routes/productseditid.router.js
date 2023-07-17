@@ -13,7 +13,7 @@ router.get('/:pid', isAdmin, async (req, res) => {
         if (producto) {
             res.render('productsedit', { producto, user});
         } else {
-            res.status(404).render('error/error404');
+            res.status(404).render('error/error404', { user });
         }
     } catch (error) {
         loggers.error(error);

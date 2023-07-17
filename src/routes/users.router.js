@@ -53,7 +53,7 @@ router.post('/edit/:id', isAdmin, async (req, res) => {
         }, { new: true });
 
         if (!updatedUser) {
-            return res.status(404).render('error/error404');
+            return res.status(404).render('error/error404', { user });
         }
 
         res.redirect('/users');
@@ -72,7 +72,7 @@ router.get('/delete/:id', isAdmin, async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            return res.status(404).render('error/error404');
+            return res.status(404).render('error/error404', { user });
         }
 
         // Eliminar el usuario de la base de datos

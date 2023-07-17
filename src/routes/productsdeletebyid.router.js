@@ -15,7 +15,7 @@ router.get('/:id', isAdmin, async (req, res) => {
         if (product) {
             res.render('productsdeletebyid', { product, user });
         } else {
-            res.status(404).render('error/error404');
+            res.status(404).render('error/error404', { user });
         }
     } catch (error) {
         loggers.error(error);
