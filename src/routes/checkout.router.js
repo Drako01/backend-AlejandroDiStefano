@@ -178,7 +178,10 @@ router.post('/', async (req, res) => {
             return;
         }
 
-        // Reducción del stock en el carrito antes de enviar el correo
+        // Crear un nuevo array con los productos que tienen stock suficiente
+        const productsWithSufficientStock = [];
+
+        // Checkear el stock de cada producto en el carrito
         for (const item of cart.items) {
             try {
                 const product = await Producto.findById(item.producto._id);
@@ -188,21 +191,35 @@ router.post('/', async (req, res) => {
                 }
 
                 const newStock = product.stock - item.cantidad;
-                if (newStock == 0) {
-                    loggers.warning(`El producto: ${product.title} se ha quedado sin stock!!`);
-                    continue;
+                if (newStock >= 0) {
+                    // Si hay stock suficiente, agregar el producto al nuevo array y actualizar el stock
+                    productsWithSufficientStock.push(item);
+                    product.stock = newStock;
+                    await product.save();
+                } else {
+                    // Si no hay stock suficiente, mostrar un mensaje de error y actualizar el stock
+                    loggers.warning(`No hay suficiente stock para el producto: ${product.title}`);
+                    product.stock += item.cantidad;
+                    await product.save();
                 }
-
-                product.stock = newStock;
-                await product.save();
             } catch (err) {
                 loggers.error('Error al actualizar el stock', err);
             }
         }
 
-        // Envío del correo electrónico y el SMS
+        // Actualizar el carrito con los productos que tienen stock suficiente
+        cart.items = productsWithSufficientStock;
+
+        // Chequear si quedaron productos en el carrito
+        if (cart.items.length === 0) {
+            // Error: no hay stock suficiente para ninguno de los productos del carrito
+            res.render('notStock', { user, products: cart.items.map((item) => item.producto) });
+            return;
+        }
+
+        // Enviar el correo electrónico de confirmación de compra
         await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
-        //await sendSMS(user.phone);
+        // await sendSMS(user.phone);
 
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
