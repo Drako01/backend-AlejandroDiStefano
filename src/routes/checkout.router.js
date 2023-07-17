@@ -26,7 +26,7 @@ const transporter = nodemailer.createTransport({
 
 // Configuración de Twilio
 const twilioClient = twilio(twilioAccountSid, twilioAuthToken);
-
+const port = config.ports.prodPort || '';
 // Función para generar y enviar el correo electrónico de confirmación de compra
 const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
     try {
@@ -77,7 +77,7 @@ const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         const attachments = cart.items.reduce((acc, item) => {
             const attachment = {
                 filename: item.producto.thumbnail,
-                path: `${urlActual}${item.producto.thumbnail}`,
+                path: `${urlActual}:${port}${item.producto.thumbnail}`,
                 cid: `${item.producto.thumbnail}@lonneopen.com`
             };
             acc.push(attachment);
@@ -198,8 +198,8 @@ router.post('/', async (req, res) => {
                     await product.save();
                 } else {
                     // Si no hay stock suficiente, mostrar un mensaje de error y actualizar el stock
-                    loggers.warning(`No hay suficiente stock para el producto: ${product.title}`);
-                    product.stock += item.cantidad;
+                    loggers.warning(`El producto: ${product.title} esta fuera de stock.!`);
+                    product.stock += (item.cantidad - product.stock);
                     await product.save();
                 }
             } catch (err) {
@@ -213,7 +213,7 @@ router.post('/', async (req, res) => {
         // Chequear si quedaron productos en el carrito
         if (cart.items.length === 0) {
             // Error: no hay stock suficiente para ninguno de los productos del carrito
-            res.render('notStock', { user, products: cart.items.map((item) => item.producto) });
+            res.render('error/notStock', { user, products: cart.items.map((item) => item.producto) });
             return;
         }
 

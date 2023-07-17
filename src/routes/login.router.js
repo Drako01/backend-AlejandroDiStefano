@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
         const user = await User.findOne({ email: email }).exec();
 
         if (!user) {
-            return res.status(401).render('notLoggedIn');
+            return res.status(401).render('error/notLoggedIn');
         }
 
         bcrypt.compare(password, user.password)
@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
 
                     res.cookie(cookieName, userToken).redirect('/');
                 } else {
-                    return res.status(401).render('notLoggedIn');
+                    return res.status(401).render('error/notLoggedIn');
                 }
             })
     } catch (err) {
@@ -49,7 +49,7 @@ router.get('/user', (req, res) => {
     const userToken = req.cookies[cookieName];
     
     if (!userToken) {
-        return res.status(401).render('notLoggedIn');
+        return res.status(401).render('error/notLoggedIn');
     }
 
     try {

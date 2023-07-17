@@ -9,11 +9,11 @@ router.get('/', async (req, res) => {
     try {
         const user = getUserFromToken(req); 
         if (user.role !== 'admin') {
-            return res.status(403).render('notAuthorized');
+            return res.status(403).render('error/notAuthorized');
         }
         res.status(200).render('admin_panel', { products, user });        
     } catch (error) {
-        return res.status(403).render('notAuthorized');
+        return res.status(403).render('error/notAuthorized');
     }
 });
 

@@ -17,7 +17,7 @@ router.get('/:pid', isAdmin, async (req, res) => {
         }
     } catch (error) {
         loggers.error(error);
-        res.status(500).render('notProduct' , { user })
+        res.status(500).render('error/notProduct' , { user })
     }
 });
 

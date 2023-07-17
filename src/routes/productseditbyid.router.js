@@ -39,7 +39,7 @@ router.get('/:pid', isAdmin, async (req, res) => {
         }
     } catch (error) {
         loggers.error(error);
-        res.status(500).render('notProduct' , { user })
+        res.status(500).render('error/notProduct' , { user })
     }
 });
 
@@ -63,7 +63,7 @@ router.post('/:id', upload.single('thumbnail'), async (req, res) => {
         res.redirect(`/productseditbyid/${productId}`);
     } catch (error) {
         loggers.error(error);
-        res.status(500).render('notProduct' , { user })
+        res.status(500).render('error/notProduct' , { user })
     }
 });
 

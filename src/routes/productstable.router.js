@@ -25,7 +25,7 @@ router.get('/', isAdmin, async (req, res) => {
         res.render('productstable', { products, user });
     } catch (error) {
         loggers.error(error);
-        res.status(500).render('notProduct' , { user })
+        res.status(500).render('error/notProduct' , { user })
     }
 });
 

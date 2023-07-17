@@ -57,7 +57,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
 
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('notProduct' , { user })
+        res.status(500).render('error/notProduct' , { user })
     }
 });
 

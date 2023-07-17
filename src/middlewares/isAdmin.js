@@ -9,7 +9,7 @@ const isAdmin = (req, res, next) => {
     const userToken = req.cookies[cookieName];
 
     if (!userToken) {
-        res.render('notAuthorized');
+        res.render('error/notAuthorized');
         return;
     }
 
@@ -21,11 +21,11 @@ const isAdmin = (req, res, next) => {
             req.user = user; 
             next();
         } else {
-            res.render('notAuthorized');
+            res.render('error/notAuthorized');
         }
     } catch (err) {
         loggers.error(err);
-        res.render('notAuthorized');
+        res.render('error/notAuthorized');
     }
 };
 

@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
         }
 
         if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
-            return res.render('notCart', { user });
+            return res.render('error/notCart', { user });
         }
         const cartId = cart._id.toString();
 
@@ -101,7 +101,7 @@ router.get('/', async (req, res) => {
         res.render('carts', { cart: { ...cart, items: sortedItems }, totalPrice, cartId, user });
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('notCart');
+        res.status(500).render('error/notCart');
     }
 });
 
@@ -129,7 +129,7 @@ router.post('/:cartId/vaciar', async (req, res) => {
         res.redirect('/');
     } catch (err) {
         loggers.error(err);
-        res.status(500).send('Error al vaciar el carrito');
+        res.status(500).render('Error al vaciar el carrito');
     }
 });
 
@@ -153,7 +153,7 @@ router.post('/:cartId/eliminar', async (req, res) => {
         res.redirect('/');
     } catch (err) {
         loggers.error(err);
-        res.status(500).send('Error al vaciar el carrito');
+        res.status(500).render('Error al vaciar el carrito');
     }
 });
 
@@ -188,7 +188,7 @@ router.put('/:cartId/:itemId', async (req, res) => {
         res.redirect('/carts');
     } catch (err) {
         loggers.error(err);
-        res.status(500).send('Error al actualizar la cantidad del producto');
+        res.status(500).render('Error al actualizar la cantidad del producto');
     }
 });
 

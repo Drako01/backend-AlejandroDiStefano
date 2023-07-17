@@ -21,7 +21,7 @@ router.get('/:cartId/:itemId', async (req, res) => {
 
         const itemIndex = cart.items.findIndex((item) => item._id.equals(itemId));
         if (itemIndex === -1) {
-            return res.status(404).render('notCartProducts', { cartId, itemId, user });
+            return res.status(404).render('error/notCartProducts', { cartId, itemId, user });
         }
 
         cart.items.splice(itemIndex, 1);
@@ -29,7 +29,7 @@ router.get('/:cartId/:itemId', async (req, res) => {
         return res.render('cartsDeleteById', { cartId, itemId, user });
     } catch (error) {
         loggers.error(error);
-        return res.status(500).render('notCart');
+        return res.status(500).render('error/notCart');
     }
 });
 

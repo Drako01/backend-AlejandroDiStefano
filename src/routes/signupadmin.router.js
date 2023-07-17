@@ -19,9 +19,9 @@ router.post('/', (req, res, next) => {
 
         if (!user) {
             if (info.message === 'Email already exists.') {
-                return res.redirect('/notSignupByEmail');
+                return res.render('error/notSignupByEmail');
             } else if (info.message === 'Phone already exists.') {
-                return res.render('notSignupByPhone');
+                return res.render('error/notSignupByPhone');
             }
         }
 
