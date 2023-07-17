@@ -84,7 +84,7 @@ app.use(loggermid)
 
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 app.get('*', (req, res) => {
-    loggers.fatal(`Intentaron ingresar a una Pagina No Existente.!! 
+    loggers.error(`Intentaron ingresar a una Pagina No Existente.!! 
         Error 404 | Método: ${req.method} en la URL: ${urlReal}:${port}${req.url}`)
     const user = getUserFromToken(req);
     (!user) ? res.status(404).render('error/error404') :
