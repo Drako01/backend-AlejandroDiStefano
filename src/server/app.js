@@ -17,9 +17,9 @@ program.parse();
 
 //Server Up
 import loggers from './logger.js'
-let urlReal = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
+let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
 const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
-const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${urlReal}:${port}`))
+const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${dominio}:${port}`))
 const socketServer = new Server(httpServer)
 
 // Conexión a la base de datos
@@ -85,7 +85,7 @@ app.use(loggermid)
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 app.get('*', (req, res) => {
     loggers.error(`Intentaron ingresar a una Pagina No Existente.!! 
-        Error 404 | Método: ${req.method} en la URL: ${urlReal}:${port}${req.url}`)
+        Error 404 | Método: ${req.method} en la URL: ${dominio}:${port}${req.url}`)
     const user = getUserFromToken(req);
     (!user) ? res.status(404).render('error/error404') :
         res.status(404).render('error/error404', { user });

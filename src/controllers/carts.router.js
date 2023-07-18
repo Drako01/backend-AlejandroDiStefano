@@ -218,6 +218,7 @@ router.post('/:pid', async (req, res) => {
         res.redirect('/');
 
     } catch (err) {
+        loggers.error(err);
         res.status(500).redirect('/login');
     }
 });
