@@ -29,8 +29,5 @@ router.get('/', isAdmin, async (req, res) => {
     }
 });
 
-Handlebars.registerHelper('ifEqual', (a, b, options) => {
-    return a === b ? options.fn(this) : options.inverse(this);
-});
 
 export default router;

@@ -1,7 +1,6 @@
 import Product from '../models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
-import multer from 'multer';
-import path from 'path';
+import configureMulter from '../helpers/multer.helpers.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -12,19 +11,7 @@ const router = Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '..', 'public', 'img'));
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        const filename = file.fieldname + '-' + Date.now() + ext;
-        cb(null, filename);
-    }
-});
-const upload = multer({ storage });
-
+const upload = await configureMulter();
 
 router.get('/:pid', isAdmin, async (req, res) => {
     const user = getUserFromToken(req);

@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import Product from '../models/products.model.js';
 import Cart from '../models/carts.model.js';
-import Handlebars from 'handlebars';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import shortid from 'shortid';
@@ -13,13 +12,6 @@ const cokieName = config.jwt.cookieName;
 let user = null;
 let userEmail = null;
 
-Handlebars.registerHelper('reduce', function (array, prop) {
-    return array.reduce((acc, item) => acc + item[prop], 0);
-});
-Handlebars.registerHelper('multiply', function (a, b) {
-    return a * b;
-});
-Handlebars.noEscape = true;
 
 export async function getOrCreateCart(userEmail = null) {
     if (userEmail) {

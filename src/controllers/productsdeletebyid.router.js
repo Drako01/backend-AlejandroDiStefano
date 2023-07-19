@@ -23,5 +23,6 @@ router.get('/:id', isAdmin, async (req, res) => {
     }
 });
 
+
 export default router
 

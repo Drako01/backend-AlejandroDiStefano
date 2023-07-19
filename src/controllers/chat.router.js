@@ -18,7 +18,6 @@ router.get('/', isLoggedIn, async (req, res) => {
     }
 });
 
-
 router.post('/', async (req, res) => {
     try {
         let user = '';

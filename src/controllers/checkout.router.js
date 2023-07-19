@@ -9,7 +9,6 @@ import config from '../server/config.js';
 import loggers from '../server/logger.js'
 const router = Router();
 
-
 const urlActual = config.urls.urlLocal;
 const twilioNumberPhone = config.twilio.numberPhone;
 const twilioAccountSid = config.twilio.accountSid;

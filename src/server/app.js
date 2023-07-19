@@ -60,6 +60,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //  Configuracion de Handlebars
 import configureHandlebars from '../manager/handlebars.manager.js';
+import { registerHandlebarsHelpers } from '../helpers/handlebars.helpers.js';
+registerHandlebarsHelpers(app)
 configureHandlebars(app);
 
 // Configuración de middleware
