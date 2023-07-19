@@ -110,3 +110,7 @@ app.use(cors())
 //Chat Socket
 import chatApp from './chat.app.js';
 chatApp(socketServer);
+
+// Test de Logger para probar todos los niveles de logs
+import loggerTest from '../test/logger.test.js';
+loggerTest();
