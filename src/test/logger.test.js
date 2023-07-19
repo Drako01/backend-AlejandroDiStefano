@@ -2,7 +2,7 @@ import loggers from '../server/logger.js';
 
 export default function loggerTest() {
     console.log('\n')
-    console.log('Inicio de las pruebas de logs')
+    loggers.notice('Inicio de las pruebas de logs')
     console.log('\n')
     loggers.debug('Esto es un mensaje de depuración');
     loggers.http('Esto es un mensaje de solicitud HTTP');
