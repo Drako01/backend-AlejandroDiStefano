@@ -13,9 +13,9 @@ const cookieName = config.jwt.cookieName;
 let user = null;
 router.get('/', async (req, res, next) => {
     try {
-        const userToken = req.cookies[cookieName];        
-        if (userToken) {            
-            user = getUserFromToken(req) ;
+        const userToken = req.cookies[cookieName];
+        if (userToken) {
+            user = getUserFromToken(req);
         }
 
         const page = parseInt(req.query.page) || 1;
@@ -96,8 +96,8 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
 router.get('/filter/:category', async (req, res, next) => {
     try {
         const userToken = req.cookies[cookieName];
-        if (userToken) {            
-            user = getUserFromToken(req) ;
+        if (userToken) {
+            user = getUserFromToken(req);
         }
 
         const page = parseInt(req.query.page) || 1;
@@ -127,5 +127,7 @@ router.get('/filter/:category', async (req, res, next) => {
         next(err);
     }
 });
+
+
 
 export default router;

@@ -1,5 +1,6 @@
 // Rutas
 import productRouter from '../controllers/products.router.js';
+import mockingproductsRouter from '../controllers/mockingproducts.router.js';
 import productsEditRouter from '../controllers/productseditid.router.js';
 import productsdeletebyidRouter from '../controllers/productsdeletebyid.router.js';
 import productsIdRouter from '../controllers/productsid.router.js';
@@ -23,6 +24,7 @@ import admin_panel from '../controllers/adminPanel.router.js';
 const views = [
     { path: '/', router: indexRouter },
     { path: '/products', router: productRouter },
+    { path: '/mockingproducts', router: mockingproductsRouter },
     { path: '/productstable', router: productsTableRouter },
     { path: '/productsdeletebyid', router: productsdeletebyidRouter },
     { path: '/productsedit', router: productsEditRouter },
@@ -37,6 +39,7 @@ const views = [
     { path: '/cartsDeleteById', router: cartDeleteByIdRouter },
     { path: '/checkout', router: checkoutRouter },
     { path: '/users', router: usersRouter },
+    { path: '/users/newUser', router: usersRouter },
     { path: '/signupadmin', router: signupAdminRouter },
     { path: '/github', router: loginGithubRouter },
     { path: '/admin_panel', router: admin_panel },

@@ -1,7 +1,16 @@
 import express from 'express';
 import { Server } from 'socket.io';
 import config from './config.js';
+import compression from 'express-compression';
+import errorHandler from '../middlewares/error.middleware.js'
+
 const app = express();
+
+
+// Configuracion de Compresion de Archivos Estaticos con Brotli
+app.use(compression({
+    brotli:{enabled: true, zlib:{}}
+}))
 
 // Configuracion de Path
 import path from 'path';
@@ -69,6 +78,7 @@ app.use(bodyParser.json());
 import views from '../manager/views.manager.js';
 app.use(express.static(path.resolve('..', 'public')));
 app.set('views', '../views/');
+app.use(errorHandler)
 
 function setupRoutes(app, routes) {
     routes.forEach((route) => {
