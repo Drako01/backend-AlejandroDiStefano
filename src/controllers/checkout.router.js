@@ -218,7 +218,7 @@ router.post('/', async (req, res) => {
 
         // Enviar el correo electrónico de confirmación de compra
         await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
-        // await sendSMS(user.phone);
+        // await sendSMS(user.phone); // Descomentar para enviar un SMS
 
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
