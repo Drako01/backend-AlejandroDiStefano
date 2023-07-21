@@ -1,7 +1,6 @@
-import multer from 'multer';
-import path from 'path';
 import Product from '../models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import configureMulter from '../helpers/multer.helpers.js';
 import { Router } from 'express';
 import config from '../server/config.js';
 import loggers from '../server/logger.js'
@@ -34,8 +33,11 @@ router.get('/', async (req, res, next) => {
         const nextLink = productos.length === limit ? `/products?page=${page + 1}` : '';
 
         const allCategories = await Product.distinct('category');
-
-        res.render('products', { productos, prevLink, nextLink, allCategories, user });
+        if (user) {
+            res.render('products', { productos, prevLink, nextLink, allCategories, user });
+        } else {
+            res.render('products', { productos, prevLink, nextLink, allCategories });
+        }
 
     } catch (err) {
         loggers.error(err);
@@ -43,17 +45,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '..', 'public', 'img'));
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        const filename = file.fieldname + '-' + Date.now() + ext;
-        cb(null, filename);
-    }
-});
-const upload = multer({ storage });
+const upload = await configureMulter();
 
 router.post('/', upload.single('thumbnail'), async (req, res) => {
     const { title, category, size, code, description, price, stock } = req.body;
