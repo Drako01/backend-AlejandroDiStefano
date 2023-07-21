@@ -32,7 +32,7 @@ const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${dominio}
 const socketServer = new Server(httpServer)
 
 // Conexión a la base de datos
-import MongoClient from '../daos/MongoClient.js'
+import MongoClient from '../daos/mongo-client.daos.js'
 let client = new MongoClient()
 client.connect()
 
