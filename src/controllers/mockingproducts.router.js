@@ -1,5 +1,5 @@
 import Product from '../models/products.model.js';
-import { generateMockProducts } from '../services/mocking.js';
+import { generateMockProducts } from '../services/mocking.service.js';
 import { Router } from 'express';
 import loggers from '../server/logger.js';
 import { errorMessagesProductosMocking } from '../services/errors/info.js';

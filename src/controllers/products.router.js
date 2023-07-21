@@ -33,11 +33,9 @@ router.get('/', async (req, res, next) => {
         const nextLink = productos.length === limit ? `/products?page=${page + 1}` : '';
 
         const allCategories = await Product.distinct('category');
-        if (user) {
-            res.render('products', { productos, prevLink, nextLink, allCategories, user });
-        } else {
-            res.render('products', { productos, prevLink, nextLink, allCategories });
-        }
+
+        res.render('products', { productos, prevLink, nextLink, allCategories, user });
+        
 
     } catch (err) {
         loggers.error(err);
