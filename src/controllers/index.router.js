@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import { Router } from 'express';
 import Product from '../models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';

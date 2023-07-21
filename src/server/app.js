@@ -37,11 +37,11 @@ let client = new MongoClient()
 client.connect()
 
 // Passport Github
-import initializePassportGH from '../middlewares/passportGithub.js';
+import initializePassportGH from '../middlewares/github.middleware.js';
 initializePassportGH();
 
 // Passport Local
-import initializePassport from '../middlewares/passport.js';
+import initializePassport from '../middlewares/passport.middleware.js';
 initializePassport();
 
 // Configurar el middleware express-session con MongoStore

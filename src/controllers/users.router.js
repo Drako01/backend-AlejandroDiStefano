@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import User from '../models/users.model.js';
-import isAdmin from '../middlewares/isAdmin.js';
+import isAdmin from '../middlewares/admin.middleware.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../server/logger.js'
 import CustomError from '../services/errors/custom_error.js'

@@ -1,5 +1,5 @@
 import Product from '../models/products.model.js';
-import isAdmin from '../middlewares/isAdmin.js';
+import isAdmin from '../middlewares/admin.middleware.js';
 import configureMulter from '../helpers/multer.helpers.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { dirname } from 'path';
