@@ -54,7 +54,8 @@
         <footer class='bottom'>
             <div class='legal'>
                 <p>
-                    &copy; Alejandro Di Stefano | 3er Pre Entrega | Curso de BackEnd en CoderHouse | Comisión #39755
+                    &copy; Alejandro Di Stefano | 3er Pre Entrega | Curso de BackEnd en CoderHouse | Comisión #39755 | Año 
+                    <span id="anio"></span>
                 </p>
             </div>
             <section class='iconos-social links'>
@@ -80,7 +81,14 @@
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
         crossorigin="anonymous"></script>
 
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const spanAnio = document.getElementById("anio");
+            const fechaActual = new Date();
+            const anioActual = fechaActual.getFullYear();
+            spanAnio.textContent = anioActual;
+        });
+    </script>
 </body>
 
 </html>
