@@ -14,4 +14,12 @@
 {"level":"error","message":"GET on /mockingproducts - 19/7/2023 - 13:36:24"}
 {"level":"error","message":"GET on /mockingproducts - 19/7/2023 - 13:38:20"}
 {"level":"error","message":"GET on /img/thumbnail-16835509639272.png - 19/7/2023 - 14:16:06"}
-
+{"level":"error","message":"PUT on /products - 22/7/2023 - 12:01:11"}
+{"level":"error","message":"DELETE on /products - 22/7/2023 - 12:01:19"}
+{"level":"error","message":"GET on /profile - 22/7/2023 - 12:52:30"}
+{"level":"error","message":"GET on /profile - 22/7/2023 - 12:54:38"}
+{"level":"error","message":"GET on /profile - 22/7/2023 - 12:54:54"}
+{"level":"error","message":"GET on /profile - 22/7/2023 - 12:55:13"}
+{"level":"error","message":"GET on /profile - 22/7/2023 - 12:58:40"}
+{"level":"error","message":"GET on /src/public/img/persona.png - 22/7/2023 - 13:08:55"}
+{"level":"error","message":"GET on /src/public/img/persona.png - 22/7/2023 - 13:09:07"}

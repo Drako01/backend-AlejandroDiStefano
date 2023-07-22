@@ -1,7 +1,7 @@
 <div class="container text-center index_div">
     <section class="bienvenida">
         {{#if user}}
-        <h1>Bienvenido <span>{{user.first_name}} {{user.last_name}} {{user.user.first_name }}</span></h1>
+        <h1>Bienvenido <a href="/users/profile"> {{user.first_name}} {{user.last_name}} {{user.user.first_name }} </a> </span></h1>
         {{else}}
         <h1>Bienvenido</h1>
         {{/if}}

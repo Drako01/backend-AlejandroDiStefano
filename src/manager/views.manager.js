@@ -40,6 +40,7 @@ const views = [
     { path: '/checkout', router: checkoutRouter },
     { path: '/users', router: usersRouter },
     { path: '/users/newUser', router: usersRouter },
+    { path: '/users/profile', router: usersRouter },
     { path: '/signupadmin', router: signupAdminRouter },
     { path: '/github', router: loginGithubRouter },
     { path: '/admin_panel', router: admin_panel },

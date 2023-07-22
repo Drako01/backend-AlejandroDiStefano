@@ -50,3 +50,22 @@
     min-width: 8rem;
     width: max-content;
 }
+.usersss{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+}
+.usersss h1{
+    text-align: left;
+}
+.usersss span{
+    color: #111;
+}
+.usersss img{
+    width: 200px;
+    object-fit: cover;
+}

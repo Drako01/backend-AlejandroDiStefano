@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import User from '../models/users.model.js';
 import isAdmin from '../middlewares/admin.middleware.js';
+import isLoggedIn from '../middlewares/login.middleware.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../server/logger.js'
 import CustomError from '../services/errors/custom_error.js'
@@ -20,6 +21,11 @@ router.get('/', isAdmin, async (req, res) => {
         res.status(500).send('Error del servidor');
     }
 });
+
+router.get('/profile', isLoggedIn, (req, res) => {
+    const user = getUserFromToken(req);
+    res.render('profileUser', { user });
+})
 
 router.get('/newUser', isAdmin, (req, res) => {
     const user = getUserFromToken(req);
