@@ -25,7 +25,12 @@
 
 ---
 <br><br>
-# Tener en cuenta que el Servidor arranca con la instrucción: npm run start-server
+
+# Para arrancar:
+
+## npm install
+
+## Tener en cuenta que el Servidor arranca con la instrucción: npm run start-server
 
 <br><br>
 
