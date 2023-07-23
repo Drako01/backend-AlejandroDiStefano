@@ -1,7 +1,7 @@
 import Product from '../daos/models/products.model.js';
 import isAdmin from '../middlewares/admin.middleware.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import loggers from '../server/logger.js'
+import loggers from '../config/logger.js'
 import { Router } from 'express';
 const router = Router();
 

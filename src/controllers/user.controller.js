@@ -1,6 +1,6 @@
 import User from '../daos/models/users.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import loggers from '../server/logger.js'
+import loggers from '../config/logger.js'
 import CustomError from '../services/errors/custom_error.js'
 import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'

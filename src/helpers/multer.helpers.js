@@ -1,6 +1,6 @@
 import multer from 'multer';
 import path from 'path';
-import loggers from '../server/logger.js'
+import loggers from '../config/logger.js'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 

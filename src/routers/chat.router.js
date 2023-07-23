@@ -2,7 +2,7 @@ import { Router } from 'express';
 import Chat from '../daos/models/messages.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import isLoggedIn from '../middlewares/login.middleware.js';
-import loggers from '../server/logger.js'
+import loggers from '../config/logger.js'
 
 const router = Router();
 

@@ -3,8 +3,8 @@ import Cart from '../daos/models/carts.model.js';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import shortid from 'shortid';
-import config from '../server/config.js';
-import loggers from '../server/logger.js'
+import config from '../config/config.js';
+import loggers from '../config/logger.js'
 
 const cokieName = config.jwt.cookieName;
 let user = null;

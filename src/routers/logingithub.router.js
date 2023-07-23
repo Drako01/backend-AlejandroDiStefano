@@ -1,8 +1,8 @@
 import passport from 'passport';
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-import config from '../server/config.js';
-import loggers from '../server/logger.js'
+import config from '../config/config.js';
+import loggers from '../config/logger.js'
 
 const router = Router();
 const cookieName = config.jwt.cookieName;

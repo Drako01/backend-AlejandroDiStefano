@@ -3,10 +3,11 @@ import User from '../daos/models/users.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.middleware.js';
-import config from '../server/config.js';
-import loggers from '../server/logger.js'
+import config from '../config/config.js';
+import loggers from '../config/logger.js'
 import { getUserFromCookiesController } from '../controllers/user.controller.js';
 const router = Router();
+
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;
 

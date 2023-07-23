@@ -3,8 +3,8 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 import User from '../daos/models/users.model.js';
 import jwt from 'jsonwebtoken';
-import config from '../server/config.js';
-import loggers from '../server/logger.js'
+import config from '../config/config.js';
+import loggers from '../config/logger.js'
 
 const secret = config.jwt.privateKey;
 

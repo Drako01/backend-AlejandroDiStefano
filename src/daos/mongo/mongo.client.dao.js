@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import config from "../../server/config.js";
-import loggers from '../../server/logger.js'
+import config from '../../config/config.js';
+import loggers from '../../config/logger.js'
 
 const mongoConnection = config.db.mongo_connection;
 const mongoDatabase = config.db.mongo_database;

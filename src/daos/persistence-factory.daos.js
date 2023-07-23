@@ -1,4 +1,4 @@
-import config from "../server/config.js";
+import config from '../config/config.js';
 
 export let Product
 export let Cart

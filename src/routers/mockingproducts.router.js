@@ -1,7 +1,7 @@
 import Product from '../daos/models/products.model.js';
 import { generateMockProducts } from '../services/mocking.service.js';
 import { Router } from 'express';
-import loggers from '../server/logger.js';
+import loggers from '../config/logger.js';
 import { errorMessagesProductosMocking } from '../services/errors/info.js';
 import CustomError from '../services/errors/custom_error.js';
 import EErrors from '../services/errors/enums.js';

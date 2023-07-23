@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import config from '../server/config.js';
+import config from '../config/config.js';
 
 const router = Router();
 const cookieName = config.jwt.cookieName;

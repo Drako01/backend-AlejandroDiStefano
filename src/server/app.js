@@ -1,6 +1,6 @@
 import express from 'express';
 import { Server } from 'socket.io';
-import config from './config.js';
+import config from '../config/config.js';
 import compression from 'express-compression';
 import errorHandler from '../middlewares/error.middleware.js'
 
@@ -25,7 +25,7 @@ program
 program.parse();
 
 //Server Up
-import loggers from './logger.js'
+import loggers from '../config/logger.js'
 let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
 const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
 const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${dominio}:${port}`))
@@ -91,7 +91,7 @@ function setupRoutes(app, routes) {
 setupRoutes(app, views);
 
 // Error 404
-import { loggermid } from './utils.js'
+import { loggermid } from '../config/utils.js'
 app.use(loggermid)
 
 import { getUserFromToken } from '../middlewares/user.middleware.js';
@@ -108,7 +108,7 @@ import cors from 'cors';
 app.use(cors())
 
 //Chat Socket
-import chatApp from './chat.app.js';
+import chatApp from '../config/chat.app.js';
 chatApp(socketServer);
 
 // Test de Logger para probar todos los niveles de logs

@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Router } from 'express';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import loggers from '../server/logger.js'
+import loggers from '../config/logger.js'
 const router = Router();
 
 

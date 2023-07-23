@@ -1,6 +1,6 @@
 import Product from '../daos/models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import loggers from '../server/logger.js'
+import loggers from '../config/logger.js'
 
 
 export const getTableProductsController = async (req, res) => {

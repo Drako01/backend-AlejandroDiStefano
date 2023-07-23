@@ -1,5 +1,5 @@
 import EErros from "../services/errors/enums.js";
-import logger from "../server/config.js";
+import logger from "../config/logger.js";
 
 export default (error, req, res, next) => {
     logger.error(error.name);

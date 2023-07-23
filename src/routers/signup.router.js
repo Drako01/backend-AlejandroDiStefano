@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Router } from 'express';
-import loggers from '../server/logger.js'
+import loggers from '../config/logger.js'
 const router = Router();
 
 

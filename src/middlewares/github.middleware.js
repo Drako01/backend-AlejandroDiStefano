@@ -2,8 +2,8 @@ import passport from 'passport';
 import GitHubStrategy from 'passport-github2';
 import Users from '../daos/models/users.model.js';
 import jwt from 'jsonwebtoken';
-import config from '../server/config.js';
-import loggers from '../server/logger.js'
+import config from '../config/config.js';
+import loggers from '../config/logger.js'
 
 // Variables de entorno
 const secret = config.jwt.privateKey;
