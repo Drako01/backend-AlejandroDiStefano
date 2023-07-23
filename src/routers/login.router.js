@@ -5,12 +5,12 @@ import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.middleware.js';
 import config from '../server/config.js';
 import loggers from '../server/logger.js'
-
+import { getUserFromCookiesController } from '../controllers/user.controller.js';
 const router = Router();
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.render('login');
 });
 
@@ -45,27 +45,6 @@ router.post('/', async (req, res) => {
 });
 
 // Ruta para obtener los datos del usuario almacenados en la cookie
-router.get('/user', (req, res) => {
-    const userToken = req.cookies[cookieName];
-    
-    if (!userToken) {
-        return res.status(401).render('error/notLoggedIn');
-    }
-
-    try {
-        const decodedToken = jwt.verify(userToken, cookieName);
-        const userId = decodedToken.userId;
-        User.findById(userId, (err, user) => {
-            if (err || !user) {
-                return res.status(404).render('error/error404');
-            }
-
-            return res.status(200).redirect('/');
-        });
-    } catch (err) {
-        loggers.error(err);
-        return res.status(500).render( 'Internal server error' );
-    }
-});
+router.get('/user', getUserFromCookiesController) 
 
 export default router;

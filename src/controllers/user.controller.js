@@ -1,16 +1,13 @@
-import { Router } from 'express';
 import User from '../daos/models/users.model.js';
-import isAdmin from '../middlewares/admin.middleware.js';
-import isLoggedIn from '../middlewares/login.middleware.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../server/logger.js'
 import CustomError from '../services/errors/custom_error.js'
 import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
-const router = Router();
+
 
 // Ruta para crear un nuevo usuario
-router.get('/', isAdmin, async (req, res) => {
+export const getAllUsersController = async (req, res) => {
     const user = getUserFromToken(req);
     try {
         const users = await User.find();
@@ -20,20 +17,16 @@ router.get('/', isAdmin, async (req, res) => {
         loggers.error(err);
         res.status(500).send('Error del servidor');
     }
-});
-
-router.get('/profile', isLoggedIn, (req, res) => {
+};
+export const getProfileUsersController = async (req, res) => {
     const user = getUserFromToken(req);
     res.render('profileUser', { user });
-})
-
-router.get('/newUser', isAdmin, (req, res) => {
+}
+export const getNewUserTest = async (req, res) => {
     const user = getUserFromToken(req);
     res.render('newUser', { user });
-})
-
-// Ruta para crear un nuevo usuario
-router.post('/newUser', (req, res) => {
+}
+export const createNewUserTest = async (req, res) => {
     const users = [];
     loggers.info('req.body:', req.body);
     const user = req.body;
@@ -56,10 +49,8 @@ router.post('/newUser', (req, res) => {
 
     users.push(user);
     res.redirect('/users');
-});
-
-
-router.get('/edit/:id', isAdmin, async (req, res) => {
+};
+export const getUserForEditByIdController = async (req, res) => {
     try {
         const userId = req.params.id;
         let user = await User.findById(userId);
@@ -75,10 +66,8 @@ router.get('/edit/:id', isAdmin, async (req, res) => {
         loggers.error(err);
         res.status(500).send('Error del servidor');
     }
-});
-
-// Ruta para editar un usuario
-router.post('/edit/:id', isAdmin, async (req, res) => {
+};
+export const editUserByIdController = async (req, res) => {
     try {
         const userId = req.params.id;
         const { first_name, last_name, email, phone, age, role } = req.body;
@@ -101,12 +90,8 @@ router.post('/edit/:id', isAdmin, async (req, res) => {
         loggers.error(err);
         res.status(500).send('Error del servidor');
     }
-});
-
-
-
-// Ruta para eliminar un usuario
-router.get('/delete/:id', isAdmin, async (req, res) => {
+};
+export const deleteUserByIdController = async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await User.findById(userId);
@@ -123,7 +108,27 @@ router.get('/delete/:id', isAdmin, async (req, res) => {
         loggers.error(err);
         res.status(500).send('Error del servidor');
     }
-});
+};
+export const getUserFromCookiesController = async (req, res) => {
+    const userToken = req.cookies[cookieName];
+    
+    if (!userToken) {
+        return res.status(401).render('error/notLoggedIn');
+    }
 
+    try {
+        const decodedToken = jwt.verify(userToken, cookieName);
+        const userId = decodedToken.userId;
+        User.findById(userId, (err, user) => {
+            if (err || !user) {
+                return res.status(404).render('error/error404');
+            }
 
-export default router
+            return res.status(200).redirect('/');
+        });
+    } catch (err) {
+        loggers.error(err);
+        return res.status(500).render( 'Internal server error' );
+    }
+};
+

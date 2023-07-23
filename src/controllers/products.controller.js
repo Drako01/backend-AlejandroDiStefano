@@ -115,3 +115,15 @@ export const getProductByCategoryController = async (req, res, next) => {
         next(err);
     }
 };
+
+export const getProductByIdController = async (req, res) => {
+    const productId = req.params.pid;
+    const product = await Product.findById(productId).lean();
+    const user = getUserFromToken(req);
+    const adminRole = user ? user.role === 'admin' : false;
+    if (product) {
+        res.render('productsid', { product, user, adminRole });
+    } else {
+        res.status(404).render('error/error404', { user });
+    }
+};

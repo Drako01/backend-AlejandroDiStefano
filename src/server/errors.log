@@ -26,3 +26,14 @@
 {"level":"error","message":"GET on /carts - 22/7/2023 - 16:55:04"}
 {"level":"error","message":"GET on /carts - 22/7/2023 - 16:55:19"}
 {"level":"error","message":"GET on /productsdeletebyid/64772e4174fb44a6317829ca/delete - 23/7/2023 - 01:44:20"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:22:33"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:22:59"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:23:04"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:23:35"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:25:07"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:25:26"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:25:39"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:28:25"}
+{"level":"error","message":"GET on /administrator/productstable - 23/7/2023 - 09:28:48"}
+{"level":"error","message":"GET on /productstable/administrator - 23/7/2023 - 09:29:50"}
+{"level":"error","message":"GET on /productstable/administrator - 23/7/2023 - 09:30:42"}

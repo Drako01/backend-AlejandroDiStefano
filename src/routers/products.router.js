@@ -3,8 +3,8 @@ import {
     getAllProductsController,
     getProductByCategoryController,
     createProductController,    
+    getProductByIdController
 } from '../controllers/products.controller.js'
-import { getProductByIdController } from '../controllers/productsid.controller.js'
 
 
 const router = Router()

@@ -1,21 +1,20 @@
 // Rutas
 import productRouter from '../routers/products.router.js';
-import mockingproductsRouter from '../controllers/mockingproducts.controller.js';
-import productsEditRouter from '../controllers/productseditid.controller.js';
+import mockingproductsRouter from '../routers/mockingproducts.router.js';
+import productsEditRouter from '../routers/productseditid.router.js';
 import productsdeletebyidRouter from '../routers/products.admin.router.js';
-import productsTableRouter from '../controllers/productstable.controller.js';
+import productsTableRouter from '../routers/productstable.router.js';
 import cartRouter from '../routers/carts.router.js';
-import cartDeleteByIdRouter from '../controllers/cartsDeleteById.controller.js';
-import indexRouter from '../controllers/index.controller.js';
+import indexRouter from '../routers/index.router.js';
 import chatRouter from '../routers/chat.router.js';
-import productsInRealTimeRouter from '../controllers/productsInRealTime.controller.js';
+import productsInRealTimeRouter from '../routers/productsInRealTime.router.js';
 import productsEditByIdRouter from '../routers/products.admin.router.js';
 import loginRouter from '../routers/login.router.js';
 import loginGithubRouter from '../routers/logingithub.router.js';
 import singupRouter from '../routers/signup.router.js';
 import logoutRouter from '../routers/logout.router.js';
-import checkoutRouter from '../controllers/checkout.controller.js';
-import usersRouter from '../controllers/users.controller.js';
+import checkoutRouter from '../routers/checkout.router.js';
+import usersRouter from '../routers/users.router.js';
 import signupAdminRouter from '../routers/signupadmin.router.js';
 import admin_panel from '../routers/products.admin.router.js';
 
@@ -35,7 +34,7 @@ const views = [
     { path: '/signup', router: singupRouter },
     { path: '/logout', router: logoutRouter },
     { path: '/realTimeProducts', router: productsInRealTimeRouter },
-    { path: '/cartsDeleteById', router: cartDeleteByIdRouter },
+    { path: '/cartsDeleteById', router: cartRouter },
     { path: '/checkout', router: checkoutRouter },
     { path: '/users', router: usersRouter },
     { path: '/users/newUser', router: usersRouter },

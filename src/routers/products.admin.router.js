@@ -1,12 +1,11 @@
 import { Router } from 'express'
 import { 
-    deleteProductByIdController 
-} from '../controllers/productsdeletebyid.controller.js'
-import {
+    deleteProductByIdController,
     editProductByIdController,
-    editAndChargeProductByIdController
-} from '../controllers/productseditbyid.controller.js'
-import { adminPanelController } from '../controllers/adminPanel.controller.js'
+    editAndChargeProductByIdController,
+    adminPanelController
+} from '../controllers/products.admin.controller.js'
+
 import isAdmin from '../middlewares/admin.middleware.js';
 const router = Router()
 
