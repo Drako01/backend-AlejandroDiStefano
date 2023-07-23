@@ -1,0 +1,8 @@
+config:
+  target: "http://localhost:8080" # 
+
+scenarios:
+  - name: "Prueba de rendimiento"
+    flow:
+      - get:
+          url: "/products"
