@@ -1,13 +1,11 @@
-import { Router } from 'express';
-import Product from '../models/products.model.js';
-import Cart from '../models/carts.model.js';
+import Product from '../daos/models/products.model.js';
+import Cart from '../daos/models/carts.model.js';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import shortid from 'shortid';
 import config from '../server/config.js';
 import loggers from '../server/logger.js'
 
-const router = Router();
 const cokieName = config.jwt.cookieName;
 let user = null;
 let userEmail = null;
@@ -34,7 +32,7 @@ export async function getOrCreateCart(userEmail = null) {
 }
 
 // Visualizar el Carrito
-router.get('/', async (req, res) => {
+export const createCartController = async (req, res) => {
     user = getUserFromToken(req);
     try {
         const { sortOption } = req.query;
@@ -95,10 +93,10 @@ router.get('/', async (req, res) => {
         loggers.error(err);
         res.status(500).render('error/notCart');
     }
-});
+};
 
 // Vaciar el carrito por su ID
-router.post('/:cartId/vaciar', async (req, res) => {
+export const clearCartByid = async (req, res) => {
     const userToken = req.cookies[cokieName];
 
     if (userToken) {
@@ -123,10 +121,10 @@ router.post('/:cartId/vaciar', async (req, res) => {
         loggers.error(err);
         res.status(500).render('Error al vaciar el carrito');
     }
-});
+};
 
 // Eliminar el carrito de la base de datos
-router.post('/:cartId/eliminar', async (req, res) => {
+export const deleteCartById = async (req, res) => {
     const userToken = req.cookies[cokieName];
 
     if (userToken) {
@@ -147,10 +145,10 @@ router.post('/:cartId/eliminar', async (req, res) => {
         loggers.error(err);
         res.status(500).render('Error al vaciar el carrito');
     }
-});
+};
 
 // Actualizar la cantidad de un producto en el carrito
-router.put('/:cartId/:itemId', async (req, res) => {
+export const updateProductsToCartById = async (req, res) => {
     const userToken = req.cookies[cokieName];
 
     if (userToken) {
@@ -182,10 +180,10 @@ router.put('/:cartId/:itemId', async (req, res) => {
         loggers.error(err);
         res.status(500).render('Error al actualizar la cantidad del producto');
     }
-});
+};
 
 // Agregar productos al carrito
-router.post('/:pid', async (req, res) => {
+export const addProductToCartController = async (req, res) => {
     try {
         const userToken = req.cookies[cokieName];
 
@@ -213,6 +211,6 @@ router.post('/:pid', async (req, res) => {
         loggers.error(err);
         res.status(500).redirect('/login');
     }
-});
+};
 
-export default router;
+

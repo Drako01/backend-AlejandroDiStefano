@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import Cart from '../models/carts.model.js';
+import Cart from '../daos/models/carts.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import Producto from '../models/products.model.js';
+import Producto from '../daos/models/products.model.js';
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import twilio from 'twilio';

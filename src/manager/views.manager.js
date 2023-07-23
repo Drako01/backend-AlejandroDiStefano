@@ -1,24 +1,23 @@
 // Rutas
-import productRouter from '../controllers/products.router.js';
-import mockingproductsRouter from '../controllers/mockingproducts.router.js';
-import productsEditRouter from '../controllers/productseditid.router.js';
-import productsdeletebyidRouter from '../controllers/productsdeletebyid.router.js';
-import productsIdRouter from '../controllers/productsid.router.js';
-import productsTableRouter from '../controllers/productstable.router.js';
-import cartRouter from '../controllers/carts.router.js';
-import cartDeleteByIdRouter from '../controllers/cartsDeleteById.router.js';
-import indexRouter from '../controllers/index.router.js';
-import chatRouter from '../controllers/chat.router.js';
-import productsInRealTimeRouter from '../controllers/productsInRealTime.js';
-import productsEditByIdRouter from '../controllers/productseditbyid.router.js';
-import loginRouter from '../controllers/login.router.js';
-import loginGithubRouter from '../controllers/logingithub.router.js';
-import singupRouter from '../controllers/signup.router.js';
-import logoutRouter from '../controllers/logout.router.js';
-import checkoutRouter from '../controllers/checkout.router.js';
-import usersRouter from '../controllers/users.router.js';
-import signupAdminRouter from '../controllers/signupadmin.router.js';
-import admin_panel from '../controllers/adminPanel.router.js';
+import productRouter from '../routers/products.router.js';
+import mockingproductsRouter from '../controllers/mockingproducts.controller.js';
+import productsEditRouter from '../controllers/productseditid.controller.js';
+import productsdeletebyidRouter from '../routers/products.admin.router.js';
+import productsTableRouter from '../controllers/productstable.controller.js';
+import cartRouter from '../routers/carts.router.js';
+import cartDeleteByIdRouter from '../controllers/cartsDeleteById.controller.js';
+import indexRouter from '../controllers/index.controller.js';
+import chatRouter from '../routers/chat.router.js';
+import productsInRealTimeRouter from '../controllers/productsInRealTime.controller.js';
+import productsEditByIdRouter from '../routers/products.admin.router.js';
+import loginRouter from '../routers/login.router.js';
+import loginGithubRouter from '../routers/logingithub.router.js';
+import singupRouter from '../routers/signup.router.js';
+import logoutRouter from '../routers/logout.router.js';
+import checkoutRouter from '../controllers/checkout.controller.js';
+import usersRouter from '../controllers/users.controller.js';
+import signupAdminRouter from '../routers/signupadmin.router.js';
+import admin_panel from '../routers/products.admin.router.js';
 
 // Vistas
 const views = [
@@ -29,7 +28,7 @@ const views = [
     { path: '/productsdeletebyid', router: productsdeletebyidRouter },
     { path: '/productsedit', router: productsEditRouter },
     { path: '/productseditbyid', router: productsEditByIdRouter },
-    { path: '/productsid', router: productsIdRouter },
+    { path: '/productsid', router: productRouter },
     { path: '/carts', router: cartRouter },
     { path: '/chat', router: chatRouter },
     { path: '/login', router: loginRouter },

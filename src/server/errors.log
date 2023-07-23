@@ -23,3 +23,6 @@
 {"level":"error","message":"GET on /profile - 22/7/2023 - 12:58:40"}
 {"level":"error","message":"GET on /src/public/img/persona.png - 22/7/2023 - 13:08:55"}
 {"level":"error","message":"GET on /src/public/img/persona.png - 22/7/2023 - 13:09:07"}
+{"level":"error","message":"GET on /carts - 22/7/2023 - 16:55:04"}
+{"level":"error","message":"GET on /carts - 22/7/2023 - 16:55:19"}
+{"level":"error","message":"GET on /productsdeletebyid/64772e4174fb44a6317829ca/delete - 23/7/2023 - 01:44:20"}

@@ -1,4 +1,4 @@
-import Product from '../models/products.model.js';
+import Product from '../daos/models/products.model.js';
 import { generateMockProducts } from '../services/mocking.service.js';
 import { Router } from 'express';
 import loggers from '../server/logger.js';

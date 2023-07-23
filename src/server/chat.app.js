@@ -1,4 +1,4 @@
-import Messages from '../models/messages.model.js';
+import Messages from '../daos/models/messages.model.js';
 import loggers from './logger.js'
 
 const chatApp = (socketServer) => {

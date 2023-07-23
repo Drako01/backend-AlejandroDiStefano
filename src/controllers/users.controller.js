@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import User from '../models/users.model.js';
+import User from '../daos/models/users.model.js';
 import isAdmin from '../middlewares/admin.middleware.js';
 import isLoggedIn from '../middlewares/login.middleware.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';

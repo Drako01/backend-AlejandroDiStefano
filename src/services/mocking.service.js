@@ -1,4 +1,4 @@
-import Product from '../models/products.model.js';
+import Product from '../daos/models/products.model.js';
 
 export const generateMockProducts = async () => {
     try {

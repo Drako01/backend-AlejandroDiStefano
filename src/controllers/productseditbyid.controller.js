@@ -1,19 +1,9 @@
-import Product from '../models/products.model.js';
-import isAdmin from '../middlewares/admin.middleware.js';
-import configureMulter from '../helpers/multer.helpers.js';
+import Product from '../daos/models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { Router } from 'express';
 import loggers from '../server/logger.js'
 
-const router = Router();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
-const upload = await configureMulter();
-
-router.get('/:pid', isAdmin, async (req, res) => {
+export const editProductByIdController = async (req, res) => {
     const user = getUserFromToken(req);
     try {
         const productId = req.params.pid;
@@ -28,10 +18,10 @@ router.get('/:pid', isAdmin, async (req, res) => {
         loggers.error(error);
         res.status(500).render('error/notProduct' , { user })
     }
-});
+};
 
 
-router.post('/:id', upload.single('thumbnail'), async (req, res) => {
+export const editAndChargeProductByIdController = async (req, res) => {
     try {
         const productId = req.params.id;
         const { title, category, size, code, description, price, stock } = req.body;
@@ -52,8 +42,4 @@ router.post('/:id', upload.single('thumbnail'), async (req, res) => {
         loggers.error(error);
         res.status(500).render('error/notProduct' , { user })
     }
-});
-
-
-export default router
-
+};

@@ -1,11 +1,9 @@
-import { Router } from 'express';
-import Product from '../models/products.model.js';
+import Product from '../daos/models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../server/logger.js'
 
-const router = Router();
 
-router.get('/', async (req, res) => {
+export const adminPanelController = async (req, res) => {
     const products = await Product.find().lean();    
     try {
         const user = getUserFromToken(req); 
@@ -17,6 +15,4 @@ router.get('/', async (req, res) => {
         loggers.error(`Error al obtener los datos solicitados de la base de datos: ${error}`);
         return res.status(403).render('error/notAuthorized');
     }
-});
-
-export default router;
+};

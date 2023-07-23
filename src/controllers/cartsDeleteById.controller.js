@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Cart from '../models/carts.model.js';
+import Cart from '../daos/models/carts.model.js';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../server/logger.js'

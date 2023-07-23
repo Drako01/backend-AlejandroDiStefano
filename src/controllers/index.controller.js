@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Product from '../models/products.model.js';
+import Product from '../daos/models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../server/config.js';
 import loggers from '../server/logger.js'

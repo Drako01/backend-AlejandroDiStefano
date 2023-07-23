@@ -1,16 +1,10 @@
-import Product from '../models/products.model.js';
+import Product from '../daos/models/products.model.js';
 import isAdmin from '../middlewares/admin.middleware.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import configureMulter from '../helpers/multer.helpers.js';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
 import loggers from '../server/logger.js'
 import { Router } from 'express';
 const router = Router();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const upload = await configureMulter();
 
 

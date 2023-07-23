@@ -32,7 +32,7 @@ const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${dominio}
 const socketServer = new Server(httpServer)
 
 // Conexión a la base de datos
-import MongoClient from '../daos/mongo-client.daos.js'
+import MongoClient from '../daos/mongo/mongo.client.dao.js'
 let client = new MongoClient()
 client.connect()
 
@@ -112,5 +112,5 @@ import chatApp from './chat.app.js';
 chatApp(socketServer);
 
 // Test de Logger para probar todos los niveles de logs
-import loggerTest from '../test/logger.test.js';
-loggerTest();
+// import loggerTest from '../test/logger.test.js';
+// loggerTest();

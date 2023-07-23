@@ -1,4 +1,4 @@
-import Product from '../models/products.model.js';
+import Product from '../daos/models/products.model.js';
 import isAdmin from '../middlewares/admin.middleware.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { Router } from 'express';

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import User from '../models/users.model.js';
+import User from '../daos/models/users.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.middleware.js';

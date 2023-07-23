@@ -1,16 +1,14 @@
-import Product from '../models/products.model.js';
+import Product from '../daos/models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import configureMulter from '../helpers/multer.helpers.js';
-import { Router } from 'express';
 import config from '../server/config.js';
 import loggers from '../server/logger.js'
 
-const router = Router();
 const cookieName = config.jwt.cookieName;
 
 
 let user = null;
-router.get('/', async (req, res, next) => {
+// Obtener todos los productos
+export const getAllProductsController = async (req, res, next) => {
     try {
         const userToken = req.cookies[cookieName];
         if (userToken) {
@@ -41,11 +39,10 @@ router.get('/', async (req, res, next) => {
         loggers.error(err);
         next(err);
     }
-});
+};
 
-const upload = await configureMulter();
-
-router.post('/', upload.single('thumbnail'), async (req, res) => {
+// Crear un producto
+export const createProductController = async (req, res) => {
     const { title, category, size, code, description, price, stock } = req.body;
     if (!title) {
         return res.status(400).send('El campo "title" es obligatorio');
@@ -81,9 +78,10 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
         loggers.error(err);
         res.status(500).render('Error al guardar el producto en la base de datos');
     }
-});
+};
 
-router.get('/filter/:category', async (req, res, next) => {
+// Obtener un producto por Category
+export const getProductByCategoryController = async (req, res, next) => {
     try {
         const userToken = req.cookies[cookieName];
         if (userToken) {
@@ -116,7 +114,4 @@ router.get('/filter/:category', async (req, res, next) => {
         loggers.error(err);
         next(err);
     }
-});
-
-
-export default router;
+};
