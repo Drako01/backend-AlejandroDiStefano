@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import config from '../config/config.js';
+import {getLogoutController} from '../controllers/sessions.controller.js';
+
 
 const router = Router();
-const cookieName = config.jwt.cookieName;
 
-router.get('/', async (req, res) => {
-    res.clearCookie(cookieName); 
-    res.redirect('/');
-});
+router.get('/', getLogoutController);
 
 export default router;
 

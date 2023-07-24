@@ -3,9 +3,13 @@ import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import Cart from '../daos/models/carts.model.js';
+import { errorMessagesProductosMocking } from '../services/errors/info.js';
+import CustomError from '../services/errors/custom_error.js';
+import EErrors from '../services/errors/enums.js';
 import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js';
 import { sendSMS } from '../helpers/twilio.helpers.js';
 
+import { generateMockProducts } from '../services/mocking.service.js';
 const cookieName = config.jwt.cookieName;
 
 export const getIndexProductsController = async (req, res) => {
@@ -235,5 +239,41 @@ export const sendPurchaseController = async (req, res) => {
     } catch (err) {
         loggers.error(err);
         res.status(500).render('Error al procesar la compra');
+    }
+}
+
+export const getMockingProductsController = async (req, res, next) => {
+    try {
+        await generateMockProducts();
+
+        // Obtener los productos generados
+        const products = await Product.find().limit(100);
+
+        res.json({ products });
+    } catch (err) {
+        loggers.error('Error al generar productos de prueba:', err);
+
+        const customError = new CustomError(
+            errorMessagesProductosMocking.internalServerError,
+            EErrors.InternalServerError
+        );
+
+        next(customError);
+    }
+}
+
+export const getProductForEditByIdController = async (req, res) => {
+    const productId = req.params.pid;
+    const user = getUserFromToken(req);
+    try {
+        const producto = await Product.findById(productId).lean();
+        if (producto) {
+            res.render('productsedit', { producto, user});
+        } else {
+            res.status(404).render('error/error404', { user });
+        }
+    } catch (error) {
+        loggers.error(error);
+        res.status(500).render('error/notProduct' , { user })
     }
 }

@@ -109,26 +109,5 @@ export const deleteUserByIdController = async (req, res) => {
         res.status(500).send('Error del servidor');
     }
 };
-export const getUserFromCookiesController = async (req, res) => {
-    const userToken = req.cookies[cookieName];
-    
-    if (!userToken) {
-        return res.status(401).render('error/notLoggedIn');
-    }
 
-    try {
-        const decodedToken = jwt.verify(userToken, cookieName);
-        const userId = decodedToken.userId;
-        User.findById(userId, (err, user) => {
-            if (err || !user) {
-                return res.status(404).render('error/error404');
-            }
-
-            return res.status(200).redirect('/');
-        });
-    } catch (err) {
-        loggers.error(err);
-        return res.status(500).render( 'Internal server error' );
-    }
-};
 
