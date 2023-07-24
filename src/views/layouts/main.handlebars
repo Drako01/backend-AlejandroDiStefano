@@ -21,7 +21,17 @@
         </li>
         <li class="nav-item">
             <a class="nav-link{{#ifEqual cart.length 0}} disabled{{/ifEqual}}" href="/carts">Carrito</a>
+        </li>        
+        {{#if user.role}}
+        {{#ifEqual user.role "admin"}}
+        <li class="nav-item">
+            <a class="nav-link green" href="/admin_panel">Panel Administrador</a>
         </li>
+        <li class="nav-item ">
+            <a class="nav-link violet" href="/docs">Documentar API con Swagger</a>
+        </li>
+        {{/ifEqual}}
+        {{/if}}
         {{#if user}}
         <li class="nav-item ">
             <a class="nav-link red" href="/logout">Logout</a>
@@ -29,18 +39,6 @@
         {{else}}
         <li class="nav-item">
             <a class="nav-link green" href="/login">Login</a>
-        </li>
-        {{/if}}
-        {{#if user.role}}
-        {{#ifEqual user.role "admin"}}
-        <li class="nav-item">
-            <a class="nav-link green" href="/admin_panel">Panel Administrador</a>
-        </li>
-        {{/ifEqual}}
-        {{/if}}
-        {{#if user}}
-        <li class="nav-item ">
-            <a class="nav-link violet" href="/docs">Documentar API con Swagger</a>
         </li>
         {{/if}}
     </ul>
