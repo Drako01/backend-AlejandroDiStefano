@@ -1,6 +1,5 @@
-
-import isAdmin from '../middlewares/admin.middleware.js';
 import { Router } from 'express';
+import isAdmin from '../middlewares/admin.middleware.js';
 import { getTableProductsController } from '../controllers/products.admin.controller.js';
 
 
