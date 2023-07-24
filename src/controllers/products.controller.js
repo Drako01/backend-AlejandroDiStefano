@@ -2,6 +2,9 @@ import Product from '../daos/models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
+import Cart from '../daos/models/carts.model.js';
+import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js';
+import { sendSMS } from '../helpers/twilio.helpers.js';
 
 const cookieName = config.jwt.cookieName;
 
@@ -154,3 +157,83 @@ export const getProductByIdController = async (req, res) => {
         res.status(404).render('error/error404', { user });
     }
 };
+
+export const getPurchaseController = async (req, res) => {
+    try {
+        const user = getUserFromToken(req);
+        const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
+
+        if (!cart) {
+            res.status(404).render('error/error404', { user });
+            return;
+        }
+
+        const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+
+        res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
+    } catch (err) {
+        loggers.error(err);
+        res.status(500).render('Error al procesar la compra');
+    }
+}
+
+export const sendPurchaseController = async (req, res) => {
+    try {
+        const user = getUserFromToken(req);
+        const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
+
+        if (!cart) {
+            res.status(404).render('error/error404', { user });
+            return;
+        }
+
+        // Crear un nuevo array con los productos que tienen stock suficiente
+        const productsWithSufficientStock = [];
+
+        // Checkear el stock de cada producto en el carrito
+        for (const item of cart.items) {
+            try {
+                const product = await Product.findById(item.producto._id);
+                if (!product) {
+                    loggers.warning(`Producto no encontrado con el id: ${item.producto._id}`);
+                    continue;
+                }
+
+                const newStock = product.stock - item.cantidad;
+                if (newStock >= 0) {
+                    // Si hay stock suficiente, agregar el producto al nuevo array y actualizar el stock
+                    productsWithSufficientStock.push(item);
+                    product.stock = newStock;
+                    await product.save();
+                } else {
+                    // Si no hay stock suficiente, mostrar un mensaje de error y actualizar el stock
+                    loggers.warning(`El producto: ${product.title} esta fuera de stock.!`);
+                    product.stock += (item.cantidad - product.stock);
+                    await product.save();
+                }
+            } catch (err) {
+                loggers.error('Error al actualizar el stock', err);
+            }
+        }
+
+        // Actualizar el carrito con los productos que tienen stock suficiente
+        cart.items = productsWithSufficientStock;
+
+        // Chequear si quedaron productos en el carrito
+        if (cart.items.length === 0) {
+            // Error: no hay stock suficiente para ninguno de los productos del carrito
+            res.render('error/notStock', { user, products: cart.items.map((item) => item.producto) });
+            return;
+        }
+
+        // Enviar el correo electrónico de confirmación de compra
+        await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
+        //await sendSMS(user.phone); // Descomentar para enviar un SMS
+
+        const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+        res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
+    } catch (err) {
+        loggers.error(err);
+        res.status(500).render('Error al procesar la compra');
+    }
+}
