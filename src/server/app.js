@@ -3,6 +3,7 @@ import { Server } from 'socket.io';
 import config from '../config/config.js';
 import compression from 'express-compression';
 import errorHandler from '../middlewares/error.middleware.js'
+import loggers from '../config/logger.js'
 
 const app = express();
 
@@ -23,13 +24,6 @@ program
     .option('--mode <mode>', 'Puerto', 'prod')
     .option('--database <database>', 'Base de Datos', 'atlas')
 program.parse();
-
-//Server Up
-import loggers from '../config/logger.js'
-let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
-const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
-const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${dominio}:${port}`))
-const socketServer = new Server(httpServer)
 
 // Conexión a la base de datos
 import MongoClient from '../daos/mongo/mongo.client.dao.js'
@@ -90,27 +84,60 @@ function setupRoutes(app, routes) {
 }
 setupRoutes(app, views);
 
+import { getUserFromToken } from '../middlewares/user.middleware.js';
+// Excepción para la ruta /apidocs/
+app.use('/docs', (req, res, next) => next());
+
+
+const swaggerUrl = ['/docs', '/docs/', '/docs/swagger-ui.css', '/docs/swagger-ui-init.js', '/docs/swagger-ui-bundle.js', '/docs/swagger-ui-standalone-preset.js', '/docs/favicon-32x32.png', '/docs/favicon-16x16.png'];
+
 // Error 404
 import { loggermid } from '../config/utils.js'
 app.use(loggermid)
 
-import { getUserFromToken } from '../middlewares/user.middleware.js';
-app.get('*', (req, res) => {
-    loggers.error(`Intentaron ingresar a una Pagina No Existente.!! 
-        Error 404 | Método: ${req.method} en la URL: ${dominio}:${port}${req.url}`)
-    const user = getUserFromToken(req);
-    (!user) ? res.status(404).render('error/error404') :
-        res.status(404).render('error/error404', { user });
-});
+function validateSwaggerRoutes(req, res, next) {
+    const requestedPath = req.path;
+    if (swaggerUrl.includes(requestedPath)) {
+        next();
+    } else {
+        loggers.error(`Intentaron ingresar a una Pagina No Existente.!! 
+            Error 404 | Método: ${req.method} en la URL: ${dominio}:${port}${req.url}`);
+        const user = getUserFromToken(req);
+        (!user) ? res.status(404).render('error/error404') :
+            res.status(404).render('error/error404', { user });
+    }
+}
+app.use(validateSwaggerRoutes);
+
 
 // Configuracion de Cors
 import cors from 'cors';
 app.use(cors())
 
-//Chat Socket
-import chatApp from '../config/chat.app.js';
-chatApp(socketServer);
 
 // Test de Logger para probar todos los niveles de logs
 // import loggerTest from '../test/logger.test.js';
 // loggerTest();
+
+
+// Configuracion de Swagger
+import swaggerUiExpress from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import { swaggerOptions } from '../manager/swagger.manager.js';
+const specs = swaggerJsdoc(swaggerOptions);
+
+app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
+loggers.http('Swagger corriendo en: ' + swaggerOptions.definition.servers[0].url);
+
+
+
+//Server Up
+let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
+const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
+const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${dominio}:${port}`))
+const socketServer = new Server(httpServer)
+
+//Chat Socket
+import chatApp from '../config/chat.app.js';
+chatApp(socketServer);

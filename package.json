@@ -1,6 +1,6 @@
 {
   "name": "backend-alejandrodistefano",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "type": "module",
   "description": "eCommerce para Venta de Productos de Tenis",
   "main": "start.js",
@@ -49,6 +49,8 @@
     "shortid": "^2.2.16",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "sweetalert2": "^11.7.5",
     "twilio": "^4.13.0",
     "uuid": "^9.0.0",

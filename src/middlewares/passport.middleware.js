@@ -16,9 +16,10 @@ export const generateToken = (user) => {
         first_name: user.first_name,
         last_name: user.last_name,
         role: user.role,
+        age: user.age,
         phone: user.phone,
     };
-
+    
     const token = jwt.sign(payload, secret, {
         expiresIn: '24h',
     });
@@ -109,7 +110,7 @@ const initializePassport = () => {
         done(null, user);
     });
 
-    return passport.initialize(); // Retorna el middleware de inicialización de Passport
+    return passport.initialize(); 
 };
 
 export default initializePassport;

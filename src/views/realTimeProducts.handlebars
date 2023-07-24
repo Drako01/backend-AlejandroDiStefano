@@ -4,10 +4,14 @@
     <a href="/admin_panel" class="btn btn-primary ">Volver</a>
 </div>
 
-
 <div class="container text-center">
-    <h1>Carga de Productos en Tiempo Real</h1>
+    <h1>Carga de Productos en Tiempo Real
+        <p id="username">
+    {{ user.email }} {{ user.user.email }}
+</p>
+    </h1>
 </div>
+<input type="hidden" name="user" value="{{ user.email }} {{ user.user.email }}">
 <section class="products" id="products">
     <div id="product-container" class="container products">
         <div class="card" style="width: 18rem;">

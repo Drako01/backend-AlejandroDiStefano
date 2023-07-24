@@ -1,4 +1,16 @@
 import winston from "winston";
+const swaggerUrls = [
+    '/docs',
+    '/docs/',
+    '/docs/swagger-ui.css',
+    '/docs/swagger-ui-init.js',
+    '/docs/swagger-ui-bundle.js',
+    '/docs/swagger-ui-standalone-preset.js',
+    '/docs/favicon-32x32.png',
+    '/docs/favicon-16x16.png',
+    '/docs/index.html',
+    '/docs/*',
+];
 
 const logger = winston.createLogger({
     transports: [
@@ -24,6 +36,11 @@ export const loggermid = (req, res, next) => {
         level: 'error',
         message: `${req.method} on ${req.url} - ${formattedDate} - ${formattedTime}`
     };
-    req.logger.error(message);
+
+    const requestedPath = req.path;
+    if (!swaggerUrls.includes(requestedPath)) {
+        req.logger.error(message);
+    }
+    
     next();
 };

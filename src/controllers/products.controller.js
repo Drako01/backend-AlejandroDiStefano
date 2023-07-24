@@ -93,7 +93,7 @@ export const createProductController = async (req, res) => {
         stock,
         thumbnail: `/img/${req.file.filename}`
     });
-
+    console.log(newProduct);
     try {
         await newProduct.save();
 

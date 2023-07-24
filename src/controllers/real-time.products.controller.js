@@ -29,7 +29,7 @@ export const sendProductsInRealTimeController = async (req, res) => {
     try {
         await newProduct.save();            
         const product = await Product.find().lean();
-        res.render('realtimeproducts', { product: product });
+        res.render('realtimeproducts', { product: product , user: req.user});
 
     } catch (err) {
         loggers.error(err);
