@@ -5,6 +5,33 @@ import loggers from '../config/logger.js'
 
 const cookieName = config.jwt.cookieName;
 
+export const getIndexProductsController = async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit);
+        const products = await Product.find().lean();
+        const userToken = req.cookies[cookieName];
+        
+        if (!userToken) {
+            res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
+            return;
+        }
+        const user = getUserFromToken(req) ;      
+
+        if (!user) {
+            res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
+            return;
+        }
+
+        if (isNaN(limit)) {
+            res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user });
+        } else {
+            res.status(200).render('index', { products: products.slice(0, limit), productLength: products.length, user });            
+        }
+    } catch (err) {
+        loggers.error(err);
+        res.status(500).render({ message: 'Internal server error' });
+    }
+}
 
 let user = null;
 // Obtener todos los productos

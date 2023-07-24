@@ -13,6 +13,7 @@
     </section>
 
     <h2>Productos Favoritos</h2>
+    {{#if user}}
     <h3>Seleccionar la cantidad de Productos a Visualizar</h3>
     <div class="input-group group-limit">
         <input type="number" name="cantidad" class="form-control" value="1" min="1" max="{{ productLength }}">
@@ -20,6 +21,7 @@
             <a href="/?limit=" class="btn btn-primary" id="verBtn">Ver</a>
         </div>
     </div>
+    {{/if}}
 </div>
 
 
