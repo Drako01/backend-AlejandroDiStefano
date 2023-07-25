@@ -125,18 +125,17 @@ import swaggerUiExpress from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { swaggerOptions } from '../manager/swagger.manager.js';
 const specs = swaggerJsdoc(swaggerOptions);
-
+console.log('\n '); // Este console.log es par hacer un salto de Linea en la consola para que se vea mejor
+loggers.http('Swagger corriendo en: ' + swaggerOptions.definition.servers[0].url + '/docs');
 app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
-
-loggers.http('Swagger corriendo en: ' + swaggerOptions.definition.servers[0].url);
-
 
 
 //Server Up
 let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
 const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
-const httpServer = app.listen(port, () => loggers.info(`Server Up! => ${dominio}:${port}`))
+const httpServer = app.listen(port, () => loggers.http(`Server Up! => ${dominio}:${port}`))
 const socketServer = new Server(httpServer)
+
 
 //Chat Socket
 import chatApp from '../config/chat.app.js';

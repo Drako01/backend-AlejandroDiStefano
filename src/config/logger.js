@@ -8,18 +8,22 @@ const customWinstonOptions = {
         http: 1,
         info: 2,
         notice: 3,
-        warning: 4,
+        warn: 4,
         error: 5,
         fatal: 6,
+        verbose: 7,
+        silly: 8,
     },
     colors: {
         debug: 'white',
         http: 'green',
         notice: 'cyan',
         info: 'blue',
-        warning: 'yellow',
+        warn: 'yellow',
         error: 'red',
         fatal: 'magenta',
+        verbose: 'gray',
+        silly: 'white',
     }
 }
 
@@ -31,7 +35,10 @@ const createLogger = () => {
     if (prod) {
         return winston.createLogger({
             levels: customWinstonOptions.levels,
-            level: 'fatal',
+            level: [
+                'fatal',
+                'verbose',
+            ],
             transports: [
                 new winston.transports.File({
                     filename: './errors.log',
