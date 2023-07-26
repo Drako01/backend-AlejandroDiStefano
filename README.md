@@ -30,7 +30,8 @@
 
 ## npm install
 
-## Tener en cuenta que el Servidor arranca con la instrucción: npm run start-server
+## Tener en cuenta que el Servidor arranca con la instrucción: 
+### npm run start-server
 
 <br><br>
 
