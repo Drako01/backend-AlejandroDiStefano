@@ -11,15 +11,16 @@ export const getAllUsersController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
     try {
         const users = await UserService.getAll();
-        let resultsDTO = users.map((user) => new UsersDTO(user));       
-        res.render('users', { users: resultsDTO, user });
+        let resultsDTO = users.map((user) => new UsersDTO(user));
+        const userObjects = users.map(user => user.toObject());
+        res.render('users', { users: userObjects, user: resultsDTO[0] || user });
     } catch (err) {
         loggers.error('Error del servidor', err);
         res.status(500).send('Error del servidor');
     }
 };
 export const getProfileUsersController = async (req, res) => {
-    const user = getUserFromToken(req);
+    const user = getUserFromToken(req);    
     res.render('profileUser', { user });
 }
 export const getNewUserTest = async (req, res) => {
