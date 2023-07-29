@@ -119,7 +119,7 @@ export const clearCartByid = async (req, res) => { // DAO Aplicado
         res.redirect('/');
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('Error al vaciar el carrito');
+        res.status(500).send('Error al vaciar el carrito');
     }
 };
 
@@ -143,7 +143,7 @@ export const deleteCartById = async (req, res) => { // DAO Aplicado
         res.redirect('/');
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('Error al vaciar el carrito');
+        res.status(500).send('Error al vaciar el carrito');
     }
 };
 
@@ -178,7 +178,7 @@ export const updateProductsToCartById = async (req, res) => { // DAO Aplicado
         res.redirect('/carts');
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('Error al actualizar la cantidad del producto');
+        res.status(500).send('Error al actualizar la cantidad del producto');
     }
 };
 

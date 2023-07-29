@@ -10,6 +10,7 @@ import EErrors from '../services/errors/enums.js';
 import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js';
 import { sendSMS } from '../helpers/twilio.helpers.js';
 
+
 import { generateMockProducts } from '../services/mocking.service.js';
 const cookieName = config.jwt.cookieName;
 
@@ -24,7 +25,7 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
             return;
         }
         const user = getUserFromToken(req) ;      
-
+        
         if (!user) {
             res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
             return;
@@ -37,7 +38,7 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
         }
     } catch (err) {
         loggers.error(err);
-        res.status(500).render({ message: 'Internal server error' });
+        res.status(500).send({ message: 'Internal server error' });
     }
 }
 let user = null;
@@ -109,7 +110,7 @@ export const createProductController = async (req, res) => { // DAO Aplicado
 
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('Error al guardar el producto en la base de datos');
+        res.status(500).send('Error al guardar el producto en la base de datos');
     }
 };
 // Obtener un producto por Category
@@ -175,7 +176,7 @@ export const getPurchaseController = async (req, res) => {
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('Error al procesar la compra');
+        res.status(500).send('Error al procesar la compra');
     }
 }
 
@@ -236,7 +237,7 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (err) {
         loggers.error(err);
-        res.status(500).render('Error al procesar la compra');
+        res.status(500).send('Error al procesar la compra');
     }
 }
 

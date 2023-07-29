@@ -29,7 +29,7 @@ export const getUserFromCookiesController = async (req, res) => { // DAO Aplicad
         });
     } catch (err) {
         loggers.error(err);
-        return res.status(500).render( 'Internal server error' );
+        return res.status(500).send( 'Internal server error' );
     }
 };
 
@@ -63,7 +63,7 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
             })
     } catch (err) {
         loggers.error(err);
-        return res.status(500).render('Internal server error' );
+        return res.status(500).send('Internal server error' );
     }
 };
 
