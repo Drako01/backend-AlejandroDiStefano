@@ -9,10 +9,11 @@ import UsersDTO from '../dtos/user.dto.js';
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    
     try {
+        const user = getUserFromToken(req);
         const users = await UserService.getAll();
         let resultsDTO = users.map((user) => new UsersDTO(user));
         const userObjects = users.map(user => user.toObject());
-        res.render('users', { users: userObjects, user: resultsDTO });        
+        res.render('users', { users: userObjects, user , resultsDTO});        
     } catch (err) {
         loggers.error('Error del servidor', err);
         res.status(500).send('Error del servidor');
