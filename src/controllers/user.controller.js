@@ -12,7 +12,7 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
         const users = await UserService.getAll();
         let resultsDTO = users.map((user) => new UsersDTO(user));
         const userObjects = users.map(user => user.toObject());
-        res.render('users', { users: userObjects, user: resultsDTO[0] });
+        res.render('users', { users: userObjects, user: resultsDTO });        
     } catch (err) {
         loggers.error('Error del servidor', err);
         res.status(500).send('Error del servidor');
