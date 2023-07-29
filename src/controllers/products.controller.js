@@ -1,5 +1,5 @@
 import Product from '../daos/models/products.model.js';
-import { ProductService, CartService } from '../repositories/index.js';
+import { ProductService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
