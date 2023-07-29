@@ -31,7 +31,7 @@
 ## npm install
 
 ## Tener en cuenta que el Servidor arranca con la instrucción: 
-### npm run start-server
+### npm start
 
 <br><br>
 
