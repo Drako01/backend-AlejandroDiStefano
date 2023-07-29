@@ -1,5 +1,5 @@
-import Product from '../daos/models/products.model.js';
 import Cart from '../daos/models/carts.model.js';
+import { ProductService, CartService } from '../repositories/index.js';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import shortid from 'shortid';
@@ -11,9 +11,9 @@ let user = null;
 let userEmail = null;
 
 
-export async function getOrCreateCart(userEmail = null) {
+export async function getOrCreateCart(userEmail = null) { // DAO Aplicado
     if (userEmail) {
-        const cart = await Cart.findOne({ 'user.email': userEmail }).exec();
+        const cart = await CartService.getOne({ 'user.email': userEmail })
         if (cart) {
             return cart;
         } else {
@@ -21,7 +21,7 @@ export async function getOrCreateCart(userEmail = null) {
             return newCart.save();
         }
     } else {
-        const cart = await Cart.findOne({ 'user.email': null }).exec();
+        const cart = await CartService.getOne({ 'user.email': null }).exec();
         if (cart) {
             return cart;
         } else {
@@ -32,7 +32,7 @@ export async function getOrCreateCart(userEmail = null) {
 }
 
 // Visualizar el Carrito
-export const createCartController = async (req, res) => {
+export const createCartController = async (req, res) => { // DAO Aplicado
     user = getUserFromToken(req);
     try {
         const { sortOption } = req.query;
@@ -64,7 +64,7 @@ export const createCartController = async (req, res) => {
             sortedItems.sort((a, b) => b.producto.price - a.producto.price);
         }
 
-        const totalPriceAggregate = await Cart.aggregate([
+        const totalPriceAggregate = await CartService.setCart([
             { $match: { _id: cart._id } },
             { $unwind: '$items' },
             {
@@ -96,7 +96,7 @@ export const createCartController = async (req, res) => {
 };
 
 // Vaciar el carrito por su ID
-export const clearCartByid = async (req, res) => {
+export const clearCartByid = async (req, res) => { // DAO Aplicado
     const userToken = req.cookies[cokieName];
 
     if (userToken) {
@@ -105,7 +105,7 @@ export const clearCartByid = async (req, res) => {
     }
     try {
         const cartId = req.params.cartId;
-        const cart = await Cart.findOneAndUpdate(
+        const cart = await CartService.update(
             { _id: cartId, 'user.email': userEmail },
             { items: [] }
         );
@@ -124,7 +124,7 @@ export const clearCartByid = async (req, res) => {
 };
 
 // Eliminar el carrito de la base de datos
-export const deleteCartById = async (req, res) => {
+export const deleteCartById = async (req, res) => { // DAO Aplicado
     const userToken = req.cookies[cokieName];
 
     if (userToken) {
@@ -134,7 +134,7 @@ export const deleteCartById = async (req, res) => {
 
     try {
         const cartId = req.params.cartId;
-        const result = await Cart.deleteOne({ _id: cartId, 'user.email': userEmail });
+        const result = await CartService.delete({ _id: cartId, 'user.email': userEmail });
 
         if (result.deletedCount === 0) {
             return res.redirect('/');
@@ -148,7 +148,7 @@ export const deleteCartById = async (req, res) => {
 };
 
 // Actualizar la cantidad de un producto en el carrito
-export const updateProductsToCartById = async (req, res) => {
+export const updateProductsToCartById = async (req, res) => { // DAO Aplicado
     const userToken = req.cookies[cokieName];
 
     if (userToken) {
@@ -165,7 +165,7 @@ export const updateProductsToCartById = async (req, res) => {
             return res.redirect('/');
         }
 
-        const cart = await Cart.findOneAndUpdate(
+        const cart = await CartService.update(
             { _id: cartId, 'user.email': userEmail, 'items._id': itemId },
             { $set: { 'items.$.cantidad': cantidad } },
             { new: true }
@@ -183,7 +183,7 @@ export const updateProductsToCartById = async (req, res) => {
 };
 
 // Agregar productos al carrito
-export const addProductToCartController = async (req, res) => {
+export const addProductToCartController = async (req, res) => { // DAO Aplicado
     try {
         const userToken = req.cookies[cokieName];
 
@@ -193,7 +193,7 @@ export const addProductToCartController = async (req, res) => {
         }
         const { cantidad } = req.body;
         const productId = req.params.pid;
-        const producto = await Product.findOne({ _id: productId });
+        const producto = await ProductService.getOne({ _id: productId });
 
         if (!userEmail) {
             return res.status(500).redirect('/login');
@@ -214,7 +214,7 @@ export const addProductToCartController = async (req, res) => {
 };
 
 // Eliminar un producto del carrito
-export const deleteCartByIdController = async (req, res) => {    
+export const deleteCartByIdController = async (req, res) => { // DAO Aplicado  
     const user = getUserFromToken(req);
     const { cartId, itemId } = req.params;
     if (!mongoose.Types.ObjectId.isValid(cartId)) {
@@ -222,7 +222,7 @@ export const deleteCartByIdController = async (req, res) => {
     }
 
     try {
-        const cart = await Cart.findById(cartId);
+        const cart = await CartService.getById(cartId);
         if (!cart) {
             return res.status(404).render('error/error404', { user });
         }

@@ -1,4 +1,5 @@
 import Product from '../daos/models/products.model.js';
+import { ProductService, CartService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
@@ -12,10 +13,10 @@ import { sendSMS } from '../helpers/twilio.helpers.js';
 import { generateMockProducts } from '../services/mocking.service.js';
 const cookieName = config.jwt.cookieName;
 
-export const getIndexProductsController = async (req, res) => {
+export const getIndexProductsController = async (req, res) => { // DAO Aplicado
     try {
         const limit = parseInt(req.query.limit);
-        const products = await Product.find().lean();
+        const products = await ProductService.getAll();
         const userToken = req.cookies[cookieName];
         
         if (!userToken) {
@@ -39,10 +40,9 @@ export const getIndexProductsController = async (req, res) => {
         res.status(500).render({ message: 'Internal server error' });
     }
 }
-
 let user = null;
 // Obtener todos los productos
-export const getAllProductsController = async (req, res, next) => {
+export const getAllProductsController = async (req, res, next) => { // DAO Aplicado
     try {
         const userToken = req.cookies[cookieName];
         if (userToken) {
@@ -54,7 +54,7 @@ export const getAllProductsController = async (req, res, next) => {
         const category = req.query.category;
         const filter = category ? { category } : {};
 
-        const result = await Product.aggregate([
+        const result = await ProductService.setCategory([
             { $match: filter },
             { $skip: (page - 1) * limit },
             { $limit: limit }
@@ -64,7 +64,7 @@ export const getAllProductsController = async (req, res, next) => {
         const prevLink = page > 1 ? `/products?page=${page - 1}` : '';
         const nextLink = productos.length === limit ? `/products?page=${page + 1}` : '';
 
-        const allCategories = await Product.distinct('category');
+        const allCategories = await ProductService.getByCategory('category');
 
         res.render('products', { productos, prevLink, nextLink, allCategories, user });
         
@@ -74,9 +74,8 @@ export const getAllProductsController = async (req, res, next) => {
         next(err);
     }
 };
-
 // Crear un producto
-export const createProductController = async (req, res) => {
+export const createProductController = async (req, res) => { // DAO Aplicado
     const { title, category, size, code, description, price, stock } = req.body;
     if (!title) {
         return res.status(400).send('El campo "title" es obligatorio');
@@ -100,7 +99,7 @@ export const createProductController = async (req, res) => {
         const page = 1;
         const limit = 16;
 
-        const result = await Product.paginate({}, { page, limit, lean: true });
+        const result = await ProductService.paginate({}, { page, limit, lean: true });
 
         const productos = result.docs;
         const prevLink = result.hasPrevPage ? `/products?page=${result.prevPage}` : '';
@@ -113,9 +112,8 @@ export const createProductController = async (req, res) => {
         res.status(500).render('Error al guardar el producto en la base de datos');
     }
 };
-
 // Obtener un producto por Category
-export const getProductByCategoryController = async (req, res, next) => {
+export const getProductByCategoryController = async (req, res, next) => { // DAO Aplicado
     try {
         const userToken = req.cookies[cookieName];
         if (userToken) {
@@ -127,11 +125,11 @@ export const getProductByCategoryController = async (req, res, next) => {
         const category = req.params.category;
         const filter = category ? { category } : {};
 
-        const count = await Product.countDocuments(filter);
+        const count = await ProductService.filter(filter);
         const totalPages = Math.ceil(count / limit);
         const currentPage = Math.min(page, totalPages);
 
-        const result = await Product.aggregate([
+        const result = await ProductService.setCategory([
             { $match: filter },
             { $skip: (currentPage - 1) * limit },
             { $limit: limit }
@@ -141,7 +139,7 @@ export const getProductByCategoryController = async (req, res, next) => {
         const prevLink = `/products/filter/${category}?page=${currentPage - 1}`;
         const nextLink = `/products/filter/${category}?page=${currentPage + 1}`;
 
-        const allProducts = await Product.find({}).distinct('category');
+        const allProducts = await ProductService.getByCategoryAll('category');
         res.render('products', { productos, prevLink, nextLink, allProducts, currentPage, totalPages, user });
 
     } catch (err) {
@@ -150,9 +148,9 @@ export const getProductByCategoryController = async (req, res, next) => {
     }
 };
 
-export const getProductByIdController = async (req, res) => {
+export const getProductByIdController = async (req, res) => { // DAO Aplicado
     const productId = req.params.pid;
-    const product = await Product.findById(productId).lean();
+    const product = await ProductService.getById(productId)
     const user = getUserFromToken(req);
     const adminRole = user ? user.role === 'admin' : false;
     if (product) {
@@ -181,7 +179,7 @@ export const getPurchaseController = async (req, res) => {
     }
 }
 
-export const sendPurchaseController = async (req, res) => {
+export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
         const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
@@ -211,7 +209,7 @@ export const sendPurchaseController = async (req, res) => {
                     await product.save();
                 } else {
                     // Si no hay stock suficiente, mostrar un mensaje de error y actualizar el stock
-                    loggers.warning(`El producto: ${product.title} esta fuera de stock.!`);
+                    loggers.warn(`El producto: ${item.producto.title} esta fuera de stock.!`);
                     product.stock += (item.cantidad - product.stock);
                     await product.save();
                 }
@@ -242,12 +240,12 @@ export const sendPurchaseController = async (req, res) => {
     }
 }
 
-export const getMockingProductsController = async (req, res, next) => {
+export const getMockingProductsController = async (req, res, next) => { // DAO Aplicado
     try {
         await generateMockProducts();
 
         // Obtener los productos generados
-        const products = await Product.find().limit(100);
+        const products = await ProductService.getAllLimit(100);
 
         res.json({ products });
     } catch (err) {
@@ -262,11 +260,11 @@ export const getMockingProductsController = async (req, res, next) => {
     }
 }
 
-export const getProductForEditByIdController = async (req, res) => {
+export const getProductForEditByIdController = async (req, res) => { // DAO Aplicado
     const productId = req.params.pid;
     const user = getUserFromToken(req);
     try {
-        const producto = await Product.findById(productId).lean();
+        const producto = await ProductService.getById(productId)
         if (producto) {
             res.render('productsedit', { producto, user});
         } else {

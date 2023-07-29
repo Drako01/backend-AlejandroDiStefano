@@ -1,9 +1,9 @@
-import Product from '../daos/models/products.model.js';
+import { ProductService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../config/logger.js'
 
 
-export const getTableProductsController = async (req, res) => {
+export const getTableProductsController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
     const sortOption = req.query.sortOption;
     const sortQuery = {};
@@ -17,7 +17,7 @@ export const getTableProductsController = async (req, res) => {
     }
 
     try {
-        const products = await Product.find().sort(sortQuery).lean();
+        const products = await ProductService.getAllQuery(sortQuery);
         res.render('productstable', { products, user });
     } catch (error) {
         loggers.error(error);
@@ -25,11 +25,11 @@ export const getTableProductsController = async (req, res) => {
     }
 };
 
-export const deleteProductByIdController = async (req, res) => {
+export const deleteProductByIdController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req)
     try {
         const productId = req.params.id;
-        const product = await Product.findByIdAndRemove(productId).lean();
+        const product = await ProductService.delete(productId);
 
         if (product) {
             res.render('productsdeletebyid', { product, user });
@@ -42,11 +42,11 @@ export const deleteProductByIdController = async (req, res) => {
     }
 };
 
-export const editProductByIdController = async (req, res) => {
+export const editProductByIdController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
     try {
         const productId = req.params.pid;
-        const producto = await Product.findById(productId).lean();
+        const producto = await ProductService.getById(productId);
         if (producto) {
 
             res.status(200).render('productseditbyid', { producto, user });
@@ -59,11 +59,11 @@ export const editProductByIdController = async (req, res) => {
     }
 };
 
-export const editAndChargeProductByIdController = async (req, res) => {
+export const editAndChargeProductByIdController = async (req, res) => { // DAO Aplicado
     try {
         const productId = req.params.id;
         const { title, category, size, code, description, price, stock } = req.body;
-        const updatedProduct = await Product.findByIdAndUpdate(productId, {
+        const updatedProduct = await ProductService.update(productId, {
             title: title,
             category: category,
             size: size,
@@ -82,8 +82,8 @@ export const editAndChargeProductByIdController = async (req, res) => {
     }
 };
 
-export const adminPanelController = async (req, res) => {
-    const products = await Product.find().lean();    
+export const adminPanelController = async (req, res) => { // DAO Aplicado
+    const products = await ProductService.getAll();    
     try {
         const user = getUserFromToken(req); 
         if (user.role !== 'admin') {

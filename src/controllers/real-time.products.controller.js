@@ -1,4 +1,5 @@
 import Product from '../daos/models/products.model.js';
+import { ProductService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../config/logger.js'
 
@@ -8,7 +9,7 @@ export const getProductsInRealTimeController = async (req, res) => {
     res.render('realtimeproducts', { user });
 };
 
-export const sendProductsInRealTimeController = async (req, res) => {
+export const sendProductsInRealTimeController = async (req, res) => { // DAO Aplicado
     const { title, category, size, code, description, price, stock } = req.body;
     if (!title) {
         return res.status(400).render('El campo "title" es obligatorio');
@@ -28,7 +29,7 @@ export const sendProductsInRealTimeController = async (req, res) => {
 
     try {
         await newProduct.save();            
-        const product = await Product.find().lean();
+        const product = await ProductService.getAll();
         res.render('realtimeproducts', { product: product , user: req.user});
 
     } catch (err) {

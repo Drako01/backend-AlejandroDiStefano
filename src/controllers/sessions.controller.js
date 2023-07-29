@@ -1,15 +1,16 @@
-import User from '../daos/models/users.model.js';
+import { UserService } from '../repositories/index.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { generateToken } from '../middlewares/passport.middleware.js';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import passport from 'passport';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;
 
-export const getUserFromCookiesController = async (req, res) => {
+export const getUserFromCookiesController = async (req, res) => { // DAO Aplicado
     const userToken = req.cookies[cookieName];
     
     if (!userToken) {
@@ -19,7 +20,7 @@ export const getUserFromCookiesController = async (req, res) => {
     try {
         const decodedToken = jwt.verify(userToken, cookieName);
         const userId = decodedToken.userId;
-        User.findById(userId, (err, user) => {
+        UserService.getById(userId, (err, user) => {
             if (err || !user) {
                 return res.status(404).render('error/error404');
             }
@@ -36,11 +37,11 @@ export const getLogginController = async (req, res) => {
     res.render('login');
 };
 
-export const sendLogginController = async (req, res) => {
+export const sendLogginController = async (req, res) => { // DAO Aplicado
     const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ email: email }).exec();
+        const user = await UserService.getOne({ email: email });
 
         if (!user) {
             return res.status(401).render('error/notLoggedIn');
