@@ -4,17 +4,17 @@ import loggers from '../config/logger.js'
 import CustomError from '../services/errors/custom_error.js'
 import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
-
+import UsersDTO from '../dtos/user.dto.js';
 
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
     try {
         const users = await UserService.getAll();
-        const userObjects = users.map(user => user.toObject());
-        res.render('users', { users: userObjects, user });
+        let resultsDTO = users.map((user) => new UsersDTO(user));       
+        res.render('users', { users: resultsDTO, user });
     } catch (err) {
-        loggers.error(err);
+        loggers.error('Error del servidor', err);
         res.status(500).send('Error del servidor');
     }
 };
