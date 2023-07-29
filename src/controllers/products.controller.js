@@ -244,11 +244,10 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
 export const getMockingProductsController = async (req, res, next) => { // DAO Aplicado
     try {
         await generateMockProducts();
-
+        user = getUserFromToken(req);
         // Obtener los productos generados
         const products = await ProductService.getAllLimit(100);
-
-        res.json({ products });
+        res.status(200).render('index', { products, user });          
     } catch (err) {
         loggers.error('Error al generar productos de prueba:', err);
 
