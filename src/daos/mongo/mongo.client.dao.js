@@ -3,7 +3,7 @@ import config from '../../config/config.js';
 import loggers from '../../config/logger.js'
 import customError from '../../services/errors/error.log.js';
 
-const mongoConnection = config.db.mongo_connectiona;
+const mongoConnection = config.db.mongo_connection;
 const mongoDatabase = config.db.mongo_database;
 
 export default class MongoClient {

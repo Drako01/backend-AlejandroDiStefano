@@ -46,3 +46,6 @@
 {"timestamp":"2023-07-30T19:05:38.368Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
 {"timestamp":"2023-07-30T19:05:41.406Z","error":"error is not defined"}
 {"timestamp":"2023-07-30T19:05:41.407Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T19:13:59.508Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T19:13:59.509Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T19:14:12.903Z","error":"Operation `products.find()` buffering timed out after 10000ms"}
