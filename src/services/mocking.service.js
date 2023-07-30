@@ -1,4 +1,5 @@
 import { ProductService } from '../repositories/index.js';
+import loggers from '../../config/logger.js'
 
 export const generateMockProducts = async () => {
     try {
@@ -21,7 +22,8 @@ export const generateMockProducts = async () => {
         }
 
         await ProductService.insertMany(mockProducts);
+        
     } catch (error) {
-        console.error('Error al generar productos de prueba:', error);
+        loggers.error('Error al generar productos de prueba:', error);
     }
 };
