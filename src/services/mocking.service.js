@@ -1,4 +1,4 @@
-import Product from '../daos/models/products.model.js';
+import { ProductService } from '../repositories/index.js';
 
 export const generateMockProducts = async () => {
     try {
@@ -20,7 +20,7 @@ export const generateMockProducts = async () => {
             mockProducts.push(newProduct);
         }
 
-        await Product.insertMany(mockProducts);
+        await ProductService.insertMany(mockProducts);
     } catch (error) {
         console.error('Error al generar productos de prueba:', error);
     }
