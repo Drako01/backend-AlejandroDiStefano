@@ -19,10 +19,13 @@
 }
 
 .buttonsTable a,
-.buttonsTable button {
+.buttonsTable button{
     width: 6rem;
+    margin: 0.5rem;
 }
-
+.checkbox input {
+    margin: 0 2rem;
+}
 .center {
     text-align: center;
 }
