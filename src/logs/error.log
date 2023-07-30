@@ -61,3 +61,7 @@
 {"timestamp":"30/07/2023, 7:44 p. m.","error":"Cast to ObjectId failed for value \"656\" (type string) at path \"_id\" for model \"Product\""}
 {"timestamp":"30/07/2023, 7:47 p. m.","error":"Cast to ObjectId failed for value \"656\" (type string) at path \"_id\" for model \"Product\""}
 {"timestamp":"30/07/2023, 19:47","error":"Cast to ObjectId failed for value \"656\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"30/07/2023, 19:48","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"30/07/2023, 19:49","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"30/07/2023, 19:50","error":"mongoConnections is not defined"}
+{"timestamp":"30/07/2023, 19:51","error":"Cast to ObjectId failed for value \"656\" (type string) at path \"_id\" for model \"Product\""}
