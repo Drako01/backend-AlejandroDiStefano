@@ -172,6 +172,7 @@ export const getProductByIdController = async (req, res) => { // DAO Aplicado
         res.status(500).render('error/notProduct', { user });
     }
 };
+
 export const getPurchaseController = async (req, res) => {
     try {
         const user = getUserFromToken(req);
