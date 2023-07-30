@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import customError from '../services/errors/error.log.js';
+import customMessageSessions from '../services/errors/sessions.log.js';
 
 const router = Router();
 const cookieName = config.jwt.cookieName;
@@ -21,8 +22,8 @@ router.get('/githubcallback', passport.authenticate('github', { failureRedirect:
             httpOnly: true,
             secure: true,
         });
-        loggers.info(`El Usuario ${req.user.first_name} con ID #${req.user._id} se ha Logueado con éxito.!`);
-
+        
+        customMessageSessions(`El Usuario ${req.user.first_name} con ID #${req.user._id} se ha Logueado con éxito.!`);
         res.redirect('/');
     } catch (err) {
         customError(err);

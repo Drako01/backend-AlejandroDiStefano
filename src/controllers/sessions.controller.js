@@ -7,6 +7,7 @@ import loggers from '../config/logger.js'
 import passport from 'passport';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import customError from '../services/errors/error.log.js';
+import customMessageSessions from '../services/errors/sessions.log.js';
 
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;
@@ -57,7 +58,8 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
 
                     const decodedToken = jwt.verify(userToken, secret); 
                     const userId = decodedToken.userId;
-                    loggers.info(`El Usuario ${decodedToken.first_name} ${decodedToken.last_name} con ID  #${userId} se ha Logueado con éxito.!`);
+                    const message = `El Usuario ${decodedToken.first_name} ${decodedToken.last_name} con ID  #${userId} se ha Logueado con éxito.!`;
+                    customMessageSessions(message)
                     res.cookie(cookieName, userToken).redirect('/');
                 } else {
                     loggers.error('Error to login user');
@@ -78,7 +80,8 @@ export const getLogoutController = async (req, res) => {
     const lastName = user?.last_name || user?.user?.last_name;
     const userId = user?.userId || user?.user?._id;
 
-    loggers.info(`El Usuario ${firstName} ${lastName} con ID #${userId} se ha Deslogueado con éxito.!`);
+    const message = `El Usuario ${firstName} ${lastName} con ID #${userId} se ha Deslogueado con éxito.!`;
+    customMessageSessions(message);
     res.clearCookie(cookieName); 
     res.redirect('/');
 }
