@@ -57,9 +57,10 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
 
                     const decodedToken = jwt.verify(userToken, secret); 
                     const userId = decodedToken.userId;
-
+                    loggers.info(`El Usuario ${decodedToken.first_name} ${decodedToken.last_name} con ID  #${userId} se ha Logueado con éxito.!`);
                     res.cookie(cookieName, userToken).redirect('/');
                 } else {
+                    loggers.error('Error to login user');
                     return res.status(401).render('error/notLoggedIn');
                 }
             })
@@ -71,6 +72,13 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
 };
 
 export const getLogoutController = async (req, res) => {
+    const user = getUserFromToken(req);
+    
+    const firstName = user?.first_name || user?.user?.first_name;
+    const lastName = user?.last_name || user?.user?.last_name;
+    const userId = user?.userId || user?.user?._id;
+
+    loggers.info(`El Usuario ${firstName} ${lastName} con ID #${userId} se ha Deslogueado con éxito.!`);
     res.clearCookie(cookieName); 
     res.redirect('/');
 }

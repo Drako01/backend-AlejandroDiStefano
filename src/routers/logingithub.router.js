@@ -21,6 +21,7 @@ router.get('/githubcallback', passport.authenticate('github', { failureRedirect:
             httpOnly: true,
             secure: true,
         });
+        loggers.info(`El Usuario ${req.user.first_name} con ID #${req.user._id} se ha Logueado con éxito.!`);
 
         res.redirect('/');
     } catch (err) {

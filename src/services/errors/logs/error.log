@@ -49,3 +49,5 @@
 {"timestamp":"2023-07-30T19:13:59.508Z","error":"error is not defined"}
 {"timestamp":"2023-07-30T19:13:59.509Z","error":"error is not defined"}
 {"timestamp":"2023-07-30T19:14:12.903Z","error":"Operation `products.find()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T22:04:48.888Z","error":"user is not defined"}
+{"timestamp":"2023-07-30T22:04:57.965Z","error":"user is not defined"}
