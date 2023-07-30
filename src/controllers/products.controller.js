@@ -8,10 +8,10 @@ import { errorMessagesProductosMocking } from '../services/errors/info.js';
 import CustomError from '../services/errors/custom_error.js';
 import EErrors from '../services/errors/enums.js';
 import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js';
+import customError from '../services/errors/error.log.js';
+import { generateMockProducts } from '../services/mocking.service.js';
 import { sendSMS } from '../helpers/twilio.helpers.js';
 
-
-import { generateMockProducts } from '../services/mocking.service.js';
 const cookieName = config.jwt.cookieName;
 
 export const getIndexProductsController = async (req, res) => { // DAO Aplicado
@@ -19,13 +19,13 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
         const limit = parseInt(req.query.limit);
         const products = await ProductService.getAll();
         const userToken = req.cookies[cookieName];
-        
+
         if (!userToken) {
             res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
             return;
         }
-        const user = getUserFromToken(req) ;      
-        
+        const user = getUserFromToken(req);
+
         if (!user) {
             res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
             return;
@@ -34,11 +34,12 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
         if (isNaN(limit)) {
             res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user });
         } else {
-            res.status(200).render('index', { products: products.slice(0, limit), productLength: products.length, user });            
+            res.status(200).render('index', { products: products.slice(0, limit), productLength: products.length, user });
         }
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).send({ message: 'Internal server error' });
+    } catch (error) {
+        customError(error);
+        loggers.error('Productos no encontrados');
+        res.status(500).render('error/notProduct', { user })
     }
 }
 let user = null;
@@ -68,11 +69,12 @@ export const getAllProductsController = async (req, res, next) => { // DAO Aplic
         const allCategories = await ProductService.getByCategory('category');
 
         res.render('products', { productos, prevLink, nextLink, allCategories, user });
-        
 
-    } catch (err) {
-        loggers.error(err);
-        next(err);
+
+    } catch (error) {
+        customError(error);
+        loggers.error('Productos no encontrados');
+        res.status(500).render('error/notProduct', { user })
     }
 };
 // Crear un producto
@@ -93,7 +95,7 @@ export const createProductController = async (req, res) => { // DAO Aplicado
         stock,
         thumbnail: `/img/${req.file.filename}`
     });
-    
+
     try {
         await newProduct.save();
 
@@ -108,9 +110,10 @@ export const createProductController = async (req, res) => { // DAO Aplicado
 
         res.render('products', { productos, prevLink, nextLink });
 
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error al guardar el producto en la base de datos');
+    } catch (error) {
+        customError(error);
+        loggers.error('Error al guardar el producto en la base de datos');
+        res.status(500).render('error/notProduct', { user })
     }
 };
 // Obtener un producto por Category
@@ -143,24 +146,32 @@ export const getProductByCategoryController = async (req, res, next) => { // DAO
         const allProducts = await ProductService.getByCategoryAll('category');
         res.render('products', { productos, prevLink, nextLink, allProducts, currentPage, totalPages, user });
 
-    } catch (err) {
-        loggers.error(err);
-        next(err);
+    } catch (error) {
+        customError(error);
+        loggers.error('Productos no encontrados');
+        res.status(500).render('error/notProduct', { user })
     }
 };
 
 export const getProductByIdController = async (req, res) => { // DAO Aplicado
     const productId = req.params.pid;
-    const product = await ProductService.getById(productId)
     const user = getUserFromToken(req);
     const adminRole = user ? user.role === 'admin' : false;
-    if (product) {
+
+    try {
+        const product = await ProductService.getById(productId);
+
+        if (!product) {
+            res.status(404).render('error/error404', { user });
+            return;
+        }
         res.render('productsid', { product, user, adminRole });
-    } else {
-        res.status(404).render('error/error404', { user });
+    } catch (error) {
+        customError(error);
+        loggers.error('Error al obtener el producto por ID');
+        res.status(500).render('error/notProduct', { user });
     }
 };
-
 export const getPurchaseController = async (req, res) => {
     try {
         const user = getUserFromToken(req);
@@ -174,9 +185,10 @@ export const getPurchaseController = async (req, res) => {
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
 
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error al procesar la compra');
+    } catch (error) {
+        customError(error);
+        loggers.error('Error al procesar la compra')
+        res.status(500).render('error/error500', { user })
     }
 }
 
@@ -235,9 +247,10 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
 
         const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error al procesar la compra');
+    } catch (error) {
+        customError(error);
+        loggers.error('Error al procesar la compra')
+        res.status(500).render('error/error500', { user })
     }
 }
 
@@ -247,16 +260,17 @@ export const getMockingProductsController = async (req, res, next) => { // DAO A
         user = getUserFromToken(req);
         // Obtener los productos generados
         const products = await ProductService.getAllLimit(100);
-        res.status(200).render('index', { products, user });          
-    } catch (err) {
-        loggers.error('Error al generar productos de prueba:', err);
+        res.status(200).render('index', { products, user });
+    } catch (error) {
+        customError(error);
+        loggers.error('Error al generar productos de prueba');
 
-        const customError = new CustomError(
+        const customErrorTest = new CustomError(
             errorMessagesProductosMocking.internalServerError,
             EErrors.InternalServerError
         );
 
-        next(customError);
+        next(customErrorTest);
     }
 }
 
@@ -266,12 +280,13 @@ export const getProductForEditByIdController = async (req, res) => { // DAO Apli
     try {
         const producto = await ProductService.getById(productId)
         if (producto) {
-            res.render('productsedit', { producto, user});
+            res.render('productsedit', { producto, user });
         } else {
             res.status(404).render('error/error404', { user });
         }
     } catch (error) {
-        loggers.error(error);
-        res.status(500).render('error/notProduct' , { user })
+        customError(error);
+        loggers.error('Producto no encontrado');
+        res.status(500).render('error/notProduct', { user })
     }
 }

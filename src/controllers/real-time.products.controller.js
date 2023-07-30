@@ -2,6 +2,7 @@ import Product from '../daos/models/products.model.js';
 import { ProductService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../config/logger.js'
+import customError from '../services/errors/error.log.js';
 
 
 export const getProductsInRealTimeController = async (req, res) => {
@@ -32,8 +33,9 @@ export const sendProductsInRealTimeController = async (req, res) => { // DAO Apl
         const product = await ProductService.getAll();
         res.render('realtimeproducts', { product: product , user: req.user});
 
-    } catch (err) {
-        loggers.error(err);
+    } catch (error) {
+        customError(error);
+        loggers.error('Producto no encontrado');
         res.status(500).render('error/notProduct' , { user })
     }
 };

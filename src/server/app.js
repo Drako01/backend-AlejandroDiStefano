@@ -109,7 +109,6 @@ function validateSwaggerRoutes(req, res, next) {
 }
 app.use(validateSwaggerRoutes);
 
-
 // Configuracion de Cors
 import cors from 'cors';
 app.use(cors())

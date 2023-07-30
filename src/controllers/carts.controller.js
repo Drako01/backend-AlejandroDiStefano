@@ -5,6 +5,8 @@ import { getUserFromToken } from '../middlewares/user.middleware.js';
 import shortid from 'shortid';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
+import customError from '../services/errors/error.log.js';
+
 
 const cokieName = config.jwt.cookieName;
 let user = null;
@@ -89,9 +91,10 @@ export const createCartController = async (req, res) => { // DAO Aplicado
         const totalPrice = totalPriceAggregate.length > 0 ? totalPriceAggregate[0].totalPrice : 0;
 
         res.render('carts', { cart: { ...cart, items: sortedItems }, totalPrice, cartId, user });
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).render('error/notCart');
+    } catch (error) {
+        customError(error);
+        loggers.error("El carrito no fue encontrado");
+        res.status(500).render('error/notCart', { user });
     }
 };
 
@@ -117,9 +120,11 @@ export const clearCartByid = async (req, res) => { // DAO Aplicado
         cart.items = [];
         await cart.save();
         res.redirect('/');
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error al vaciar el carrito');
+    } catch (error) {
+        user = getUserFromToken(req);
+        customError(error);
+        loggers.error("Error al vaciar el carrito");
+        res.status(500).render('error/notCart', { user });
     }
 };
 
@@ -141,9 +146,11 @@ export const deleteCartById = async (req, res) => { // DAO Aplicado
         }
 
         res.redirect('/');
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error al vaciar el carrito');
+    } catch (error) {
+        user = getUserFromToken(req);
+        customError(error);
+        loggers.error("Error al eliminar el carrito");
+        res.status(500).render('error/notCart', { user });
     }
 };
 
@@ -176,9 +183,12 @@ export const updateProductsToCartById = async (req, res) => { // DAO Aplicado
         }
 
         res.redirect('/carts');
-    } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error al actualizar la cantidad del producto');
+
+    } catch (error) {
+        user = getUserFromToken(req);
+        customError(error);
+        loggers.error("Error al actualizar la cantidad del producto");
+        res.status(500).render('error/notCart', { user });
     }
 };
 
@@ -196,6 +206,7 @@ export const addProductToCartController = async (req, res) => { // DAO Aplicado
         const producto = await ProductService.getOne({ _id: productId });
 
         if (!userEmail) {
+            loggers.error('Usted no esta logueado, por favor inicie sesion');
             return res.status(500).redirect('/login');
         }
 
@@ -207,8 +218,9 @@ export const addProductToCartController = async (req, res) => { // DAO Aplicado
         await cart.save();
         res.redirect('/');
 
-    } catch (err) {
-        loggers.error(err);
+    } catch (error) {
+        customError(error);
+        loggers.error('Usted no esta logueado, por favor inicie sesion');
         res.status(500).redirect('/login');
     }
 };
@@ -236,7 +248,9 @@ export const deleteCartByIdController = async (req, res) => { // DAO Aplicado
         await cart.save();
         return res.render('cartsDeleteById', { cartId, itemId, user });
     } catch (error) {
-        loggers.error(error);
-        return res.status(500).render('error/notCart');
+        user = getUserFromToken(req);
+        customError(error);
+        loggers.error('Error al eliminar un producto del carrito');
+        return res.status(500).render('error/notCart', { user });
     }
 };

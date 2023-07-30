@@ -1,6 +1,7 @@
 import { ProductService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../config/logger.js'
+import customError from '../services/errors/error.log.js';
 
 
 export const getTableProductsController = async (req, res) => { // DAO Aplicado
@@ -20,9 +21,11 @@ export const getTableProductsController = async (req, res) => { // DAO Aplicado
         const products = await ProductService.getAllQuery(sortQuery);
         res.render('productstable', { products, user });
     } catch (error) {
-        loggers.error(error);
-        res.status(500).render('error/notProduct' , { user })
+        customError(error);
+        loggers.error('Productos no encontrados');
+        res.status(500).render('error/notProduct', { user })
     }
+
 };
 
 export const deleteProductByIdController = async (req, res) => { // DAO Aplicado
@@ -37,8 +40,9 @@ export const deleteProductByIdController = async (req, res) => { // DAO Aplicado
             res.status(404).render('error/error404', { user });
         }
     } catch (error) {
-        loggers.error(error);
-        res.status(500).render('error/notProduct' , { user })
+        customError(error);
+        loggers.error('Producto no encontrado');
+        res.status(500).render('error/notProduct', { user })
     }
 };
 
@@ -54,8 +58,9 @@ export const editProductByIdController = async (req, res) => { // DAO Aplicado
             res.status(404).render('error/error404', { user });
         }
     } catch (error) {
-        loggers.error(error);
-        res.status(500).render('error/notProduct' , { user })
+        customError(error);
+        loggers.error('Producto no encontrado');
+        res.status(500).render('error/notProduct', { user })
     }
 };
 
@@ -77,21 +82,23 @@ export const editAndChargeProductByIdController = async (req, res) => { // DAO A
 
         res.redirect(`/productseditbyid/${productId}`);
     } catch (error) {
-        loggers.error(error);
-        res.status(500).render('error/notProduct' , { user })
+        customError(error);
+        loggers.error('Producto no encontrado');
+        res.status(500).render('error/notProduct', { user })
     }
 };
 
 export const adminPanelController = async (req, res) => { // DAO Aplicado
-    const products = await ProductService.getAll();    
+    const products = await ProductService.getAll();
     try {
-        const user = getUserFromToken(req); 
+        const user = getUserFromToken(req);
         if (user.role !== 'admin') {
             return res.status(403).render('error/notAuthorized');
         }
-        res.status(200).render('admin_panel', { products, user });        
+        res.status(200).render('admin_panel', { products, user });
     } catch (error) {
-        loggers.error(`Error al obtener los datos solicitados de la base de datos: ${error}`);
-        return res.status(403).render('error/notAuthorized');
+        customError(error);
+        loggers.error(`Error al obtener los datos solicitados de la base de datos`);
+        return res.status(403).render('error/notAuthorized', { user });
     }
 };
