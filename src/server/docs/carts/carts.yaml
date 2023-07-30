@@ -61,6 +61,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+
   /carts/{cartId}:
     get:
       summary: Get a cart by ID
@@ -133,6 +134,30 @@ paths:
           in: path
           required: true
           description: ID of the cart
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+
+  /carts/{cartId}/items/{itemId}:
+    delete:
+      summary: Delete an item from the cart
+      parameters:
+        - name: cartId
+          in: path
+          required: true
+          description: ID of the cart
+          schema:
+            type: string
+        - name: itemId
+          in: path
+          required: true
+          description: ID of the item to delete
           schema:
             type: string
       responses:
