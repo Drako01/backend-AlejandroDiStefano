@@ -3,6 +3,7 @@ import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
+import customError from '../services/errors/error.log.js';
 
 const router = Router();
 const cookieName = config.jwt.cookieName;
@@ -23,7 +24,8 @@ router.get('/githubcallback', passport.authenticate('github', { failureRedirect:
 
         res.redirect('/');
     } catch (err) {
-        loggers.error(err);
+        customError(err);
+        loggers.error('Error al autenticar el usuario');
         res.redirect('/login');
     }
 });

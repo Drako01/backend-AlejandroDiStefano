@@ -5,6 +5,7 @@ import CustomError from '../services/errors/custom_error.js'
 import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
 import UsersDTO from '../dtos/user.dto.js';
+import customError from '../services/errors/error.log.js';
 
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    
@@ -15,8 +16,9 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
         const userObjects = users.map(user => user.toObject());
         res.render('users', { users: userObjects, user , resultsDTO});        
     } catch (err) {
-        loggers.error('Error del servidor', err);
-        res.status(500).send('Error del servidor');
+        customError(err);
+        loggers.error('Error del servidor');
+        res.status(500).send('Error del servidor', { user });
     }
 };
 export const getProfileUsersController = async (req, res) => {
@@ -64,8 +66,9 @@ export const getUserForEditByIdController = async (req, res) => { // DAO Aplicad
         res.render('editUser', { user });
 
     } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error del servidor');
+        customError(err);
+        loggers.error('Error del servidor');
+        res.status(500).render('error/error500', { user });
     }
 };
 export const editUserByIdController = async (req, res) => { // DAO Aplicado
@@ -88,8 +91,9 @@ export const editUserByIdController = async (req, res) => { // DAO Aplicado
 
         res.redirect('/users');
     } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error del servidor');
+        customError(err);
+        loggers.error('Error del servidor');
+        res.status(500).render('error/error500', { user });
     }
 };
 export const deleteUserByIdController = async (req, res) => { // DAO Aplicado
@@ -106,8 +110,9 @@ export const deleteUserByIdController = async (req, res) => { // DAO Aplicado
 
         res.render('userDelete', { user });
     } catch (err) {
-        loggers.error(err);
-        res.status(500).send('Error del servidor');
+        customError(err);
+        loggers.error('Error del servidor');
+        res.status(500).render('error/error500', { user });
     }
 };
 

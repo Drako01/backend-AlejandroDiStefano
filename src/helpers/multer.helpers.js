@@ -2,7 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import loggers from '../config/logger.js'
 import __dirname  from '../server/utils.js';
-
+import customError from '../services/errors/error.log.js';
 
 const configureMulter = async () => {
     try {
@@ -21,7 +21,8 @@ const configureMulter = async () => {
 
         return upload;
     } catch (error) {
-        loggers.error('Error en la configuración de Multer:', error);
+        customError(error);
+        loggers.error('Error en la configuración de Multer');
         throw error;
     }
 };

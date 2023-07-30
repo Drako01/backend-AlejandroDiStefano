@@ -3,6 +3,7 @@ import loggers from '../config/logger.js'
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import Producto from '../daos/models/products.model.js';
+import customError from '../services/errors/error.log.js';
 const urlActual = config.urls.urlLocal;
 
 // Configuración de transporte para el envío de correos electrónicos
@@ -110,10 +111,12 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                 product.stock = newStock;
                 await product.save();
             } catch (err) {
-                loggers.error('Error al actualizar el stock', err);
+                customError(err);
+                loggers.error('Error al actualizar el stock');
             }
         }
     } catch (err) {
-        loggers.error('Error al enviar el correo electrónico', err);
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico');
     }
 };
