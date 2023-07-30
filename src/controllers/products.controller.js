@@ -4,9 +4,6 @@ import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import Cart from '../daos/models/carts.model.js';
-import { errorMessagesProductosMocking } from '../services/errors/info.js';
-import CustomError from '../services/errors/custom_error.js';
-import EErrors from '../services/errors/enums.js';
 import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js';
 import customError from '../services/errors/error.log.js';
 import { generateMockProducts } from '../services/mocking.service.js';
@@ -37,6 +34,7 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
             res.status(200).render('index', { products: products.slice(0, limit), productLength: products.length, user });
         }
     } catch (error) {
+        user = getUserFromToken(req);
         customError(error);
         loggers.error('Productos no encontrados');
         res.status(500).render('error/notProduct', { user })
@@ -227,8 +225,10 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
                     product.stock += (item.cantidad - product.stock);
                     await product.save();
                 }
-            } catch (err) {
-                loggers.error('Error al actualizar el stock', err);
+            } catch (error) {
+                customError(error);
+                loggers.error('Error al checkear los productos del carrito')
+                res.status(500).render('error/error500', { user })
             }
         }
 
@@ -256,22 +256,16 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
 }
 
 export const getMockingProductsController = async (req, res, next) => { // DAO Aplicado
+    let user = getUserFromToken(req);
     try {
         await generateMockProducts();
-        user = getUserFromToken(req);
         // Obtener los productos generados
         const products = await ProductService.getAllLimit(100);
         res.status(200).render('index', { products, user });
     } catch (error) {
         customError(error);
         loggers.error('Error al generar productos de prueba');
-
-        const customErrorTest = new CustomError(
-            errorMessagesProductosMocking.internalServerError,
-            EErrors.InternalServerError
-        );
-
-        next(customErrorTest);
+        res.status(500).render('error/error500', { user });
     }
 }
 

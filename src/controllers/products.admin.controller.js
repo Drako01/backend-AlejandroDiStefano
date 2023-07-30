@@ -4,6 +4,7 @@ import loggers from '../config/logger.js'
 import customError from '../services/errors/error.log.js';
 
 
+
 export const getTableProductsController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
     const sortOption = req.query.sortOption;
@@ -89,16 +90,16 @@ export const editAndChargeProductByIdController = async (req, res) => { // DAO A
 };
 
 export const adminPanelController = async (req, res) => { // DAO Aplicado
-    const products = await ProductService.getAll();
+    const user = getUserFromToken(req);
     try {
-        const user = getUserFromToken(req);
         if (user.role !== 'admin') {
             return res.status(403).render('error/notAuthorized');
         }
+        const products = await ProductService.getAll();
         res.status(200).render('admin_panel', { products, user });
     } catch (error) {
         customError(error);
         loggers.error(`Error al obtener los datos solicitados de la base de datos`);
-        return res.status(403).render('error/notAuthorized', { user });
+        res.status(500).render('error/error500', { user });
     }
 };

@@ -14,3 +14,35 @@
 {"timestamp":"2023-07-30T17:00:25.927Z","error":"Cast to ObjectId failed for value \"64b82951b40b81e2f\" (type string) at path \"_id\" for model \"Product\""}
 {"timestamp":"2023-07-30T17:06:05.362Z","error":"Cast to ObjectId failed for value \"64b8295p3301691b40b81e2f\" (type string) at path \"_id\" for model \"Product\""}
 {"timestamp":"2023-07-30T17:06:41.757Z","error":"Cast to ObjectId failed for value \"64b8295p3301691b40b81e2f\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"2023-07-30T18:32:10.965Z","error":"Cast to ObjectId failed for value \"64b863301691b40b81e2f\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"2023-07-30T18:32:29.137Z","error":"Cast to ObjectId failed for value \"64b8295633091b40b81e2f\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"2023-07-30T18:33:04.620Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:33:29.233Z","error":"Operation `products.find()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T18:33:44.692Z","error":"Operation `products.aggregate()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T18:33:58.408Z","error":"Operation `carts.findOne()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T18:34:39.555Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:34:52.101Z","error":"Operation `products.find()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T18:35:05.552Z","error":"Operation `products.aggregate()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T18:35:19.074Z","error":"Operation `carts.findOne()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T18:37:51.671Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:41:25.442Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:41:40.441Z","error":"Operation `products.find()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T18:46:10.191Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:49:52.223Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:51:41.361Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:57:03.351Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:59:21.642Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:59:40.613Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T18:59:45.438Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T18:59:45.438Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T19:01:01.706Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T19:01:04.077Z","error":"req is not defined"}
+{"timestamp":"2023-07-30T19:01:19.467Z","error":"Operation `products.aggregate()` buffering timed out after 10000ms"}
+{"timestamp":"2023-07-30T19:01:47.964Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T19:01:50.743Z","error":"req is not defined"}
+{"timestamp":"2023-07-30T19:03:10.483Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T19:03:13.382Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T19:03:13.383Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T19:05:38.368Z","error":"The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2023-07-30T19:05:41.406Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T19:05:41.407Z","error":"error is not defined"}
