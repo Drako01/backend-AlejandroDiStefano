@@ -55,3 +55,9 @@
 {"timestamp":"2023-07-30T22:25:12.953Z","error":"message is not defined"}
 {"timestamp":"2023-07-30T22:25:18.589Z","error":"message is not defined"}
 {"timestamp":"2023-07-30T22:25:24.263Z","error":"message is not defined"}
+{"timestamp":"2023-07-30T22:33:24.165Z","error":"Cast to ObjectId failed for value \"ddd\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"2023-07-30T22:34:21.721Z","error":"Cast to ObjectId failed for value \"ddd\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"2023-07-30T22:35:57.079Z","error":"Cast to ObjectId failed for value \"64b829563301691bd7\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"30/07/2023, 7:44 p. m.","error":"Cast to ObjectId failed for value \"656\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"30/07/2023, 7:47 p. m.","error":"Cast to ObjectId failed for value \"656\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"30/07/2023, 19:47","error":"Cast to ObjectId failed for value \"656\" (type string) at path \"_id\" for model \"Product\""}

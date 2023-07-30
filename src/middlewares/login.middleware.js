@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 
 const secret = config.jwt.privateKey;
 const cookieName = config.jwt.cookieName;

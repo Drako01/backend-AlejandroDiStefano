@@ -1,7 +1,7 @@
 import twilio from 'twilio';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 
 // Configuración de Twilio
 const twilioNumberPhone = config.twilio.numberPhone;

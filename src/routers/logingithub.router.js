@@ -3,8 +3,8 @@ import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
-import customError from '../services/errors/error.log.js';
-import customMessageSessions from '../services/errors/sessions.log.js';
+import customError from '../services/error.log.js';
+import customMessageSessions from '../services/sessions.log.js';
 
 const router = Router();
 const cookieName = config.jwt.cookieName;

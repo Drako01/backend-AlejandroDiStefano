@@ -5,7 +5,7 @@ import CustomError from '../services/errors/custom_error.js'
 import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
 import UsersDTO from '../dtos/user.dto.js';
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    

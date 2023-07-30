@@ -1,21 +1,31 @@
 import fs from 'fs';
 import path from 'path';
-import loggers from '../../config/logger.js';
-import { fileURLToPath } from 'url';
+import loggers from '../config/logger.js';
 import customError from './error.log.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const logDirectory = path.join(__dirname, 'logs');
+const logDirectory = path.join('../', 'logs');
 
 if (!fs.existsSync(logDirectory)) {
     fs.mkdirSync(logDirectory);
 }
 
+const formatDateTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour24: true,
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    };
+    const formatter = new Intl.DateTimeFormat('es-AR', options);
+    return formatter.format(date);
+};
+
 const customMessageSessions = (message) => {
     const sessionLog = {
-        timestamp: new Date(),
+        timestamp: formatDateTime(new Date()),
         message: message,
     };
 

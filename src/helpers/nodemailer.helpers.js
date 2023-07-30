@@ -3,7 +3,7 @@ import loggers from '../config/logger.js'
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import Producto from '../daos/models/products.model.js';
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 const urlActual = config.urls.urlLocal;
 
 // Configuración de transporte para el envío de correos electrónicos

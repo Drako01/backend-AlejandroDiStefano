@@ -1,6 +1,6 @@
 import Chat from '../daos/models/messages.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 
 export const getChatsController = async (req, res) => {
     let user = getUserFromToken(req);        

@@ -1,7 +1,7 @@
 import { ProductService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import loggers from '../config/logger.js'
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 
 
 

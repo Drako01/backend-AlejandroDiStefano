@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 
 // Variables de entorno
 const secret = config.jwt.privateKey;

@@ -6,8 +6,8 @@ import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import passport from 'passport';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-import customError from '../services/errors/error.log.js';
-import customMessageSessions from '../services/errors/sessions.log.js';
+import customError from '../services/error.log.js';
+import customMessageSessions from '../services/sessions.log.js';
 
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;

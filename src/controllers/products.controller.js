@@ -5,7 +5,7 @@ import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import Cart from '../daos/models/carts.model.js';
 import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js';
-import customError from '../services/errors/error.log.js';
+import customError from '../services/error.log.js';
 import { generateMockProducts } from '../services/mocking.service.js';
 import { sendSMS } from '../helpers/twilio.helpers.js';
 

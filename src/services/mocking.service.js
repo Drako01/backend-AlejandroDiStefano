@@ -1,6 +1,6 @@
 import { ProductService } from '../repositories/index.js';
 import loggers from '../config/logger.js'
-import customError from './errors/error.log.js';
+import customError from './error.log.js';
 
 export const generateMockProducts = async () => {
     try {
