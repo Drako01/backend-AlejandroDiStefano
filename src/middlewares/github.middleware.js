@@ -4,6 +4,7 @@ import Users from '../daos/models/users.model.js';
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
+import customError from '../services/errors/error.log.js';
 
 // Variables de entorno
 const secret = config.jwt.privateKey;
@@ -41,8 +42,9 @@ const initializePassportGH = () => {
                         secure: true,
                     });
                     return done(null, newUser);
-                } catch (err) {
-                    loggers.error(err);
+                } catch (error) {
+                    customError(error);
+                    loggers.error('Error to login with GitHub');
                     return done('Error to login with GitHub');
                 }
             }

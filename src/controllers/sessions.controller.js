@@ -6,6 +6,7 @@ import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import passport from 'passport';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import customError from '../services/errors/error.log.js';
 
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;
@@ -28,8 +29,9 @@ export const getUserFromCookiesController = async (req, res) => { // DAO Aplicad
             return res.status(200).redirect('/');
         });
     } catch (err) {
-        loggers.error(err);
-        return res.status(500).send( 'Internal server error' );
+        customError(err);
+        loggers.error('Error to get user from cookies');
+        return res.status(500).render('error/error500');
     }
 };
 
@@ -62,8 +64,9 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
                 }
             })
     } catch (err) {
-        loggers.error(err);
-        return res.status(500).send('Internal server error' );
+        customError(err);
+        loggers.error('Error to login user');
+        return res.status(500).render('error/error500');
     }
 };
 
@@ -79,8 +82,9 @@ export const getSignupController = async (req, res) => {
 export const setSignupController = async (req, res, next) => {
     passport.authenticate('signup', (err, user, info) => {
         if (err) {
+            customError(err);
             loggers.error(err);
-            return res.status(500).send('Error de servidor');
+            return res.status(403).render('error/error403');
         }
 
         if (!user) {
@@ -93,8 +97,9 @@ export const setSignupController = async (req, res, next) => {
 
         req.login(user, (err) => {
             if (err) {
+                customError(err);
                 loggers.error(err);
-                return res.status(500).send('Error de servidor');
+                return res.status(403).render('error/error403');
             }
 
             res.redirect('/login');
@@ -110,8 +115,9 @@ export const getSignupAdminController = (req, res) => {
 export const setSignupAdminController = (req, res, next) => {
     passport.authenticate('signup', (err, user, info) => {
         if (err) {
-            loggers.error(err);
-            return res.status(500).send('Error de servidor');
+            customError(err);
+            loggers.error('Error creating user');
+            return res.status(403).render('error/error403')
         }
 
         if (!user) {
@@ -124,8 +130,9 @@ export const setSignupAdminController = (req, res, next) => {
 
         req.login(user, (err) => {
             if (err) {
-                loggers.error(err);
-                return res.status(500).send('Error de servidor');
+                customError(err);
+                loggers.error('Error creating user');
+                return res.status(403).render('error/error403')
             }
 
             res.redirect('/users');

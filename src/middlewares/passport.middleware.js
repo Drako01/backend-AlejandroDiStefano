@@ -5,6 +5,7 @@ import User from '../daos/models/users.model.js';
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
+import customError from '../services/errors/error.log.js';
 
 const secret = config.jwt.privateKey;
 
@@ -34,25 +35,26 @@ export const authenticateJWT = (req, res, next) => {
         return res.status(401).json({ message: 'Missing authorization token' });
     }
 
-    jwt.verify(token, secret, (err, decodedToken) => {
-        if (err) {
-            loggers.error(err);
-            return res.status(403).json({ message: 'Invalid token' });
+    jwt.verify(token, secret, (error, decodedToken) => {
+        if (error) {
+            loggers.error(error);
+            return res.status(403).render('error/error403');
         }
 
         User.findById(decodedToken.userId)
             .exec()
             .then(user => {
                 if (!user) {
-                    return res.status(404).json({ message: 'User not found' });
+                    return res.status(404).render('error/error404');
                 }
 
                 req.user = user;
                 next();
             })
-            .catch(err => {
-                loggers.error(err);
-                return res.status(500).json({ message: 'Internal server error' });
+            .catch(error => {
+                customError(error);
+                loggers.error('Error to verify user token');
+                return res.status(500).render('error/error500');
             });
     });
 };
@@ -91,9 +93,10 @@ passport.use(
 
                 await newUser.save();
                 return done(null, newUser);
-            } catch (err) {
-                loggers.error(err);
-                return done(err);
+            } catch (error) {
+                customError(error);
+                loggers.error('Error to signup');
+                return done(error)
             }
         }
     )
