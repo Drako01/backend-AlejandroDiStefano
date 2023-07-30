@@ -1,5 +1,5 @@
 import { ProductService } from '../repositories/index.js';
-import loggers from '../../config/logger.js'
+import loggers from '../config/logger.js'
 
 export const generateMockProducts = async () => {
     try {
