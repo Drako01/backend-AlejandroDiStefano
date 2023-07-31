@@ -14,6 +14,7 @@ const transporter = nodemailer.createTransport({
         pass: config.gmail.pass,
     },
 });
+
 const port = config.ports.prodPort || '';
 export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
     try {
@@ -120,6 +121,7 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         loggers.error('Error al enviar el correo electrónico');
     }
 };
+
 // Avisar al usuario que sus productos fueron eliminados del carrito por falta de stock
 export const sendDeleteProductsEmail = async (userEmail, cart, user) => {
     try {
