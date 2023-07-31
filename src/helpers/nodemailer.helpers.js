@@ -120,3 +120,69 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         loggers.error('Error al enviar el correo electrónico');
     }
 };
+// Avisar al usuario que sus productos fueron eliminados del carrito por falta de stock
+export const sendDeleteProductsEmail = async (userEmail, cart, user) => {
+    try {
+        const mailGenerator = new Mailgen({
+            theme: 'default',
+            product: {
+                name: 'Lonne Open',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
+            },
+        });
+
+        const emailContent = {
+            body: {
+                greeting: `Hola ${user.email || user.user.email}`,
+                intro: 'Lamentamos comunicarle que algunos productos en su compra en Lonne Open han sido eliminados del carrito debido a falta de stock. A continuación se muestran los detalles de su compra actualizada:',
+                outro: [
+                    `Código de compra: ${cart.code}`,
+                    `Fecha y hora de compra: ${cart.purchase_datetime}`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
+                ],
+            },
+        };
+
+        const emailBody = mailGenerator.generate(emailContent);
+        const attachments = cart.items.reduce((acc, item) => {
+            const attachment = {
+                filename: item.producto.thumbnail,
+                path: `${urlActual}:${port}${item.producto.thumbnail}`,
+                cid: `${item.producto.thumbnail}@lonneopen.com`
+            };
+            acc.push(attachment);
+            return acc;
+        }, []);
+
+        const mailOptions = {
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
+            to: userEmail,
+            subject: 'Actualización de compra en Lonne Open',
+            html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
+                },
+                ...attachments
+            ],
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico');
+    }
+};
+
