@@ -34,7 +34,6 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
             res.status(200).render('index', { products: products.slice(0, limit), productLength: products.length, user });
         }
     } catch (error) {
-        user = getUserFromToken(req);
         customError(error);
         loggers.error('Productos no encontrados');
         res.status(500).render('error/notProduct', { user })
