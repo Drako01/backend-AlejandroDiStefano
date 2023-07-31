@@ -44,3 +44,4 @@
 {"level":"error","message":"Este es un mensaje customisado: GET on /45 - 31/7/2023 - 08:00:46 | error undefined - ::1"}
 {"level":"error","message":"Este es un mensaje customisado: GET on /45 - 31/7/2023 - 08:01:24 | error"}
 {"level":"error","message":"Este es un mensaje customisado: Método GET en la URL: https://lonneopen.com:8080/45 - 31/7/2023 - 08:06:22 | error"}
+{"level":"error","message":"Este es un mensaje customisado: Método GET en la URL: http://localhost:8080/45 - 31/7/2023 - 08:07:01 | error"}
