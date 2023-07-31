@@ -6,8 +6,8 @@
   "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon .",
-    "start": "cd src/server && node app.js"    
+    "dev": "cd src/server && nodemon app.js",
+    "start": "cd src/server && node app.js"
   },
   "repository": {
     "type": "git",
@@ -75,6 +75,7 @@
     "jsonwebtoken": "^9.0.0",
     "mailgen": "^2.0.27",
     "method-override": "^3.0.0",
+    "moca": "^0.4.3",
     "mongoose": "^7.0.4",
     "mongoose-paginate-v2": "^1.7.1",
     "multer": "^1.4.5-lts.1",
@@ -92,5 +93,10 @@
     "twilio": "^4.13.0",
     "uuid": "^9.0.0",
     "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }
