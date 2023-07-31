@@ -161,7 +161,7 @@ serverTester.once('error', (error) => {
             EErros.EADDRINUSE
         );
         customError(error);
-        loggers.error(error.message);
+        loggers.fatal(error.message);        
     } else {
         loggers.error('Error starting the server:', error);
     }
