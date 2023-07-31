@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-
 const userCollection = 'users';
 
 const userSchema = new mongoose.Schema({
@@ -15,11 +14,11 @@ const userSchema = new mongoose.Schema({
         unique: true,
         index: true
     },
-    phone:{
+    phone: {
         type: String,
         unique: true,
     },
-    age:{
+    age: {
         type: String
     },
     role: {
@@ -32,9 +31,13 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cart',
         required: false
+    },
+    active: {
+        type: Boolean,
+        default: false,
     }
-});
+}, { timestamps: true }); 
 
 const Users = mongoose.model(userCollection, userSchema);
 
-export default Users
+export default Users;

@@ -9,6 +9,8 @@
                 <th>Teléfono</th>
                 <th>Edad</th>
                 <th>Rol</th>
+                <th>Estado</th>
+                <th>Ultima Conexión</th>
                 <th class="actions-column-todo">Acciones</th>
             </tr>
         </thead>
@@ -21,6 +23,14 @@
                 <td>{{this.phone}}</td>
                 <td>{{this.age}}</td>
                 <td>{{this.role}}</td>
+                <td>
+                    {{#if this.active}}
+                    <span style="color: green;">Conectado</span>
+                    {{else}}
+                    <span style="color: red;">Desconectado</span>
+                    {{/if}}
+                </td>
+                <td>{{formatDate this.updatedAt}}</td>
                 <td class="actions-column">
                     <a href="/users/edit/{{this._id}}" class="btn btn-primary btn-sm">Editar</a>
                     <a href="/users/delete/{{this._id}}" class="btn btn-danger btn-sm">Eliminar</a>
@@ -30,7 +40,8 @@
         </tbody>
     </table>
     <div class="input-group group-comprar">
-        <a href="/users/newUser" class="btn btn-outline-success ">Crear un Usuario Nuevo (Modo de Prueba para Test de Errores) </a>
+        <a href="/users/newUser" class="btn btn-outline-success ">Crear un Usuario Nuevo (Modo de Prueba para Test de
+            Errores) </a>
         <a href="/signupadmin" class="btn btn-secondary ">Crear una Cuenta Nueva</a>
         <a href="/admin_panel" class="btn btn-primary ">Volver</a>
     </div>

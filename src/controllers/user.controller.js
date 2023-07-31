@@ -21,8 +21,8 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
         res.status(500).send('Error del servidor', { user });
     }
 };
-export const getProfileUsersController = async (req, res) => {
-    const user = getUserFromToken(req);    
+export const getProfileUsersController = async (req, res) => { // Uso de DTO para el Profile del usuario
+    const user = new UsersDTO(getUserFromToken(req));    
     res.render('profileUser', { user });
 }
 export const getNewUserTest = async (req, res) => {

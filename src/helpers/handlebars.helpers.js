@@ -14,4 +14,10 @@ export async function registerHandlebarsHelpers() {
     Handlebars.registerHelper('ifEqual', (a, b, options) => {
         return a === b ? options.fn(this) : options.inverse(this);
     });
+
+    Handlebars.registerHelper('formatDate', function (date) {
+        if (!date) return '';
+        const formattedDate = new Date(date).toLocaleDateString('es-AR') + ' - ' + new Date(date).toLocaleTimeString('es-AR');
+        return formattedDate;
+    });
 }

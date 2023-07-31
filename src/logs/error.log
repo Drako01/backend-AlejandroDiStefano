@@ -85,3 +85,8 @@
 {"timestamp":"31/07/2023, 08:12","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/45"}
 {"timestamp":"31/07/2023, 08:13","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/45"}
 {"timestamp":"31/07/2023, 08:13","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/45"}
+{"timestamp":"31/07/2023, 12:50","error":"user.save is not a function"}
+{"timestamp":"31/07/2023, 14:46","error":"El puerto 8080 está en uso. Por favor, elija un puerto diferente."}
+{"timestamp":"31/07/2023, 14:47"}
+{"timestamp":"31/07/2023, 14:48","error":"El puerto 8080 está en uso. Por favor, elija un puerto diferente."}
+{"timestamp":"31/07/2023, 14:51","error":"El puerto 8080 está en uso. Por favor, elija un puerto diferente."}

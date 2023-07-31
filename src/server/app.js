@@ -11,7 +11,7 @@ const app = express();
 
 // Configuracion de Compresion de Archivos Estaticos con Brotli
 app.use(compression({
-    brotli:{enabled: true, zlib:{}}
+    brotli: { enabled: true, zlib: {} }
 }))
 
 // Configuracion de Path
@@ -29,7 +29,7 @@ program.parse();
 // Conexión a la base de datos
 import MongoClient from '../daos/mongo/mongo.client.dao.js'
 let client = new MongoClient()
-client.connect()
+
 
 // Passport Github
 import initializePassportGH from '../middlewares/github.middleware.js';
@@ -123,19 +123,53 @@ app.use(cors())
 import swaggerUiExpress from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { swaggerOptions } from '../manager/swagger.manager.js';
+import chatApp from '../config/chat.app.js';
+import EErros from '../services/errors/enums.js';
+import CustomError from '../services/errors/custom_error.js';
+
 const specs = swaggerJsdoc(swaggerOptions);
-console.log('\n '); // Este console.log es par hacer un salto de Linea en la consola para que se vea mejor
-loggers.http('Swagger corriendo en: ' + swaggerOptions.definition.servers[0].url + '/docs');
 app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 
 //Server Up
 let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
 const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
-const httpServer = app.listen(port, () => loggers.http(`Server Up! => ${dominio}:${port}`))
-const socketServer = new Server(httpServer)
 
+function startServer() {
+    const httpServer = app.listen(port, () => {
+        loggers.http(`Server Up! => ${dominio}:${port}`);
+        loggers.http('Swagger corriendo en: ' + swaggerOptions.definition.servers[0].url + '/docs');
+        client.connect()
+    });
 
-//Chat Socket
-import chatApp from '../config/chat.app.js';
-chatApp(socketServer);
+    const socketServer = new Server(httpServer);
+    //Chat Socket
+    chatApp(socketServer);
+}
+
+// Verificar si el puerto está en uso antes de iniciar el servidor
+import net from 'net';
+const serverTester = net.createServer();
+
+serverTester.once('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+        let message
+        const error = new CustomError(
+            'Error de Puerto en Uso',
+            message,
+            `Error al intentar iniciar el Servidor porque el puerto ${port} está en uso por otro proceso.!`,
+            EErros.EADDRINUSE
+        );
+        customError(error);
+        loggers.error(error.message);
+    } else {
+        loggers.error('Error starting the server:', error);
+    }
+});
+
+serverTester.once('listening', () => {
+    serverTester.close();
+    startServer();
+});
+
+serverTester.listen(port);

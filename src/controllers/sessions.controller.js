@@ -53,13 +53,15 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
         bcrypt.compare(password, user.password)
             .then(result => {
                 if (result) {
+                    user.active = true;
+                    user.save();
                     const token = generateToken(user);
                     const userToken = token;
-
                     const decodedToken = jwt.verify(userToken, secret); 
                     const userId = decodedToken.userId;
                     const message = `El Usuario ${decodedToken.first_name} ${decodedToken.last_name} con ID  #${userId} se ha Logueado con éxito.!`;
                     customMessageSessions(message)
+                    
                     res.cookie(cookieName, userToken).redirect('/');
                 } else {
                     loggers.error('Error to login user');
@@ -82,8 +84,16 @@ export const getLogoutController = async (req, res) => {
 
     const message = `El Usuario ${firstName} ${lastName} con ID #${userId} se ha Deslogueado con éxito.!`;
     customMessageSessions(message);
-    res.clearCookie(cookieName); 
-    res.redirect('/');
+    
+    try {
+        await UserService.update(userId, { active: false });
+        res.clearCookie(cookieName); 
+        res.redirect('/');
+    } catch (err) {
+        customError(err);
+        loggers.error('Error to update user status to inactive');
+        return res.status(500).render('error/error500');
+    }
 }
 
 export const getSignupController = async (req, res) => { 
