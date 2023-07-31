@@ -121,7 +121,6 @@ export const clearCartByid = async (req, res) => { // DAO Aplicado
         await cart.save();
         res.redirect('/');
     } catch (error) {
-        user = getUserFromToken(req);
         customError(error);
         loggers.error("Error al vaciar el carrito");
         res.status(500).render('error/notCart', { user });
@@ -147,7 +146,6 @@ export const deleteCartById = async (req, res) => { // DAO Aplicado
 
         res.redirect('/');
     } catch (error) {
-        user = getUserFromToken(req);
         customError(error);
         loggers.error("Error al eliminar el carrito");
         res.status(500).render('error/notCart', { user });
@@ -185,7 +183,6 @@ export const updateProductsToCartById = async (req, res) => { // DAO Aplicado
         res.redirect('/carts');
 
     } catch (error) {
-        user = getUserFromToken(req);
         customError(error);
         loggers.error("Error al actualizar la cantidad del producto");
         res.status(500).render('error/notCart', { user });
@@ -248,7 +245,6 @@ export const deleteCartByIdController = async (req, res) => { // DAO Aplicado
         await cart.save();
         return res.render('cartsDeleteById', { cartId, itemId, user });
     } catch (error) {
-        user = getUserFromToken(req);
         customError(error);
         loggers.error('Error al eliminar un producto del carrito');
         return res.status(500).render('error/notCart', { user });

@@ -2,7 +2,7 @@ import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
-import Producto from '../daos/models/products.model.js';
+import { ProductService } from '../repositories/index.js';
 import customError from '../services/error.log.js';
 const urlActual = config.urls.urlLocal;
 
@@ -96,7 +96,7 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         // Reducción del stock después de enviar el correo
         for (const item of cart.items) {
             try {
-                const product = await Producto.findById(item.producto._id);
+                const product = await ProductService.getById(item.producto._id);
                 if (!product) {
                     loggers.warning(`Producto no encontrado con el id: ${item.producto._id}`);
                     continue;

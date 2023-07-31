@@ -96,3 +96,8 @@
 {"timestamp":"31/07/2023, 16:07","error":"Error al intentar iniciar el Servidor porque el puerto 8080 está en uso por otro proceso.!"}
 {"timestamp":"31/07/2023, 16:10","error":"Error al intentar iniciar el Servidor porque el puerto 8080 está en uso por otro proceso.!"}
 {"timestamp":"31/07/2023, 16:11","error":"Error al intentar iniciar el Servidor porque el puerto 8080 está en uso por otro proceso.!"}
+{"timestamp":"31/07/2023, 18:01","error":"Cannot read properties of null (reading '_id')"}
+{"timestamp":"31/07/2023, 18:01","error":"Cannot read properties of null (reading '_id')"}
+{"timestamp":"31/07/2023, 18:01","error":"Cannot read properties of null (reading '_id')"}
+{"timestamp":"31/07/2023, 18:04","error":"cart.save is not a function"}
+{"timestamp":"31/07/2023, 18:04","error":"cart.save is not a function"}
