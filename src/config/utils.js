@@ -36,15 +36,11 @@ export const loggermid = (req, res, next) => {
     const formattedTime = now.toLocaleTimeString('es-AR');
     const dominio = config.urls.urlLocal 
     const port = config.ports.prodPort;
-    const message = {
-        level: 'error',
-        message: `Método ${req.method} en la URL: ${dominio}:${port}${req.url} - ${formattedDate} - ${formattedTime}`
-    };
+    const message = `Método ${req.method} en la URL: ${dominio}:${port}${req.url} - ${formattedDate} - ${formattedTime}`   
 
     const requestedPath = req.path;
     if (!swaggerUrls.includes(requestedPath)) {
-        req.logger.error(`Este es un mensaje customisado: ${message.message}`);
+        logger.error(`Este es un mensaje customisado: ${message}`);
     }
-    
     next();
 };
