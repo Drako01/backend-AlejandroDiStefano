@@ -3,6 +3,7 @@ import { Server } from 'socket.io';
 import config from '../config/config.js';
 import compression from 'express-compression';
 import errorHandler from '../middlewares/error.middleware.js'
+import customError from '../services/error.log.js'
 import loggers from '../config/logger.js'
 
 const app = express();
@@ -100,11 +101,10 @@ function validateSwaggerRoutes(req, res, next) {
     if (swaggerUrl.includes(requestedPath)) {
         next();
     } else {
-        loggers.error(`Intentaron ingresar a una Pagina No Existente.!! 
-            Error 404 | Método: ${req.method} en la URL: ${dominio}:${port}${req.url}`);
+        let message = `Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: ${req.method} en la URL: ${dominio}:${port}${req.url}`
+        customError(new Error(message));
         const user = getUserFromToken(req);
-        (!user) ? res.status(404).render('error/error404') :
-            res.status(404).render('error/error404', { user });
+        (!user) ? res.status(404).render('error/error404') : res.status(404).render('error/error404', { user });
     }
 }
 app.use(validateSwaggerRoutes);

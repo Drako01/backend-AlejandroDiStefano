@@ -30,3 +30,17 @@
 {"level":"error","message":"GET on /users/edit/ - 29/7/2023 - 00:31:35"}
 {"level":"error","message":"GET on /carts/dsadasd - 30/7/2023 - 19:44:52"}
 {"level":"error","message":"GET on /carts/644469e38a80556459d929ef - 30/7/2023 - 19:45:16"}
+{"level":"error","message":"GET on /45 - 31/7/2023 - 07:47:03"}
+{"level":"error","message":"GET on /45 - 31/7/2023 - 07:49:49"}
+{"level":"error","message":"GET on /45 - 31/7/2023 - 07:50:07"}
+{"level":"error","message":"GET on /45 - 31/7/2023 - 07:50:46"}
+{"level":"error","message":"GET on /45 - 31/7/2023 - 07:51:11"}
+{"level":"error","message":"GET on /45 - 31/7/2023 - 07:52:22"}
+{"level":"error","message":"GET on /45 - 31/7/2023 - 07:53:02"}
+{"level":"error","message":"Este es un mensaje customisado: [object Object]"}
+{"level":"error","message":"Este es un mensaje customisado: GET on /45 - 31/7/2023 - 07:56:54"}
+{"level":"error","message":"Este es un mensaje customisado: GET on /45 - 31/7/2023 - 07:57:25 | GET en la URL: /45"}
+{"level":"error","message":"Este es un mensaje customisado: GET on /45 - 31/7/2023 - 07:58:03 | error"}
+{"level":"error","message":"Este es un mensaje customisado: GET on /45 - 31/7/2023 - 08:00:46 | error undefined - ::1"}
+{"level":"error","message":"Este es un mensaje customisado: GET on /45 - 31/7/2023 - 08:01:24 | error"}
+{"level":"error","message":"Este es un mensaje customisado: Método GET en la URL: https://lonneopen.com:8080/45 - 31/7/2023 - 08:06:22 | error"}
