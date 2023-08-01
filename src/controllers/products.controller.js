@@ -1,14 +1,13 @@
 import Product from '../daos/models/products.model.js';
-import { ProductService } from '../repositories/index.js';
+import { ProductService, CartService } from '../repositories/index.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import config from '../config/config.js';
 import loggers from '../config/logger.js'
-import Cart from '../daos/models/carts.model.js';
 import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js';
 import customError from '../services/error.log.js';
 import { generateMockProducts } from '../services/mocking.service.js';
+import { removeProductFromCart } from '../helpers/functions.helpers.js';
 import { sendSMS } from '../helpers/twilio.helpers.js';
-
 const cookieName = config.jwt.cookieName;
 
 export const getIndexProductsController = async (req, res) => { // DAO Aplicado
@@ -173,27 +172,37 @@ export const getProductByIdController = async (req, res) => { // DAO Aplicado
 export const getPurchaseController = async (req, res) => {
     try {
         const user = getUserFromToken(req);
-        const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
+        const cart = await CartService.getOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
 
         if (!cart) {
             res.status(404).render('error/error404', { user });
             return;
         }
 
-        const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+        const productsOutOfStock = cart.items.filter(item => item.producto.stock <= 0);
 
-        res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
+        if (productsOutOfStock.length > 0) {
+            for (const item of productsOutOfStock) {
+                await removeProductFromCart(cart, item.producto._id);
+            }
+            const updatedCart = await CartService.getOne({ _id: cart._id }).populate('items.producto');
+            const totalPrice = updatedCart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+            res.render('checkout', { cart: updatedCart, code: updatedCart.code, purchaseDatetime: updatedCart.purchase_datetime, totalPrice, user });
+        } else {
+            const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+            res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
+        }
     } catch (error) {
         customError(error);
         loggers.error('Error al procesar la compra')
-        res.status(500).render('error/error500', { user })
+        res.status(500).render('error/error500', { user });
     }
 }
 
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
-        const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
+        const cart = await CartService.getOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
         
         if (!cart) {
             res.status(404).render('error/error404', { user });
