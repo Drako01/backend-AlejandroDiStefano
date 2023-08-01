@@ -8,6 +8,7 @@ import passport from 'passport';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import customError from '../services/error.log.js';
 import customMessageSessions from '../services/sessions.log.js';
+import { sendWellcomeUser, sendResetPasswordEmail } from '../helpers/nodemailer.helpers.js';
 
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;
@@ -116,13 +117,18 @@ export const setSignupController = async (req, res, next) => {
             }
         }
 
-        req.login(user, (err) => {
+        req.login(user, async (err) => {
             if (err) {
                 customError(err);
                 loggers.error(err);
                 return res.status(403).render('error/error403');
             }
-
+            try {
+                await sendWellcomeUser(user.email); 
+            } catch (err) {
+                customError(err);
+                loggers.error('Error sending welcome email');
+            }
             res.redirect('/login');
         });
     })(req, res, next);
@@ -149,13 +155,20 @@ export const setSignupAdminController = (req, res, next) => {
             }
         }
 
-        req.login(user, (err) => {
+        req.login(user, async (err) => {
             if (err) {
                 customError(err);
                 loggers.error('Error creating user');
                 return res.status(403).render('error/error403')
             }
-
+            try {
+                await sendWellcomeUser(user.email); 
+                const resetToken = generateToken(); 
+                await sendResetPasswordEmail(user.email, resetToken);
+            } catch (err) {
+                customError(err);
+                loggers.error('Error sending welcome email', err);
+            }
             res.redirect('/users');
         });
     })(req, res, next);

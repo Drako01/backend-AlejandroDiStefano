@@ -6,6 +6,7 @@ import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
 import UsersDTO from '../dtos/user.dto.js';
 import customError from '../services/error.log.js';
+import { sendCloseAccountEmail } from '../helpers/nodemailer.helpers.js';
 
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    
@@ -107,7 +108,12 @@ export const deleteUserByIdController = async (req, res) => { // DAO Aplicado
 
         // Eliminar el usuario de la base de datos
         await UserService.delete(userId);
-
+        try {
+            await sendCloseAccountEmail(user.email);
+        } catch (err) {
+            customError(err);
+            loggers.error('Error sending close account email');
+        }
         res.render('userDelete', { user });
     } catch (err) {
         customError(err);

@@ -179,3 +179,182 @@ export const sendDeleteProductsEmail = async (usermail, cart) => {
     }
 };
 
+export const sendWellcomeUser = async (usermail) => {
+    try {
+        const mailGenerator = new Mailgen({
+            theme: 'default',
+            product: {
+                name: 'Lonne Open',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
+            },
+        });
+
+        const emailContent = {
+            body: {
+                greeting: `¡Bienvenido/a  ${usermail} a Lonne Open!`,
+                intro: 'Gracias por unirte a nuestra comunidad. En Lonne Open encontrarás una amplia variedad de productos y ofertas especiales. ¡Esperamos que disfrutes de tu experiencia de compra con nosotros!',
+
+                outro: [
+                    'Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.',
+                    `Correo de contacto: ventas@lonneopen.com`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
+                ],
+            },
+        };
+
+        const emailBody = mailGenerator.generate(emailContent);
+
+        const mailOptions = {
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
+            to: usermail,
+            subject: '¡Bienvenido/a a Lonne Open!',
+            html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
+                },
+            ],
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico', err);
+    }
+};
+
+// Avisar al usuario que genere un nuevo password
+export const sendResetPasswordEmail = async (usermail, token) => {
+    try {
+        const mailGenerator = new Mailgen({
+            theme: 'default',
+            product: {
+                name: 'Lonne Open',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
+            },
+        });
+
+        const resetLink = `https://www.lonneopen.com/reset-password/${token}`;
+
+        const emailContent = {
+            body: {
+                greeting: `Hola ${usermail}`,
+                intro: 'Recibimos una solicitud para restablecer la contraseña de tu cuenta en Lonne Open. Si no realizaste esta solicitud, puedes ignorar este correo.',
+
+                action: {
+                    instructions: 'Si deseas restablecer tu contraseña, haz clic en el siguiente botón:',
+                    button: {
+                        text: 'Restablecer contraseña',
+                        link: resetLink,
+                    },
+                },
+
+                outro: [
+                    'Si necesitas ayuda o tienes alguna pregunta, no dudes en contactarnos.',
+                    `Correo de contacto: ventas@lonneopen.com`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
+                ],
+            },
+        };
+
+        const emailBody = mailGenerator.generate(emailContent);
+
+        const mailOptions = {
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
+            to: usermail,
+            subject: 'Restablecer contraseña en Lonne Open',
+            html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
+                },
+            ],
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico', err);
+    }
+};
+
+// Avisar al usuario que su cuenta fue cerrada
+export const sendCloseAccountEmail = async (usermail) => {
+    try {
+        const mailGenerator = new Mailgen({
+            theme: 'default',
+            product: {
+                name: 'Lonne Open',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
+            },
+        });
+
+        const emailContent = {
+            body: {
+                greeting: `Hola ${usermail}`,
+                intro: 'Lamentamos informarte que tu cuenta en Lonne Open ha sido cerrada.',
+
+                outro: [
+                    'Si crees que esto fue un error o necesitas más información, por favor contáctanos.',
+                    `Correo de contacto: ventas@lonneopen.com`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
+                ],
+            },
+        };
+
+        const emailBody = mailGenerator.generate(emailContent);
+
+        const mailOptions = {
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
+            to: usermail,
+            subject: 'Cierre de cuenta en Lonne Open',
+            html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
+                },
+            ],
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico', err);
+    }
+};
