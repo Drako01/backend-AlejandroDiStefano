@@ -4,7 +4,7 @@ import loggers from '../config/logger.js'
 import customError from '../services/error.log.js';
 import { sendDeleteProductsEmail } from '../helpers/nodemailer.helpers.js';
 import { findCartsWithProduct, removeProductFromCarts } from '../helpers/functions.helpers.js';
-import e from 'express';
+
 
 
 // Controladores
