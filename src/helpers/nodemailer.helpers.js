@@ -235,7 +235,64 @@ export const sendWellcomeUser = async (usermail) => {
     }
 };
 
-// Avisar al usuario que genere un nuevo password
+// Avisar al usuario que su cuenta fue cerrada
+export const sendCloseAccountEmail = async (usermail) => {
+    try {
+        const mailGenerator = new Mailgen({
+            theme: 'default',
+            product: {
+                name: 'Lonne Open',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
+            },
+        });
+
+        const emailContent = {
+            body: {
+                greeting: `Hola ${usermail}`,
+                intro: 'Lamentamos informarte que tu cuenta en Lonne Open ha sido cerrada.',
+
+                outro: [
+                    'Si crees que esto fue un error o necesitas más información, por favor contáctanos.',
+                    `Correo de contacto: ventas@lonneopen.com`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
+                ],
+            },
+        };
+
+        const emailBody = mailGenerator.generate(emailContent);
+
+        const mailOptions = {
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
+            to: usermail,
+            subject: 'Cierre de cuenta en Lonne Open',
+            html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
+                },
+            ],
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico', err);
+    }
+};
+
+// Avisar al usuario que genere un nuevo password (Esto es para mas adelante) NO SE USA EN ESTE PROYECTO
 export const sendResetPasswordEmail = async (usermail, token) => {
     try {
         const mailGenerator = new Mailgen({
@@ -280,63 +337,6 @@ export const sendResetPasswordEmail = async (usermail, token) => {
             from: 'Ventas Lonne Open <addistefano76@gmail.com>',
             to: usermail,
             subject: 'Restablecer contraseña en Lonne Open',
-            html: emailBody,
-            attachments: [
-                {
-                    filename: 'logo.webp',
-                    path: 'https://lonneopen.com/img/logo.webp',
-                    cid: 'logo@lonneopen.com',
-                },
-                {
-                    filename: '116356.png',
-                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
-                    cid: 'carrito@lonneopen.com',
-                },
-            ],
-        };
-
-        await transporter.sendMail(mailOptions);
-    } catch (err) {
-        customError(err);
-        loggers.error('Error al enviar el correo electrónico', err);
-    }
-};
-
-// Avisar al usuario que su cuenta fue cerrada
-export const sendCloseAccountEmail = async (usermail) => {
-    try {
-        const mailGenerator = new Mailgen({
-            theme: 'default',
-            product: {
-                name: 'Lonne Open',
-                link: {
-                    href: 'https://www.lonneopen.com/',
-                    image: 'cid:logo@lonneopen.com',
-                    width: 60,
-                    alt: 'Lonne Open Logo',
-                },
-            },
-        });
-
-        const emailContent = {
-            body: {
-                greeting: `Hola ${usermail}`,
-                intro: 'Lamentamos informarte que tu cuenta en Lonne Open ha sido cerrada.',
-
-                outro: [
-                    'Si crees que esto fue un error o necesitas más información, por favor contáctanos.',
-                    `Correo de contacto: ventas@lonneopen.com`,
-                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
-                ],
-            },
-        };
-
-        const emailBody = mailGenerator.generate(emailContent);
-
-        const mailOptions = {
-            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
-            to: usermail,
-            subject: 'Cierre de cuenta en Lonne Open',
             html: emailBody,
             attachments: [
                 {
