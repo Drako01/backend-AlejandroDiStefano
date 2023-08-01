@@ -101,3 +101,56 @@
 {"timestamp":"31/07/2023, 18:01","error":"Cannot read properties of null (reading '_id')"}
 {"timestamp":"31/07/2023, 18:04","error":"cart.save is not a function"}
 {"timestamp":"31/07/2023, 18:04","error":"cart.save is not a function"}
+{"timestamp":"31/07/2023, 20:54","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 20:57","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:04","error":"Cannot create property 'Symbol(level)' on string 'Product not found in any cart.'"}
+{"timestamp":"31/07/2023, 21:07","error":"Cannot read properties of undefined (reading 'code')"}
+{"timestamp":"31/07/2023, 21:08","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:15","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:17","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:17","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:19","error":"product.save is not a function"}
+{"timestamp":"31/07/2023, 21:21","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:21","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:23","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:29","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:32","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:35","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:36","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:37","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:37","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:42","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:43","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:43","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:43","error":"item is not defined"}
+{"timestamp":"31/07/2023, 21:43","error":"CartService.getAll(...).populate is not a function"}
+{"timestamp":"31/07/2023, 21:43","error":"CartService.getAll(...).populate is not a function"}
+{"timestamp":"31/07/2023, 21:43","error":"CartService.getAll(...).populate is not a function"}
+{"timestamp":"31/07/2023, 21:44","error":"CartService.getAll(...).populate is not a function"}
+{"timestamp":"31/07/2023, 21:44","error":"CartService.getAll(...).populate is not a function"}
+{"timestamp":"31/07/2023, 21:44","error":"CartService.getAll(...).populate is not a function"}
+{"timestamp":"31/07/2023, 21:45","error":"Cannot create property 'Symbol(level)' on string 'Product not found in any cart.'"}
+{"timestamp":"31/07/2023, 21:45","error":"Cannot create property 'Symbol(level)' on string 'Product not found in any cart.'"}
+{"timestamp":"31/07/2023, 21:45","error":"Cannot create property 'Symbol(level)' on string 'Product not found in any cart.'"}
+{"timestamp":"31/07/2023, 21:46","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:47","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:48","error":"cart is not defined"}
+{"timestamp":"31/07/2023, 21:50","error":"product.save is not a function"}
+{"timestamp":"31/07/2023, 21:52","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 21:58","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 22:02","error":"connect ECONNREFUSED ::1:80"}
+{"timestamp":"31/07/2023, 22:04","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/undefined"}
+{"timestamp":"31/07/2023, 22:04","error":"Invalid status code 404"}

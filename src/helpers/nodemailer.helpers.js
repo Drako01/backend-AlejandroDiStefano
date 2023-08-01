@@ -123,7 +123,7 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
 };
 
 // Avisar al usuario que sus productos fueron eliminados del carrito por falta de stock
-export const sendDeleteProductsEmail = async (userEmail, cart, user) => {
+export const sendDeleteProductsEmail = async (usermail, cart) => {
     try {
         const mailGenerator = new Mailgen({
             theme: 'default',
@@ -140,8 +140,9 @@ export const sendDeleteProductsEmail = async (userEmail, cart, user) => {
 
         const emailContent = {
             body: {
-                greeting: `Hola ${user.email || user.user.email}`,
+                greeting: `Hola ${usermail}`,
                 intro: 'Lamentamos comunicarle que algunos productos en su compra en Lonne Open han sido eliminados del carrito debido a falta de stock. A continuación se muestran los detalles de su compra actualizada:',
+                
                 outro: [
                     `Código de compra: ${cart.code}`,
                     `Fecha y hora de compra: ${cart.purchase_datetime}`,
@@ -150,20 +151,11 @@ export const sendDeleteProductsEmail = async (userEmail, cart, user) => {
             },
         };
 
-        const emailBody = mailGenerator.generate(emailContent);
-        const attachments = cart.items.reduce((acc, item) => {
-            const attachment = {
-                filename: item.producto.thumbnail,
-                path: `${urlActual}:${port}${item.producto.thumbnail}`,
-                cid: `${item.producto.thumbnail}@lonneopen.com`
-            };
-            acc.push(attachment);
-            return acc;
-        }, []);
+        const emailBody = mailGenerator.generate(emailContent);        
 
         const mailOptions = {
             from: 'Ventas Lonne Open <addistefano76@gmail.com>',
-            to: userEmail,
+            to: usermail,
             subject: 'Actualización de compra en Lonne Open',
             html: emailBody,
             attachments: [
@@ -177,14 +169,13 @@ export const sendDeleteProductsEmail = async (userEmail, cart, user) => {
                     path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
                     cid: 'carrito@lonneopen.com',
                 },
-                ...attachments
             ],
         };
 
         await transporter.sendMail(mailOptions);
     } catch (err) {
         customError(err);
-        loggers.error('Error al enviar el correo electrónico');
+        loggers.error('Error al enviar el correo electrónico', err);        
     }
 };
 

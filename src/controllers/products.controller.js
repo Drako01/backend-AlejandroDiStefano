@@ -194,7 +194,7 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
         const cart = await Cart.findOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
-
+        
         if (!cart) {
             res.status(404).render('error/error404', { user });
             return;

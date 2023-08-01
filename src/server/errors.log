@@ -52,3 +52,4 @@
 {"level":"error","message":"Este es un mensaje customisado: Método GET en la URL: http://localhost:8080/45 - 31/7/2023 - 08:12:29 | level: info"}
 {"level":"error","message":"Este es un mensaje customisado: Método GET en la URL: http://localhost:8080/45 - 31/7/2023 - 08:13:15 | level: info"}
 {"level":"error","message":"Este es un mensaje customisado: Método GET en la URL: http://localhost:8080/45 - 31/7/2023 - 08:13:55"}
+{"level":"error","message":"Este es un mensaje customisado: Método GET en la URL: http://localhost:8080/undefined - 31/7/2023 - 22:04:09"}
