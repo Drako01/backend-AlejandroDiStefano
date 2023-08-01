@@ -20,8 +20,8 @@ export const deleteProductByIdController = async (req, res) => {
         if (carts && carts.length > 0) {
             const usermailarray = carts.map(cart => cart.user.email);
             await removeProductFromCarts(carts, productId);
-            usermailarray.forEach(async (usermail) => {
-                await sendDeleteProductsEmail(usermail, carts[0]); 
+            usermailarray.forEach(async (usermail, cart) => {
+                await sendDeleteProductsEmail(usermail, carts[cart]); 
             });
         } 
 
