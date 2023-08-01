@@ -6,7 +6,7 @@ import { sendDeleteProductsEmail } from '../helpers/nodemailer.helpers.js';
 
 
 
-
+// Funciones
 async function findCartWithProduct(productId) {
     try {
         const carts = await CartService.getAll({});
@@ -36,7 +36,7 @@ async function removeProductFromCart(cart, productId) {
     }
 }
 
-
+// Controladores
 export const deleteProductByIdController = async (req, res) => {
     const user = getUserFromToken(req);
 
@@ -64,7 +64,6 @@ export const deleteProductByIdController = async (req, res) => {
         res.status(500).render('error/notProduct', { user });
     }
 };
-
 
 export const getTableProductsController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
