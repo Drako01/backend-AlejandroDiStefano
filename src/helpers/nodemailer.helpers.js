@@ -141,7 +141,7 @@ export const sendDeleteProductsEmail = async (usermail, cart) => {
         const emailContent = {
             body: {
                 greeting: `Hola ${usermail}`,
-                intro: 'Lamentamos comunicarle que algunos productos en su compra en Lonne Open han sido eliminados del carrito debido a falta de stock. A continuación se muestran los detalles de su compra actualizada:',
+                intro: 'Lamentamos comunicarle que algunos productos en su compra en Lonne Open han sido eliminados del carrito debido a falta de stock. Enviamos el código de la compra:',
                 
                 outro: [
                     `Código de compra: ${cart.code}`,
