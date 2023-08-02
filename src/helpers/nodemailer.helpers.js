@@ -99,13 +99,13 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
             try {
                 const product = await ProductService.getById(item.producto._id);
                 if (!product) {
-                    loggers.warning(`Producto no encontrado con el id: ${item.producto._id}`);
+                    loggers.warn(`Producto no encontrado con el id: ${item.producto._id}`);
                     continue;
                 }
 
                 const newStock = product.stock - item.cantidad;
                 if (newStock < 0) {
-                    loggers.warning(`No hay suficiente stock para el producto: ${product.title}`);
+                    loggers.warn(`No hay suficiente stock para el producto: ${product.title}`);
                     continue;
                 }
 
@@ -308,7 +308,9 @@ export const sendResetPasswordEmail = async (usermail, token) => {
             },
         });
 
-        const resetLink = `${urlActual}:8080/reset-password/${token}`;
+        const local = `${urlActual}:8080`    
+        const production = `https://www.lonneopen.com/`
+        const resetLink = `${local}/reset-password/${token}`;
 
         const emailContent = {
             body: {
@@ -355,7 +357,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
         await transporter.sendMail(mailOptions);
     } catch (err) {
         customError(err);
-        loggers.error('Error al enviar el correo electrónico', err);
+        loggers.error('Error al enviar el correo electrónico');
     }
 };
 
@@ -412,7 +414,7 @@ export const sendPasswordChangedEmail = async (usermail) => {
         await transporter.sendMail(mailOptions);
     } catch (err) {
         customError(err);
-        loggers.error('Error al enviar el correo electrónico', err);
+        loggers.error('Error al enviar el correo electrónico');
     }
 };
 
