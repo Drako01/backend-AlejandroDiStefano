@@ -9,5 +9,6 @@ export default class UserDTO {
         this.age = user.age 
         this.role = user.role || user.user.role
         this.updatedAt = user.updatedAt
+        this.active = user.active
     }
 }
