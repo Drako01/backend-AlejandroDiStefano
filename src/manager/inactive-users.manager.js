@@ -20,7 +20,7 @@ export async function findInactiveUsers() {
         inactiveUsers.forEach((user) => {
             if (user.updatedAt < oneYearAgo) {
                 const formattedDate = formatDate(user.updatedAt);
-                loggers.warn(`Usuario inactivo: ${user.first_name || user.user.first_name} ${user.last_name} - Último inicio de sesión: ${formattedDate} | Hace más de un año que no se conecta.!!`);
+                loggers.warn(`Usuario inactivo: ${user.first_name || user.user.first_name} ${user.last_name} | Último inicio de sesión: ${formattedDate} | Hace más de un año que no se conecta.!!`);
             } else {
                 loggers.info(`Usuario activo: ${user.first_name || user.user.first_name} ${user.last_name}`);
             }
