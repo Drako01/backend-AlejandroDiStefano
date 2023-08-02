@@ -8,7 +8,7 @@ export default function loggerTest() {
     loggers.http('Esto es un mensaje de solicitud HTTP');
     loggers.info('Esto es un mensaje de información');
     loggers.notice('Esto es un mensaje de notificación');
-    loggers.warning('Esto es un mensaje de advertencia');
+    loggers.warn('Esto es un mensaje de advertencia');
     loggers.error('Esto es un mensaje de error');
     loggers.fatal('Esto es un mensaje de error fatal');
     

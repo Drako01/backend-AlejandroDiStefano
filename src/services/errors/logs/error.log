@@ -1,0 +1,10 @@
+{"timestamp":"2023-07-30T15:29:08.576Z","error":"mongoConnections is not defined"}
+{"timestamp":"2023-07-30T15:29:20.625Z","error":"mongoConnections is not defined"}
+{"timestamp":"2023-07-30T15:34:30.511Z","error":"mongoConnectiond is not defined"}
+{"timestamp":"2023-07-30T15:36:42.789Z","error":"Cast to ObjectId failed for value \"64cs4930bbbefe1a2ec79e6a\" (type string) at path \"_id\" for model \"Product\""}
+{"timestamp":"2023-07-30T15:38:49.755Z","error":"producto is not defined"}
+{"timestamp":"2023-07-30T15:39:47.340Z","error":"producto is not defined"}
+{"timestamp":"2023-07-30T15:45:08.501Z","error":"error is not defined"}
+{"timestamp":"2023-07-30T15:46:16.267Z"}
+{"timestamp":"2023-07-30T15:47:03.594Z"}
+{"timestamp":"2023-07-30T15:47:40.395Z","error":"error is not defined"}

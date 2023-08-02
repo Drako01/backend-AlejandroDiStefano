@@ -157,3 +157,72 @@
 {"timestamp":"01/08/2023, 08:31","error":"Cannot read properties of undefined (reading 'forEach')"}
 {"timestamp":"01/08/2023, 08:32","error":"Cannot read properties of undefined (reading 'forEach')"}
 {"timestamp":"01/08/2023, 10:01","error":"Cannot read properties of undefined (reading '_id')"}
+{"timestamp":"02/08/2023, 08:50","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/resetPasswordSent"}
+{"timestamp":"02/08/2023, 08:56","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/user/forgot-password"}
+{"timestamp":"02/08/2023, 08:56","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/user/forgot-password"}
+{"timestamp":"02/08/2023, 08:57","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/user/forgot-password"}
+{"timestamp":"02/08/2023, 08:57","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/user"}
+{"timestamp":"02/08/2023, 09:05","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/user/forgot-password"}
+{"timestamp":"02/08/2023, 09:05","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/user/forgot-password"}
+{"timestamp":"02/08/2023, 09:06","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/user/forgot-password"}
+{"timestamp":"02/08/2023, 09:31","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 09:32","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 09:32","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:04","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:04","error":"generateToken is not defined"}
+{"timestamp":"02/08/2023, 10:17","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:18","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:18","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:19","error":"generateToken is not defined"}
+{"timestamp":"02/08/2023, 10:26","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:27","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/"}
+{"timestamp":"02/08/2023, 10:28","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:30","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:34","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/forgot-password"}
+{"timestamp":"02/08/2023, 10:35","error":"generateToken is not defined"}
+{"timestamp":"02/08/2023, 10:36","error":"Cannot read properties of undefined (reading '_id')"}
+{"timestamp":"02/08/2023, 10:41","error":"Cannot read properties of undefined (reading '_id')"}
+{"timestamp":"02/08/2023, 10:42","error":"Cannot read properties of undefined (reading '_id')"}
+{"timestamp":"02/08/2023, 10:43","error":"Cannot read properties of undefined (reading '_id')"}
+{"timestamp":"02/08/2023, 10:45","error":"Cannot read properties of undefined (reading '_id')"}
+{"timestamp":"02/08/2023, 10:45","error":"Cannot read properties of undefined (reading '_id')"}
+{"timestamp":"02/08/2023, 10:50","error":"user is not defined"}
+{"timestamp":"02/08/2023, 10:51","error":"user is not defined"}
+{"timestamp":"02/08/2023, 10:51","error":"user is not defined"}
+{"timestamp":"02/08/2023, 10:52","error":"Cannot read properties of null (reading '_id')"}
+{"timestamp":"02/08/2023, 10:54","error":"Cannot read properties of null (reading '_id')"}
+{"timestamp":"02/08/2023, 11:00","error":"secret is not defined"}
+{"timestamp":"02/08/2023, 13:55","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTUyOTgsImV4cCI6MTY5MTA4MTY5OH0.4qHLEF3kL8SbZFIHoT1giDlv9l7_FQw5D3f7dhHQp90"}
+{"timestamp":"02/08/2023, 13:56","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTUzNzAsImV4cCI6MTY5MTA4MTc3MH0.ulyEHhM8zb1WgYjhexHstYQvcTppmkNkbNvKfFowplk"}
+{"timestamp":"02/08/2023, 13:57","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/reset-password/:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTU0MTgsImV4cCI6MTY5MTA4MTgxOH0.cvfq7Q3-BPGGAWLHtu05Xp2Xn4TYQ9yefDAmarMto8g"}
+{"timestamp":"02/08/2023, 14:00","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTU2MzIsImV4cCI6MTY5MTA4MjAzMn0.YC5rC4T472CF_-tz5vmwd-8X91T3YzyFa_YZdUtcNTg"}
+{"timestamp":"02/08/2023, 14:01","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTU2MzIsImV4cCI6MTY5MTA4MjAzMn0.YC5rC4T472CF_-tz5vmwd-8X91T3YzyFa_YZdUtcNTg"}
+{"timestamp":"02/08/2023, 14:02","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTU2MzIsImV4cCI6MTY5MTA4MjAzMn0.YC5rC4T472CF_-tz5vmwd-8X91T3YzyFa_YZdUtcNTg"}
+{"timestamp":"02/08/2023, 14:03","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTU2MzIsImV4cCI6MTY5MTA4MjAzMn0.YC5rC4T472CF_-tz5vmwd-8X91T3YzyFa_YZdUtcNTg"}
+{"timestamp":"02/08/2023, 14:03","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxMjgzZjQ1YzNjMTlhNDUzMzFlMmEiLCJpYXQiOjE2OTA5OTU2MzIsImV4cCI6MTY5MTA4MjAzMn0.YC5rC4T472CF_-tz5vmwd-8X91T3YzyFa_YZdUtcNTg"}
+{"timestamp":"02/08/2023, 14:05","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:05","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:11","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:11","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:12","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:12","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:13","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:13","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:14","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:14","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:15","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:15","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:15","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:15","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:16","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:16","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:17","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:17","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:18","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:18","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:24","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:24","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:25","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:25","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:25","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 14:25","error":"UserService is not defined"}

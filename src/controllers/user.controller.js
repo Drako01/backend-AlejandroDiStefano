@@ -7,6 +7,7 @@ import { generateUserErrorInfo } from '../services/errors/info.js'
 import UsersDTO from '../dtos/user.dto.js';
 import customError from '../services/error.log.js';
 import { sendCloseAccountEmail } from '../helpers/nodemailer.helpers.js';
+import { sendResetPasswordEmailMethod, resetPassword } from '../helpers/functions.helpers.js';
 
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    
@@ -122,4 +123,49 @@ export const deleteUserByIdController = async (req, res) => { // DAO Aplicado
     }
 };
 
+
+// Reset Password
+export const getForgotPassword = async (req, res) => {
+    res.render('resetPasswordSent');
+};
+
+export const sendForgotPassword = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const resetToken = generateToken();
+        await sendResetPasswordEmailMethod(email, resetToken);
+        res.render('resetPasswordSent', { email });
+
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo de restablecimiento de contraseña.');
+        return res.status(500).render('error/error500');
+    }
+};
+
+export const getResetPassword = async (req, res) => {
+    const { token } = req.params;
+    try {
+        res.render('resetPasswordForm', { token });
+
+    } catch (err) {
+        customError(err);
+        loggers.error('Token inválido o expirado.');
+        return res.status(500).render('error/error500');
+    }
+};
+
+export const setResetPassword = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    try {
+        await resetPassword(token, password);
+        res.render('passwordResetSuccess', { user: req.user });
+
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al restablecer la contraseña.');
+        return res.status(500).render('error/error500');
+    }
+}
 

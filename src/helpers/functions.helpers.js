@@ -1,6 +1,7 @@
-import { CartService } from '../repositories/index.js';
+import { CartService, UserService } from '../repositories/index.js';
 import loggers from '../config/logger.js'
 import customError from '../services/error.log.js';
+import { sendResetPasswordEmail } from './nodemailer.helpers.js';
 
 
 // Funciones
@@ -53,3 +54,33 @@ export async function removeProductFromCarts(carts, productId) {
         loggers.error('Error al eliminar el producto del carrito');
     }
 }
+
+
+// Método para restablecer la contraseña
+export const sendResetPasswordEmailMethod = async (usermail, token) => {
+    try {
+        await sendResetPasswordEmail(usermail, token);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico');
+    }
+};
+
+export const resetPassword = async (userId, newPassword) => {
+    try {
+        const user = await UserService.getById(userId);
+        if (!user) {
+            throw new Error('Token inválido o expirado.');
+        }
+        user.password = newPassword;        
+        await user.save();
+
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al restablecer la contraseña');
+        throw err;
+    }
+};
+
+
+

@@ -10,12 +10,13 @@ import customError from '../services/error.log.js';
 import customMessageSessions from '../services/sessions.log.js';
 import { sendWellcomeUser } from '../helpers/nodemailer.helpers.js';
 
+
 const cookieName = config.jwt.cookieName;
 const secret = config.jwt.privateKey;
 
 export const getUserFromCookiesController = async (req, res) => { // DAO Aplicado
     const userToken = req.cookies[cookieName];
-    
+
     if (!userToken) {
         return res.status(401).render('error/notLoggedIn');
     }
@@ -58,11 +59,11 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
                     user.save();
                     const token = generateToken(user);
                     const userToken = token;
-                    const decodedToken = jwt.verify(userToken, secret); 
+                    const decodedToken = jwt.verify(userToken, secret);
                     const userId = decodedToken.userId;
                     const message = `El Usuario ${decodedToken.first_name} ${decodedToken.last_name} con ID  #${userId} se ha Logueado con éxito.!`;
                     customMessageSessions(message)
-                    
+
                     res.cookie(cookieName, userToken).redirect('/');
                 } else {
                     loggers.error('Error to login user');
@@ -78,17 +79,17 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
 
 export const getLogoutController = async (req, res) => {
     const user = getUserFromToken(req);
-    
+
     const firstName = user?.first_name || user?.user?.first_name;
     const lastName = user?.last_name || user?.user?.last_name;
     const userId = user?.userId || user?.user?._id;
 
     const message = `El Usuario ${firstName} ${lastName} con ID #${userId} se ha Deslogueado con éxito.!`;
     customMessageSessions(message);
-    
+
     try {
         await UserService.update(userId, { active: false });
-        res.clearCookie(cookieName); 
+        res.clearCookie(cookieName);
         res.redirect('/');
     } catch (err) {
         customError(err);
@@ -97,7 +98,7 @@ export const getLogoutController = async (req, res) => {
     }
 }
 
-export const getSignupController = async (req, res) => { 
+export const getSignupController = async (req, res) => {
     res.render('signup');
 }
 
@@ -124,7 +125,7 @@ export const setSignupController = async (req, res, next) => {
                 return res.status(403).render('error/error403');
             }
             try {
-                await sendWellcomeUser(user.email); 
+                await sendWellcomeUser(user.email);
             } catch (err) {
                 customError(err);
                 loggers.error('Error sending welcome email');
@@ -162,8 +163,8 @@ export const setSignupAdminController = (req, res, next) => {
                 return res.status(403).render('error/error403')
             }
             try {
-                await sendWellcomeUser(user.email);             
-                
+                await sendWellcomeUser(user.email);
+
             } catch (err) {
                 customError(err);
                 loggers.error('Error sending welcome email', err);
@@ -172,3 +173,5 @@ export const setSignupAdminController = (req, res, next) => {
         });
     })(req, res, next);
 }
+
+

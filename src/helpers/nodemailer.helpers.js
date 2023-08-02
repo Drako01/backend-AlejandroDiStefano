@@ -5,6 +5,7 @@ import Mailgen from 'mailgen';
 import { ProductService } from '../repositories/index.js';
 import customError from '../services/error.log.js';
 const urlActual = config.urls.urlLocal;
+const port = config.ports.prodPort || '';
 
 // Configuración de transporte para el envío de correos electrónicos
 const transporter = nodemailer.createTransport({
@@ -15,7 +16,6 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const port = config.ports.prodPort || '';
 export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
     try {
         const mailGenerator = new Mailgen({
@@ -292,7 +292,7 @@ export const sendCloseAccountEmail = async (usermail) => {
     }
 };
 
-// Avisar al usuario que genere un nuevo password (Esto es para mas adelante) NO SE USA EN ESTE PROYECTO
+// Avisar al usuario que puede restablecer su contraseña
 export const sendResetPasswordEmail = async (usermail, token) => {
     try {
         const mailGenerator = new Mailgen({
@@ -308,7 +308,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
             },
         });
 
-        const resetLink = `https://www.lonneopen.com/reset-password/${token}`;
+        const resetLink = `${urlActual}:8080/reset-password/${token}`;
 
         const emailContent = {
             body: {

@@ -17,6 +17,8 @@ import checkoutRouter from '../routers/checkout.router.js';
 import usersRouter from '../routers/users.router.js';
 import signupAdminRouter from '../routers/signupadmin.router.js';
 import admin_panel from '../routers/products.admin.router.js';
+import forgotPassword from '../routers/forgot-password.js';
+import resetPassword from '../routers/reset-password.router.js';
 
 // Vistas
 const views = [
@@ -42,6 +44,8 @@ const views = [
     { path: '/signupadmin', router: signupAdminRouter },
     { path: '/github', router: loginGithubRouter },
     { path: '/admin_panel', router: admin_panel },
+    { path: '/forgot-password', router: forgotPassword },
+    { path: '/reset-password', router: resetPassword },    
 ];
 
 export default views;
