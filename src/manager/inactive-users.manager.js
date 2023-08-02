@@ -1,6 +1,7 @@
 import customError from '../services/error.log.js';
 import { UserService } from '../repositories/index.js';
 import loggers from '../config/logger.js';
+import UserDTO from '../dtos/user.dto.js';
 
 function formatDate(date) {
     const day = String(date.getDate()).padStart(2, '0');
@@ -12,17 +13,18 @@ function formatDate(date) {
 export async function findInactiveUsers() {
     const oneYearAgo = new Date();
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-
+    
     try {
         const inactiveUsers = await UserService.getAll();
         console.log('\n') // Salto de linea insertado para que se vea mejor en la consola
         loggers.notice('Lista de usuarios: ')
         inactiveUsers.forEach((user) => {
+            let users = new UserDTO(user);
             if (user.updatedAt < oneYearAgo) {
                 const formattedDate = formatDate(user.updatedAt);
-                loggers.warn(`Usuario inactivo: ${user.first_name || user.user.first_name} ${user.last_name} | Último inicio de sesión: ${formattedDate} | Hace más de un año que no se conecta.!!`);
+                loggers.warn(`Usuario inactivo: ${users.full_name} | Último inicio de sesión: ${formattedDate} | Hace más de un año que no se conecta.!!`);
             } else {
-                loggers.info(`Usuario activo: ${user.first_name || user.user.first_name} ${user.last_name}`);
+                loggers.info(`Usuario activo: ${users.full_name}`);
             }
         });
     } catch (error) {
