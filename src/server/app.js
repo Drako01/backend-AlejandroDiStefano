@@ -126,6 +126,7 @@ import { swaggerOptions } from '../manager/swagger.manager.js';
 import chatApp from '../config/chat.app.js';
 import EErros from '../services/errors/enums.js';
 import CustomError from '../services/errors/custom_error.js';
+import { findInactiveUsers } from '../daos/mongo/inactiveUsers.js';
 
 const specs = swaggerJsdoc(swaggerOptions);
 app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
@@ -140,6 +141,7 @@ function startServer() {
         loggers.http(`Server Up! => ${dominio}:${port}`);
         loggers.http('Swagger corriendo en: ' + swaggerOptions.definition.servers[0].url + '/docs');
         client.connect()
+        findInactiveUsers()
     });
 
     const socketServer = new Server(httpServer);

@@ -231,3 +231,5 @@
 {"timestamp":"02/08/2023, 16:14","error":"sendPasswordChangedEmail is not defined"}
 {"timestamp":"02/08/2023, 16:15","error":"sendPasswordChangedEmail is not defined"}
 {"timestamp":"02/08/2023, 16:15","error":"sendPasswordChangedEmail is not defined"}
+{"timestamp":"02/08/2023, 18:41","error":"Client must be connected before running operations"}
+{"timestamp":"02/08/2023, 18:41","error":"Client must be connected before running operations"}
