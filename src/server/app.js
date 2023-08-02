@@ -126,7 +126,7 @@ import { swaggerOptions } from '../manager/swagger.manager.js';
 import chatApp from '../config/chat.app.js';
 import EErros from '../services/errors/enums.js';
 import CustomError from '../services/errors/custom_error.js';
-import { findInactiveUsers } from '../daos/mongo/inactiveUsers.js';
+import { findInactiveUsers } from '../manager/inactive-users.manager.js';
 
 const specs = swaggerJsdoc(swaggerOptions);
 app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));

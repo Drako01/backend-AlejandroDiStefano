@@ -1,6 +1,6 @@
-import customError from '../../services/error.log.js';
-import { UserService } from '../../repositories/index.js';
-import loggers from '../../config/logger.js';
+import customError from '../services/error.log.js';
+import { UserService } from '../repositories/index.js';
+import loggers from '../config/logger.js';
 
 function formatDate(date) {
     const day = String(date.getDate()).padStart(2, '0');
@@ -18,6 +18,7 @@ export async function findInactiveUsers() {
         inactiveUsers.forEach((user) => {
             if (user.updatedAt < oneYearAgo) {
                 const formattedDate = formatDate(user.updatedAt);
+                console.log('\n') // Salto de linea insertado para que se vea mejor en la consola
                 loggers.info(`Usuario inactivo: ${user.first_name || user.user.first_name} ${user.last_name}- Último inicio de sesión: ${formattedDate} | Hace más de un año que no se conecta.!!`);
             }
         });
