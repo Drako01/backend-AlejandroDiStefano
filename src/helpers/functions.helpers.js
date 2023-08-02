@@ -1,7 +1,7 @@
 import { CartService, UserService } from '../repositories/index.js';
 import loggers from '../config/logger.js'
 import customError from '../services/error.log.js';
-import { sendResetPasswordEmail } from './nodemailer.helpers.js';
+import { sendResetPasswordEmail, sendPasswordChangedEmail } from './nodemailer.helpers.js';
 
 
 // Funciones
@@ -72,8 +72,10 @@ export const resetPassword = async (userId, newPassword) => {
         if (!user) {
             throw new Error('Token inválido o expirado.');
         }
-        user.password = newPassword;        
-        await user.save();
+        user.password = newPassword;               
+        await user.save();  
+        const email = user.email;
+        await sendPasswordChangedEmail(email)       
 
     } catch (err) {
         customError(err);

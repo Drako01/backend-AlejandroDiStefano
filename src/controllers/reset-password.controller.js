@@ -55,6 +55,7 @@ export const setResetPassword = async (req, res) => {
 
     try {
         await resetPassword(userId, pass);
+        
         res.render('passwordResetSuccess', { user: req.user });
 
     } catch (err) {

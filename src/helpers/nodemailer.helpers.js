@@ -358,3 +358,61 @@ export const sendResetPasswordEmail = async (usermail, token) => {
         loggers.error('Error al enviar el correo electrónico', err);
     }
 };
+
+// Avisar al usuario que su contraseña fue restablecida
+export const sendPasswordChangedEmail = async (usermail) => {
+    try {
+        const mailGenerator = new Mailgen({
+            theme: 'default',
+            product: {
+                name: 'Lonne Open',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
+            },
+        });
+
+        const emailContent = {
+            body: {
+                greeting: `Hola ${usermail}`,
+                intro: 'Te informamos que tu contraseña ha sido restablecida exitosamente en Lonne Open.',
+
+                outro: [
+                    'Si no realizaste esta acción o necesitas más información, por favor contáctanos.',
+                    `Correo de contacto: ventas@lonneopen.com`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
+                ],
+            },
+        };
+
+        const emailBody = mailGenerator.generate(emailContent);
+
+        const mailOptions = {
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
+            to: usermail,
+            subject: 'Contraseña restablecida en Lonne Open',
+            html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
+                },
+            ],
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico', err);
+    }
+};
+
