@@ -24,10 +24,13 @@
             </div>
             <div class="form-group">
                 <input type="hidden" class="form-control" id="role" name="role" value="user">
-            </div>
+            </div>            
             <div class="form-group">
                 <label for="password">Contraseña:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <div class="password-input">
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">Ver</span>
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">Reingrese la Contraseña:</label>
@@ -38,3 +41,4 @@
         </form>
     </div>
 </div>
+<script src="/js/index.js"></script>

@@ -226,3 +226,4 @@
 {"timestamp":"02/08/2023, 14:25","error":"UserService is not defined"}
 {"timestamp":"02/08/2023, 14:25","error":"UserService is not defined"}
 {"timestamp":"02/08/2023, 14:25","error":"UserService is not defined"}
+{"timestamp":"02/08/2023, 15:13","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/src/public/js/index.js"}

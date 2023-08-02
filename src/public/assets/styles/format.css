@@ -140,11 +140,12 @@ button.swal2-styled::after{
     right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     background-color: #3333337d;
     color: #fff;
     padding: 0.2rem 0.5rem;
     border-radius: 0.4rem;
+    vertical-align: middle;
 }
 
 
