@@ -139,7 +139,7 @@ const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.por
 function startServer() {
     const httpServer = app.listen(port, () => {
         loggers.http(`Server Up! => ${dominio}:${port}`);
-        loggers.http('Swagger corriendo en: ' + swaggerOptions.definition.servers[0].url + '/docs');
+        loggers.http('Documentación de API con Swagger => ' + swaggerOptions.definition.servers[0].url + '/docs');
         client.connect()
         findInactiveUsers()
     });
