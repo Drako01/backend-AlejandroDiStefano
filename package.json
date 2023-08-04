@@ -1,6 +1,6 @@
 {
   "name": "backend-alejandrodistefano",
-  "version": "4.1.2",
+  "version": "4.2.2",
   "type": "module",
   "description": "eCommerce para Venta de Productos de Tenis",
   "main": "start.js",

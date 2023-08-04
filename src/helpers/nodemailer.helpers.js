@@ -6,6 +6,8 @@ import { ProductService } from '../repositories/index.js';
 import customError from '../services/error.log.js';
 const urlActual = config.urls.urlLocal;
 const port = config.ports.prodPort || '';
+const url = config.urls.urlLocal;
+
 
 // Configuración de transporte para el envío de correos electrónicos
 const transporter = nodemailer.createTransport({
@@ -308,7 +310,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
             },
         });
 
-        const local = `${urlActual}:8080`    
+        const local = `${url}:${port}`  
         const production = `https://www.lonneopen.com/`
         const resetLink = `${local}/reset-password/${token}`;
 
