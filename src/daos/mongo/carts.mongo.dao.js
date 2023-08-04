@@ -3,6 +3,7 @@ import Cart from '../models/carts.model.js'
 export default class CartDaoBD {
     constructor() {}
     getOne = async(Object) => await Cart.findOne(Object).exec();
+    getOnePopulate = async(Object) => await Cart.findOne(Object).populate('items.producto').exec();
     getAll = async() => await Cart.find()
     getById = async(id) => await Cart.findById(id).lean().exec()
     setCart = async(Array) => await Cart.aggregate(Array)

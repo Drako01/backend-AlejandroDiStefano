@@ -172,7 +172,7 @@ export const getProductByIdController = async (req, res) => { // DAO Aplicado
 export const getPurchaseController = async (req, res) => {
     try {
         const user = getUserFromToken(req);
-        const cart = await CartService.getOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
+        const cart = await CartService.getOnePopulate({ user: { email: user.email || user.user.email } })
 
         if (!cart) {
             res.status(404).render('error/error404', { user });
@@ -185,7 +185,7 @@ export const getPurchaseController = async (req, res) => {
             for (const item of productsOutOfStock) {
                 await removeProductFromCart(cart, item.producto._id);
             }
-            const updatedCart = await CartService.getOne({ _id: cart._id }).populate('items.producto');
+            const updatedCart = await CartService.getOnePopulate({ _id: cart._id })
             const totalPrice = updatedCart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
             res.render('checkout', { cart: updatedCart, code: updatedCart.code, purchaseDatetime: updatedCart.purchase_datetime, totalPrice, user });
         } else {
@@ -202,7 +202,7 @@ export const getPurchaseController = async (req, res) => {
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
-        const cart = await CartService.getOne({ user: { email: user.email || user.user.email } }).populate('items.producto');
+        const cart = await CartService.getOne({ user: { email: user.email || user.user.email } })
         
         if (!cart) {
             res.status(404).render('error/error404', { user });
@@ -215,7 +215,7 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
         // Checkear el stock de cada producto en el carrito
         for (const item of cart.items) {
             try {
-                const product = await Product.findById(item.producto._id);
+                const product = await ProductService.getById(item.producto._id);
                 if (!product) {
                     loggers.warning(`Producto no encontrado con el id: ${item.producto._id}`);
                     continue;
@@ -258,7 +258,7 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (error) {
         customError(error);
-        loggers.error('Error al procesar la compra')
+        loggers.error('Error al procesar la compra en el Checkout')
         res.status(500).render('error/error500', { user })
     }
 }
