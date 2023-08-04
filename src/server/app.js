@@ -8,7 +8,6 @@ import loggers from '../config/logger.js'
 
 const app = express();
 
-
 // Configuracion de Compresion de Archivos Estaticos con Brotli
 app.use(compression({
     brotli: { enabled: true, zlib: {} }
@@ -25,6 +24,9 @@ program
     .option('--mode <mode>', 'Puerto', 'prod')
     .option('--database <database>', 'Base de Datos', 'atlas')
 program.parse();
+
+let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
+const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
 
 // Conexión a la base de datos
 import MongoClient from '../daos/mongo/mongo.client.dao.js'
@@ -133,13 +135,12 @@ app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 
 //Server Up
-let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
-const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
+
 
 function startServer() {
     const httpServer = app.listen(port, () => {
         loggers.http(`Server Up! => ${dominio}:${port}`);
-        loggers.http('Documentación de API con Swagger => ' + swaggerOptions.definition.servers[0].url + '/docs');
+        loggers.http('Documentación de API con Swagger => ' + swaggerOptions.definition.servers[0].url + '/docs-api');
         client.connect()
         findInactiveUsers()
     });

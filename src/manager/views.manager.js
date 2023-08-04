@@ -19,6 +19,7 @@ import signupAdminRouter from '../routers/signupadmin.router.js';
 import admin_panel from '../routers/products.admin.router.js';
 import forgotPassword from '../routers/forgot-password.js';
 import resetPassword from '../routers/reset-password.router.js';
+import documentRouter from '../routers/docs.router.js';
 
 // Vistas
 const views = [
@@ -46,6 +47,7 @@ const views = [
     { path: '/admin_panel', router: admin_panel },
     { path: '/forgot-password', router: forgotPassword },
     { path: '/reset-password', router: resetPassword },    
+    { path: '/docs-api', router: documentRouter },  
 ];
 
 export default views;

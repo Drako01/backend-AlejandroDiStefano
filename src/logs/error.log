@@ -234,3 +234,6 @@
 {"timestamp":"02/08/2023, 18:41","error":"Client must be connected before running operations"}
 {"timestamp":"02/08/2023, 18:41","error":"Client must be connected before running operations"}
 {"timestamp":"02/08/2023, 19:12","error":"Cannot create property 'Symbol(level)' on string 'Lista de usuarios inactivos: '"}
+{"timestamp":"04/08/2023, 16:28","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/cartse"}
+{"timestamp":"04/08/2023, 16:29","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/cartse"}
+{"timestamp":"04/08/2023, 16:29","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/cartse"}
