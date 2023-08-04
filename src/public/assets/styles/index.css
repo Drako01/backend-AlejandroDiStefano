@@ -26,6 +26,7 @@
     border: 1px solid var(--gold);
     border-radius: 2rem;
     margin: 2rem;
+    background-color: var(--sweetdark);
 }
 .checkout{
     padding: 4rem;   
@@ -105,4 +106,7 @@
 }
 .bienvenida img{
     width: 3rem;   
+}
+body{
+    background-color: var(--light);
 }
