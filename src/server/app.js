@@ -88,7 +88,7 @@ function setupRoutes(app, routes) {
 setupRoutes(app, views);
 
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-// Excepción para la ruta /apidocs/
+// Excepción para la ruta /docs/
 app.use('/docs', (req, res, next) => next());
 
 
