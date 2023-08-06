@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import User from '../src/daos/mongo/user.mongo.dao.js'
 import Assert from 'assert'
 
-mongoose.connect('mongodb://localhost:27017/test')
+mongoose.connect('mongodb://127.0.0.1:27017/test')
 
 const assert = Assert.strict
 
@@ -32,9 +32,10 @@ describe('Testing SAVE method of User DAO', () => {
     })
     it('El DAO debe poder crear usuarios', async function() {
         const result = await this.userDao.save({
-            first_name: 'Alex',
-            last_name: 'Marin',
-            email: 'alexmarinmendez@gmail.com',
+            first_name: 'Alejandro',
+            last_name: 'Di Stefano',
+            email: 'addistefano76@gmail.com',
+            role: 'admin',
             password: 'secret'
         })
         assert.ok(result._id)
@@ -50,12 +51,13 @@ describe('Testing GETBY method of User DAO', () => {
     })
     it('El DAO debe poder buscar por email', async function() {
         const result = await this.userDao.save({
-            first_name: 'Alex',
-            last_name: 'Marin',
-            email: 'alexmarinmendez@gmail.com',
+            first_name: 'Alejandro',
+            last_name: 'Di Stefano',
+            email: 'addistefano76@gmail.com',
+            role: 'admin',
             password: 'secret'
         })
-        const user = await this.userDao.getOne({ email: 'alexmarinmendez@gmail.com'})
+        const user = await this.userDao.getOne({ email: 'addistefano76@gmail.com'})
 
         assert.strictEqual(typeof user, 'object')
     })
