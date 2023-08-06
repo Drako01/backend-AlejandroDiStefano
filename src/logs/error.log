@@ -237,3 +237,10 @@
 {"timestamp":"04/08/2023, 16:28","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/cartse"}
 {"timestamp":"04/08/2023, 16:29","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/cartse"}
 {"timestamp":"04/08/2023, 16:29","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/cartse"}
+{"timestamp":"06/08/2023, 17:54","error":"product.save is not a function"}
+{"timestamp":"06/08/2023, 17:54","error":"product.save is not a function"}
+{"timestamp":"06/08/2023, 17:55","error":"product.save is not a function"}
+{"timestamp":"06/08/2023, 17:55","error":"product.save is not a function"}
+{"timestamp":"06/08/2023, 17:59","error":"product.save is not a function"}
+{"timestamp":"06/08/2023, 18:02","error":"product.save is not a function"}
+{"timestamp":"06/08/2023, 18:11","error":"product.save is not a function"}

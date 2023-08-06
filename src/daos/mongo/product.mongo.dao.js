@@ -4,7 +4,7 @@ export default class ProductDaoBD {
     constructor() {}
     getAll = async() => await Product.find().lean()
     getAllLimit = async(limit) => await Product.find().limit(limit).lean()
-    getById = async(id) => await Product.findById(id).lean().exec()
+    getById = async(id) => await Product.findById(id)
     getOne = async(Object) => await Product.findOne(Object);
     getAllQuery = async(data) => await Product.find().sort(data).lean()
     getByCategory = async(data) => await Product.distinct(data)

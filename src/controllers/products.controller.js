@@ -203,12 +203,11 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
         const cart = await CartService.getOne({ user: { email: user.email || user.user.email } })
-        
+
         if (!cart) {
             res.status(404).render('error/error404', { user });
             return;
         }
-
         // Crear un nuevo array con los productos que tienen stock suficiente
         const productsWithSufficientStock = [];
 
@@ -249,8 +248,6 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
             res.render('error/notStock', { user, products: cart.items.map((item) => item.producto) });
             return;
         }
-
-        // Enviar el correo electrónico de confirmación de compra
         await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
         //await sendSMS(user.phone); // Descomentar para enviar un SMS
 
