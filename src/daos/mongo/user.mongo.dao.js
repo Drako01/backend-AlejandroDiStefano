@@ -8,4 +8,5 @@ export default class UsersDaoBD {
     create = async(data) => await Users.create(data)
     update = async(id, data) => await Users.findByIdAndUpdate(id, data, { returnDocument: 'after' })
     delete = async(id) => await Users.findByIdAndRemove(id)
+    save = async(data) => await Users.create(data)
 }

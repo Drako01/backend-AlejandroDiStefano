@@ -5,7 +5,7 @@
   "description": "eCommerce para Venta de Productos de Tenis",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/**/*.test.js",
     "dev": "cd src/server && nodemon app.js",
     "start": "cd src/server && node app.js"
   },
@@ -92,11 +92,11 @@
     "sweetalert2": "^11.7.5",
     "twilio": "^4.13.0",
     "uuid": "^9.0.0",
-    "winston": "^3.10.0"
+    "winston": "^3.10.0",
+    "supertest": "^6.3.3"
   },
   "devDependencies": {
     "chai": "^4.3.7",
-    "mocha": "^10.2.0",
-    "supertest": "^6.3.3"
+    "mocha": "^10.2.0"
   }
 }

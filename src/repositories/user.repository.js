@@ -9,4 +9,5 @@ export default class UserRepository {
     create = async(data) => await this.dao.create(data)
     update = async(id, data) => await this.dao.update(id, data)
     delete = async(id) => await this.dao.delete(id)
+    save = async(data) => await this.dao.save(data)
 }
