@@ -72,7 +72,7 @@ export const createProductController = async (req, res) => { // DAO Aplicado
     if (!title) {
         return res.status(400).send('El campo "title" es obligatorio');
     }
-
+    //const imagen = `/img/${req.file.filename}`
     const newProduct = new Product({
         title,
         category,
@@ -82,7 +82,7 @@ export const createProductController = async (req, res) => { // DAO Aplicado
         description,
         price: parseInt(price),
         stock,
-        thumbnail: `/img/${req.file.filename}`
+        //thumbnail: imagen
     });
 
     try {
