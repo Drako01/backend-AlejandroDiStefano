@@ -1,4 +1,5 @@
 import chai from 'chai';
+import e from 'express';
 import supertest from 'supertest';
 
 const expect = chai.expect;
@@ -15,6 +16,15 @@ describe('Testing E-Commerce Lonne Open', () => {
             });
             expect(result.status).to.equal(302); // 302 porque redirige a /carts
         });
+
+
+        it('Debe actualizar la cantidad de un producto en el carrito', async () => { // Anda OK
+            const result = await requester.put('/carts/5f9e3b3b1c9d440000d3b3b1/5f9e3b3b1c9d440000d3b3b1').send({
+                cantidad: 2
+            });
+            expect(result.status).to.equal(302); // 302 porque redirige a /carts
+        });
+        
 
     });
 });
