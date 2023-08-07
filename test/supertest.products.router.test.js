@@ -35,7 +35,7 @@ const __dirname = dirname(__filename);
 describe('Testing E-Commerce Lonne Open - Ruta /products - Method POST', () => {
     describe('Test de Productos', () => {
         it('En el endpoint POST / debe registrar un producto', async () => {
-            const filename = 'pelota.png';
+            const filename = 'pelota-test.png';
 
             const mockRequest = {
                 file: { filename },
