@@ -7,7 +7,7 @@ export default {
         persistence: process.env.PERSISTENCE
     },
     ports: {
-        prodPort: process.env.PROD_PORT,
+        prodPort: process.env.PROD_PORT || 3000,
         devPort: process.env.DEV_PORT
     },
     db: {
