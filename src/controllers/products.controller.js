@@ -15,18 +15,11 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
         const limit = parseInt(req.query.limit);
         const products = await ProductService.getAll();
         const userToken = req.cookies[cookieName];
-
-        if (!userToken) {
-            res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
-            return;
-        }
         const user = getUserFromToken(req);
-
-        if (!user) {
+        if (!userToken || !user) {
             res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user: null });
             return;
         }
-
         if (isNaN(limit)) {
             res.status(200).render('index', { products: products.slice(0, 4), productLength: products.length, user });
         } else {
