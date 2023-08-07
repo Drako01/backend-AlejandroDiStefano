@@ -1,7 +1,12 @@
 import chai from 'chai'
 import supertest from 'supertest'
-
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import { promises as fs } from 'fs';
 import ProductService from '../src/daos/mongo/product.mongo.dao.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const expect = chai.expect
 const requester = supertest('http://localhost:8080')
 
@@ -21,16 +26,6 @@ describe('Testing E-Commerce Lonne Open - Ruta /products - Method GET', () => {
         expect(typeof responseBody).to.equal('string');
     });
 });
-
-
-
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { promises as fs } from 'fs';
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 describe('Testing E-Commerce Lonne Open - Ruta /products - Method POST', () => {
     describe('Test de Productos', () => {
