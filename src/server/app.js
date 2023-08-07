@@ -25,7 +25,7 @@ program
     .option('--database <database>', 'Base de Datos', 'atlas')
 program.parse();
 
-let dominio = program.opts().mode === 'prod' ? config.urls.urlProd : config.urls.urlLocal;
+let dominio = program.opts().mode === 'local' ? config.urls.urlProd : config.urls.urlLocal;
 const port = program.opts().mode === 'prod' ? config.ports.prodPort : config.ports.devPort;
 
 // Conexión a la base de datos

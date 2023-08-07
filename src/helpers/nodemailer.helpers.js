@@ -5,7 +5,8 @@ import Mailgen from 'mailgen';
 import { ProductService } from '../repositories/index.js';
 import customError from '../services/error.log.js';
 const urlActual = config.urls.urlLocal;
-const port = config.ports.prodPort || '';
+const urlProduction = config.urls.urlProd;
+const port = config.ports.prodPort || 3000;
 const url = config.urls.urlLocal;
 
 
@@ -311,7 +312,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
         });
 
         const local = `${url}:${port}`  
-        const production = `https://www.lonneopen.com/`
+        const production = `https://www.lonneopen.com/:${port}`
         const resetLink = `${local}/reset-password/${token}`;
 
         const emailContent = {
