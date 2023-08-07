@@ -4,10 +4,10 @@ import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import { ProductService } from '../repositories/index.js';
 import customError from '../services/error.log.js';
-const urlActual = config.urls.urlLocal;
+const urlActual = config.urls.urlLocal; // No tocar
 const urlProduction = config.urls.urlProd;
 const port = config.ports.prodPort || 3000;
-const url = config.urls.urlLocal;
+const url = urlActual; // Cambiar a urlProduction para producción
 
 
 // Configuración de transporte para el envío de correos electrónicos
@@ -312,7 +312,6 @@ export const sendResetPasswordEmail = async (usermail, token) => {
         });
 
         const local = `${url}:${port}`  
-        const production = `https://www.lonneopen.com/:${port}`
         const resetLink = `${local}/reset-password/${token}`;
 
         const emailContent = {

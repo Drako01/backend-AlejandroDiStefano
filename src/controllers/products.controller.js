@@ -69,6 +69,7 @@ export const getAllProductsController = async (req, res, next) => { // DAO Aplic
 // Crear un producto
 export const createProductController = async (req, res) => { // DAO Aplicado
     const { title, category, size, code, description, price, stock } = req.body;
+    user = getUserFromToken(req);
     if (!title) {
         return res.status(400).send('El campo "title" es obligatorio');
     }    
@@ -96,7 +97,7 @@ export const createProductController = async (req, res) => { // DAO Aplicado
         const prevLink = result.hasPrevPage ? `/products?page=${result.prevPage}` : '';
         const nextLink = result.hasNextPage ? `/products?page=${result.nextPage}` : '';
 
-        res.render('products', { productos, prevLink, nextLink });
+        res.render('products', { productos, prevLink, nextLink, user });
 
     } catch (error) {
         customError(error);
@@ -257,11 +258,12 @@ export const getMockingProductsController = async (req, res, next) => { // DAO A
     try {
         await generateMockProducts();
         // Obtener los productos generados
-        const products = await ProductService.getAllLimit(100);
+        const limit = 100
+        const products = await ProductService.getAllLimit(limit);
         res.status(200).render('index', { products, user });
     } catch (error) {
         customError(error);
-        loggers.error('Error al generar productos de prueba');
+        loggers.error('Error al generar productos de prueba', error);
         res.status(500).render('error/error500', { user });
     }
 }

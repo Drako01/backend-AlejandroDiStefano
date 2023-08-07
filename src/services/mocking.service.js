@@ -5,9 +5,10 @@ import customError from './error.log.js';
 export const generateMockProducts = async () => {
     try {
         const mockProducts = [];
+        let error = null; 
 
         for (let i = 0; i < 100; i++) {
-            if (i !== error.writeErrors.length) {
+            if (i !== error?.writeErrors?.length) {
                 const newProduct = {
                     title: `Product de Prueba #${i}`,
                     category: 'Tennis',
@@ -30,3 +31,4 @@ export const generateMockProducts = async () => {
         throw error
     }
 };
+

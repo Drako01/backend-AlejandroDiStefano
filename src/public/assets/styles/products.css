@@ -52,8 +52,12 @@ button {
     border-radius: 2rem;
     padding: 2rem;
     margin: 3rem;
+    background-color: #fff;
 }
-
+.checkout,
+.white{
+    background-color: #fff !important;
+}
 .product_container img {
     width: 30rem;
 }
