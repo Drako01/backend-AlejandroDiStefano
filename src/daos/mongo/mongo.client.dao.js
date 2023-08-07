@@ -14,7 +14,7 @@ export default class MongoClient {
 
     connect = async() => {
         try {
-            await this.client.connect(mongoConnection);
+            await this.client.connect(mongoConnection, { useNewUrlParser: true, useUnifiedTopology: true });
             loggers.info(`Conexión exitosa a la base de datos "${mongoDatabase}" => MongoDB Atlas`);
         } catch(error) {
             customError(error);
