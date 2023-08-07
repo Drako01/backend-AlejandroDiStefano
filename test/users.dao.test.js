@@ -64,6 +64,7 @@ describe('Testing GETBY method of User DAO', () => {
     after(async function() {
         try {
             await mongoose.connection.collections.users.drop()
+            await mongoose.connection.close()
         } catch(err) {}
     })
 })
