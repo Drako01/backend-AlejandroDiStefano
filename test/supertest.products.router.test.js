@@ -30,7 +30,6 @@ describe('Test de la ruta /', () => {
         const productsData = [
             {
                 title: String, 
-                category: String,
             }
         ];
 
