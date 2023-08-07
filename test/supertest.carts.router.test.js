@@ -1,5 +1,4 @@
 import chai from 'chai';
-import e from 'express';
 import supertest from 'supertest';
 
 const expect = chai.expect;
