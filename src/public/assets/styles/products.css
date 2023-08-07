@@ -61,7 +61,9 @@ button {
 .product_container img {
     width: 30rem;
 }
-
+.hidden {
+    display: none;
+}
 .row {
     align-items: center;
 }
