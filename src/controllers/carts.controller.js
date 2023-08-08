@@ -241,6 +241,7 @@ export const deleteCartByIdController = async (req, res) => { // DAO Aplicado
 
     try {
         const cart = await CartService.getById(cartId);
+        
         if (!cart) {
             return res.status(404).render('error/error404', { user });
         }
@@ -255,7 +256,7 @@ export const deleteCartByIdController = async (req, res) => { // DAO Aplicado
         return res.render('cartsDeleteById', { cartId, itemId, user });
     } catch (error) {
         customError(error);
-        loggers.error('Error al eliminar un producto del carrito');
+        loggers.error('Error al eliminar un producto del carrito', error);
         return res.status(500).render('error/notCart', { user });
     }
 };
