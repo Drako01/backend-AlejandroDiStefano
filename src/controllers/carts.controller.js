@@ -203,12 +203,20 @@ export const addProductToCartController = async (req, res) => { // DAO Aplicado
         const producto = await ProductService.getOne({ _id: productId });
 
         if (!userEmail) {
-            loggers.error('Usted no esta logueado, por favor inicie sesion');
+            loggers.error('Usted no está logueado, por favor inicie sesión');
             return res.status(500).redirect('/login');
         }
 
         let cart = await getOrCreateCart(userEmail);
-        cart.items.push({ producto: producto, cantidad: cantidad });
+
+        const existingCartItem = cart.items.find(item => item.producto._id.toString() === productId);
+
+        if (existingCartItem) {
+            existingCartItem.cantidad += parseInt(cantidad);
+        } else {
+            cart.items.push({ producto: producto, cantidad: parseInt(cantidad) });
+        }
+
         cart.user.email = userEmail;
         cart.code = shortid.generate();
         cart.purchase_datetime = new Date();
@@ -217,10 +225,11 @@ export const addProductToCartController = async (req, res) => { // DAO Aplicado
 
     } catch (error) {
         customError(error);
-        loggers.error('Usted no esta logueado, por favor inicie sesion');
+        loggers.error('Error al agregar producto al carrito');
         res.status(500).redirect('/login');
     }
 };
+
 
 // Eliminar un producto del carrito
 export const deleteCartByIdController = async (req, res) => { // DAO Aplicado  
