@@ -18,7 +18,19 @@
             </section>
             {{/each}}
         </ul>
-        <h5 class="card-text">Precio total: $ {{totalPrice}}.-</h5>
+        {{#if user.premium}}
+        <h5>
+            {{#with totalPrice}}
+            TOTAL: ${{this}}.- <br>(20% de Descuento Aplicado)
+            {{/with}}
+        </h5>
+        {{else}}
+        <h5>
+            {{#with totalPrice}}
+            TOTAL: ${{this}}.-
+            {{/with}}
+        </h5>
+        {{/if}}
         <h3>Código de compra: {{ cart.code }}</h3>
         <h3>Fecha y hora de compra: {{ cart.purchase_datetime }}</h3>
         <form action="/carts/{{ cart._id }}/eliminar" method="POST">

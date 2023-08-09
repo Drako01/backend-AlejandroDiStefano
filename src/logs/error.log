@@ -383,3 +383,17 @@
 {"timestamp":"07/08/2023, 18:31","error":"Cannot read properties of null (reading 'writeErrors')"}
 {"timestamp":"07/08/2023, 18:32","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/img/ea46e8dd72764cbfaad224b6a5b685b5"}
 {"timestamp":"07/08/2023, 18:33","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/img/ea46e8dd72764cbfaad224b6a5b685b5"}
+{"timestamp":"08/08/2023, 15:39","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: GET en la URL: http://localhost:8080/documents"}
+{"timestamp":"08/08/2023, 15:51","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/save"}
+{"timestamp":"08/08/2023, 15:52","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/documents/save"}
+{"timestamp":"09/08/2023, 10:58","error":"Cannot read properties of undefined (reading 'premium')"}
+{"timestamp":"09/08/2023, 10:58","error":"Cannot read properties of undefined (reading 'premium')"}
+{"timestamp":"09/08/2023, 10:59","error":"Cannot read properties of undefined (reading 'premium')"}
+{"timestamp":"09/08/2023, 11:00","error":"Cannot read properties of undefined (reading 'premium')"}
+{"timestamp":"09/08/2023, 11:06","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/apply-discount"}
+{"timestamp":"09/08/2023, 11:07","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/apply-discount"}
+{"timestamp":"09/08/2023, 11:13","error":"Intentaron ingresar a una Pagina No Existente.!! - Error 404 | Método: POST en la URL: http://localhost:8080/"}
+{"timestamp":"09/08/2023, 11:27","error":"sortedItems is not defined"}
+{"timestamp":"09/08/2023, 12:00","error":"totalPrice is not defined"}
+{"timestamp":"09/08/2023, 12:00","error":"totalPrice is not defined"}
+{"timestamp":"09/08/2023, 12:13","error":"discountedPrice.toFixed is not a function"}

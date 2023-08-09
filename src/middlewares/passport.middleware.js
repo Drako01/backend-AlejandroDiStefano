@@ -20,6 +20,7 @@ export const generateToken = (user) => {
         age: user.age,
         phone: user.phone,
         active: user.active,
+        premium: user.premium,
         updatedAt: user.updatedAt
     };
     

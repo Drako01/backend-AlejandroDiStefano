@@ -69,3 +69,34 @@
     width: 120px;
     object-fit: cover;
 }
+.premium-h1,
+.premium{
+    color: #111;
+    background-color: #f1c40f;    
+    border-radius: 0.5rem;
+    font-weight: bold;
+}
+.premium-h1{
+    padding: 2rem;
+    text-align: center;
+    color: #000000 !important;
+    font-size: 2rem !important;
+}
+.descuento{
+    color: #111;
+    background-color: #2ecc71;   
+    padding: 2rem; 
+    border-radius: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+.descuento span{
+    color: #0e0808;
+    font-size: 9rem;
+    font-weight: bold;
+    text-align: center;
+}
+.descuento-btn{
+    height: 5rem;
+    font-size: 2.5rem;
+}

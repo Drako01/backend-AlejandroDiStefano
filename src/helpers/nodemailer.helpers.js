@@ -33,8 +33,12 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                 },
             },
         });
+        const isPremium = user.premium || user.user.premium || false;
+        const discountMultiplier = isPremium ? 0.8 : 1;
+        
+        const subTotal = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+        const totalPrice = (subTotal * discountMultiplier).toFixed(2);
 
-        const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
 
         const emailContent = {
             body: {
@@ -56,7 +60,7 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                 },
 
                 outro: [
-                    `Precio total: $ ${totalPrice}.-`,
+                    `Precio total: $ ${totalPrice}.- ${isPremium ? '(20% de Descuento Aplicado)' : ''}`,
                     `Código de compra: ${cart.code}`,
                     `Fecha y hora de compra: ${cart.purchase_datetime}`,
                     `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,

@@ -35,7 +35,11 @@ const userSchema = new mongoose.Schema({
     active: {
         type: Boolean,
         default: false,
-    }
+    },
+    premium: {
+        type: Boolean,
+        default: false,
+    },
 }, { timestamps: true }); 
 
 const Users = mongoose.model(userCollection, userSchema);

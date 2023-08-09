@@ -7,6 +7,7 @@ import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js'
 import customError from '../services/error.log.js';
 import { generateMockProducts } from '../services/mocking.service.js';
 import { removeProductFromCart } from '../helpers/functions.helpers.js';
+
 import { sendSMS } from '../helpers/twilio.helpers.js';
 const cookieName = config.jwt.cookieName;
 
@@ -165,6 +166,8 @@ export const getProductByIdController = async (req, res) => { // DAO Aplicado
 export const getPurchaseController = async (req, res) => {
     try {
         const user = getUserFromToken(req);
+        const isPremium = user.premium || user.user.premium || false;
+        const discountMultiplier = isPremium ? 0.8 : 1;
         const cart = await CartService.getOnePopulate({ user: { email: user.email || user.user.email } })
 
         if (!cart) {
@@ -179,10 +182,14 @@ export const getPurchaseController = async (req, res) => {
                 await removeProductFromCart(cart, item.producto._id);
             }
             const updatedCart = await CartService.getOnePopulate({ _id: cart._id })
-            const totalPrice = updatedCart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+            const subTotal = updatedCart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+            const totalPrice = (subTotal * discountMultiplier).toFixed(2);
+
             res.render('checkout', { cart: updatedCart, code: updatedCart.code, purchaseDatetime: updatedCart.purchase_datetime, totalPrice, user });
         } else {
-            const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+            const subTotal = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+            const totalPrice = (subTotal * discountMultiplier).toFixed(2);
+
             res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
         }
     } catch (error) {
@@ -195,6 +202,8 @@ export const getPurchaseController = async (req, res) => {
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
+        const isPremium = user.premium || user.user.premium || false;
+        const discountMultiplier = isPremium ? 0.8 : 1;
         const cart = await CartService.getOne({ user: { email: user.email || user.user.email } })
 
         if (!cart) {
@@ -241,10 +250,12 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
             res.render('error/notStock', { user, products: cart.items.map((item) => item.producto) });
             return;
         }
+        const subTotal = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
+        const totalPrice = (subTotal * discountMultiplier).toFixed(2);
+
         await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
         //await sendSMS(user.phone); // Descomentar para enviar un SMS
 
-        const totalPrice = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (error) {
         customError(error);

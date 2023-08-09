@@ -16,7 +16,7 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
         const users = await UserService.getAll();
         let resultsDTO = users.map((user) => new UsersDTO(user));
         const userObjects = users.map(user => user.toObject());
-        res.render('users', { users: userObjects, user , resultsDTO});        
+        res.render('users', { users: userObjects, user, resultsDTO });
     } catch (err) {
         customError(err);
         loggers.error('Error del servidor');
@@ -24,7 +24,7 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
     }
 };
 export const getProfileUsersController = async (req, res) => { // Uso de DTO para el Profile del usuario
-    const user = new UsersDTO(getUserFromToken(req));    
+    const user = new UsersDTO(getUserFromToken(req));
     res.render('profileUser', { user });
 }
 export const getNewUserTest = async (req, res) => {
@@ -76,7 +76,7 @@ export const getUserForEditByIdController = async (req, res) => { // DAO Aplicad
 export const editUserByIdController = async (req, res) => { // DAO Aplicado
     try {
         const userId = req.params.id;
-        const { first_name, last_name, email, phone, age, role } = req.body;
+        const { first_name, last_name, email, phone, age, role, premium } = req.body;
         let user = getUserFromToken(req);
         const updatedUser = await UserService.update(userId, {
             first_name,
@@ -84,7 +84,8 @@ export const editUserByIdController = async (req, res) => { // DAO Aplicado
             email,
             phone,
             age,
-            role
+            role,
+            premium
         });
 
         if (!updatedUser) {
@@ -168,4 +169,15 @@ export const setResetPassword = async (req, res) => {
         return res.status(500).render('error/error500');
     }
 }
+
+export const getAllUsersPremiumController = async (req, res) => { // DAO + DTO Aplicados
+    const user = getUserFromToken(req);
+    res.render('usersPremium', { user });
+};
+
+
+
+
+
+
 

@@ -9,6 +9,7 @@
                 <th>Teléfono</th>
                 <th>Edad</th>
                 <th>Rol</th>
+                <th>Categoría</th>
                 <th>Estado</th>
                 <th>Ultima Conexión</th>
                 <th class="actions-column-todo">Acciones</th>
@@ -23,6 +24,13 @@
                 <td>{{this.phone}}</td>
                 <td>{{this.age}}</td>
                 <td>{{this.role}}</td>
+                <td>
+                    {{#if this.premium}}
+                    <span style="color: blue;">Premium</span>
+                    {{else}}
+                    <span style="color: black;">Básico</span>
+                    {{/if}}
+                </td>
                 <td>
                     {{#if this.active}}
                     <span style="color: green;">Conectado</span>

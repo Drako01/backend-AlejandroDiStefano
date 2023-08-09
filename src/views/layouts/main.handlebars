@@ -25,6 +25,11 @@
         <li class="nav-item">
             <a class="nav-link{{#ifEqual cart.length 0}} disabled{{/ifEqual}}" href="/carts">Carrito</a>
         </li>
+        {{#if user.premium}}
+        <li class="nav-item ">
+            <a class="nav-link premium" href="/documents">Premium</a>
+        </li>
+        {{/if}}
         {{#if user.role}}
         {{#ifEqual user.role "admin"}}
         <li class="nav-item">
@@ -37,7 +42,7 @@
             <a class="nav-link" href="/mockingproducts">Crear 100 Productos con Mocking</a>
         </li>
         {{/ifEqual}}
-        {{/if}}
+        {{/if}}        
         {{#if user}}
         <li class="nav-item ">
             <a class="nav-link red" href="/logout">Logout</a>
@@ -47,6 +52,7 @@
             <a class="nav-link green" href="/login">Login</a>
         </li>
         {{/if}}
+
     </ul>
 
     {{{ body }}}

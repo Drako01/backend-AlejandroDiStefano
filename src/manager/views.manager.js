@@ -15,6 +15,7 @@ import singupRouter from '../routers/signup.router.js';
 import logoutRouter from '../routers/logout.router.js';
 import checkoutRouter from '../routers/checkout.router.js';
 import usersRouter from '../routers/users.router.js';
+import usersPremiumRouter from '../routers/premium.user.router.js';
 import signupAdminRouter from '../routers/signupadmin.router.js';
 import admin_panel from '../routers/products.admin.router.js';
 import forgotPassword from '../routers/forgot-password.js';
@@ -48,6 +49,7 @@ const views = [
     { path: '/forgot-password', router: forgotPassword },
     { path: '/reset-password', router: resetPassword },    
     { path: '/docs-api', router: documentRouter },  
+    { path: '/documents', router: usersPremiumRouter },
 ];
 
 export default views;

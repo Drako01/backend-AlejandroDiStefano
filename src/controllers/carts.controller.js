@@ -7,7 +7,6 @@ import config from '../config/config.js';
 import loggers from '../config/logger.js'
 import customError from '../services/error.log.js';
 
-
 const cokieName = config.jwt.cookieName;
 let user = null;
 let userEmail = null;
@@ -36,10 +35,12 @@ export async function getOrCreateCart(userEmail = null) { // DAO Aplicado
 // Visualizar el Carrito
 export const createCartController = async (req, res) => { // DAO Aplicado
     user = getUserFromToken(req);
+    
     try {
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
-
+        const isPremium = user.premium || user.user.premium || false;
+        const discountMultiplier = isPremium ? 0.8 : 1;
         if (userToken) {
             userEmail = user.email || user.user.email;
         } else {
@@ -88,7 +89,8 @@ export const createCartController = async (req, res) => { // DAO Aplicado
             },
         ]);
 
-        const totalPrice = totalPriceAggregate.length > 0 ? totalPriceAggregate[0].totalPrice : 0;
+        const subTotal = totalPriceAggregate.length > 0 ? totalPriceAggregate[0].totalPrice : 0;
+        const totalPrice = (subTotal * discountMultiplier).toFixed(2);
 
         res.render('carts', { cart: { ...cart, items: sortedItems }, totalPrice, cartId, user });
     } catch (error) {
