@@ -58,7 +58,7 @@ export const getAllProductsController = async (req, res, next) => { // DAO Aplic
 
         const allCategories = await ProductService.getByCategory('category');
         if (!user) {
-            res.render('products', { productos, prevLink, nextLink, allCategories, user });
+            res.render('products', { productos, prevLink, nextLink, allCategories });
         } else {
             res.render('products', { productos, prevLink, nextLink, allCategories, user });
         }
