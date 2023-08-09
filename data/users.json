@@ -1,0 +1,95 @@
+[{
+  "_id": {
+    "$oid": "6461283f45c3c19a45331e2a"
+  },
+  "first_name": "Alejandro",
+  "last_name": "Di Stefano",
+  "email": "addistefano76@gmail.com",
+  "age": "47",
+  "role": "admin",
+  "password": "$2b$10$mOoGrJd3eH86bwiTQmBLyewceNlH2pkxQ17xRHqMBWf.Wm8qzi/na",
+  "__v": 0,
+  "phone": "+541140843848",
+  "active": false,
+  "updatedAt": {
+    "$date": "2023-08-09T16:47:14.428Z"
+  },
+  "premium": true
+},
+{
+  "_id": {
+    "$oid": "64692102741cb4fb3e7afaaa"
+  },
+  "first_name": "Alejandro Daniel Di Stefano",
+  "email": "addistefano@live.com.ar",
+  "role": "user",
+  "__v": 0,
+  "age": "47",
+  "last_name": "",
+  "phone": "",
+  "active": false,
+  "updatedAt": {
+    "$date": "2023-08-09T16:48:02.849Z"
+  },
+  "premium": false
+},
+{
+  "_id": {
+    "$oid": "64cd58d55a992a41af015c14"
+  },
+  "first_name": "Alex",
+  "last_name": "Marin Mendez",
+  "email": "alexmarinmendez@gmail.com",
+  "phone": "51942270712",
+  "age": "50",
+  "role": "admin",
+  "password": "$2b$10$I14mOjdKeRNGZE3zF82HGeW7RNqXJGSjcxVavKjnIH9nDEsWp.wIK",
+  "active": false,
+  "createdAt": {
+    "$date": "2023-08-04T20:00:21.436Z"
+  },
+  "updatedAt": {
+    "$date": "2023-08-08T18:11:55.414Z"
+  },
+  "__v": 0,
+  "premium": true
+},
+{
+  "_id": {
+    "$oid": "64ce59bd4faf3c0b9af84385"
+  },
+  "first_name": "Usuario Siempre",
+  "last_name": "Inactivo",
+  "email": "usuarioinactivo@gmail.com",
+  "phone": "1123325665",
+  "age": "5",
+  "role": "user",
+  "password": "$2b$10$TnzaQdSDaHJvjuiz9IqyGOyMBiZ5WkY8JVd/dZmsrZA6XcKsKvmHG",
+  "active": false,
+  "createdAt": {
+    "$date": "2020-08-05T14:16:29.743Z"
+  },
+  "updatedAt": {
+    "$date": "2020-08-08T18:18:52.782Z"
+  },
+  "__v": 0,
+  "premium": false
+},
+{
+  "_id": {
+    "$oid": "6461281545c3c19a45331e28"
+  },
+  "first_name": "Administrador",
+  "last_name": "CoderHouse",
+  "email": "adminCoder@coder.com",
+  "age": "45",
+  "role": "user",
+  "password": "$2b$10$EH75nZrsN/JFjoIc/fO25ufwVCzCg2FHpQtPlPDUP4ThtO0yNdftW",
+  "__v": 0,
+  "phone": "1155554444",
+  "active": true,
+  "updatedAt": {
+    "$date": "2020-08-08T18:18:07.235Z"
+  },
+  "premium": false
+}]
