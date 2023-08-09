@@ -20,7 +20,7 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
     } catch (err) {
         customError(err);
         loggers.error('Error del servidor');
-        res.status(500).send('Error del servidor', { user });
+        res.status(500).render('error/error500', { user });
     }
 };
 export const getProfileUsersController = async (req, res) => { // Uso de DTO para el Profile del usuario
