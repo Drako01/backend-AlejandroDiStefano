@@ -57,9 +57,11 @@ export const getAllProductsController = async (req, res, next) => { // DAO Aplic
         const nextLink = productos.length === limit ? `/products?page=${page + 1}` : '';
 
         const allCategories = await ProductService.getByCategory('category');
-
-        res.render('products', { productos, prevLink, nextLink, allCategories, user });
-
+        if (!user) {
+            res.render('products', { productos, prevLink, nextLink, allCategories, user });
+        } else {
+            res.render('products', { productos, prevLink, nextLink, allCategories, user });
+        }
 
     } catch (error) {
         customError(error);
@@ -73,7 +75,7 @@ export const createProductController = async (req, res) => { // DAO Aplicado
     user = getUserFromToken(req);
     if (!title) {
         return res.status(400).send('El campo "title" es obligatorio');
-    }    
+    }
     const newProduct = new Product({
         title,
         category,
