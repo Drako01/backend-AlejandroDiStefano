@@ -5,3 +5,4 @@ extras
 logs
 
 /**/*.log
+*.log
