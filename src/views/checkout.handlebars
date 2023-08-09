@@ -1,5 +1,11 @@
 <section class="noAutorizado">
     <div class="container checkout ">
+        {{#if user.premium}}
+        <div class="premium">
+            <h2>Usted es usuario PREMIUM.!</h2>
+            <h2>Por lo tanto tiene un 20% de Descuento en el Total de su Compra.!</h2>
+        </div>
+        {{/if}}
         <h2>Su compra se realizó exitosamente!</h2>
         <h2>Gracias {{user.first_name}} {{user.last_name}} {{user.user.first_name}} por comprar en Lonne Open!</h2>
         <h1>Mail del Usuario: {{ cart.user.email }}</h1>

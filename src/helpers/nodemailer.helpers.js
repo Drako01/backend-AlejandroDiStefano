@@ -35,7 +35,7 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         });
         const isPremium = user.premium || user.user.premium || false;
         const discountMultiplier = isPremium ? 0.8 : 1;
-        
+
         const subTotal = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         const totalPrice = (subTotal * discountMultiplier).toFixed(2);
 
@@ -43,7 +43,9 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         const emailContent = {
             body: {
                 greeting: `Hola ${user.email || user.user.email}`,
-                intro: 'Su compra en Lonne Open se ha realizado exitosamente. A continuación se muestran los detalles de la misma:',
+                intro: [`${isPremium ? 'Usted es usuario PREMIUM.!' : ''}`,
+                        `${isPremium ? 'Por lo tanto tiene un 20% de Descuento en el Total de su Compra.!' : ''}`,
+                    `Su compra en Lonne Open se ha realizado exitosamente. A continuación se muestran los detalles de la misma:`],
                 table: {
                     data: cart.items.map((item) => ({
                         Imagen: `<img src="cid:${item.producto.thumbnail}@lonneopen.com" alt="${item.producto.title}" width="60">`,
@@ -149,7 +151,7 @@ export const sendDeleteProductsEmail = async (usermail, cart) => {
             body: {
                 greeting: `Hola ${usermail}`,
                 intro: 'Lamentamos comunicarle que algunos productos en su compra en Lonne Open han sido eliminados del carrito debido a falta de stock. Enviamos el código de la compra:',
-                
+
                 outro: [
                     `Código de compra: ${cart.code}`,
                     `Fecha y hora de compra: ${cart.purchase_datetime}`,
@@ -158,7 +160,7 @@ export const sendDeleteProductsEmail = async (usermail, cart) => {
             },
         };
 
-        const emailBody = mailGenerator.generate(emailContent);        
+        const emailBody = mailGenerator.generate(emailContent);
 
         const mailOptions = {
             from: 'Ventas Lonne Open <addistefano76@gmail.com>',
@@ -182,7 +184,7 @@ export const sendDeleteProductsEmail = async (usermail, cart) => {
         await transporter.sendMail(mailOptions);
     } catch (err) {
         customError(err);
-        loggers.error('Error al enviar el correo electrónico', err);        
+        loggers.error('Error al enviar el correo electrónico', err);
     }
 };
 
@@ -315,7 +317,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
             },
         });
 
-        const local = `${url}:${port}`  
+        const local = `${url}:${port}`
         const resetLink = `${local}/reset-password/${token}`;
 
         const emailContent = {
