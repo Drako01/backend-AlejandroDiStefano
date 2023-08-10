@@ -14,13 +14,13 @@ import { getAllUsersController,
         setProfileUsersController,
         setPhotoProfileUsersController
 } from '../controllers/user.controller.js';
-import configureMulter from '../helpers/profile.multer.helpers.js';
-const upload = await configureMulter();
+import configureMulter from '../helpers/multer.helpers.js';
+const uploadProfilePhoto = configureMulter('img/profile');
 
 router.get('/', isAdmin, getAllUsersController) 
 router.get('/profile', isLoggedIn, getProfileUsersController)
 router.get('/profile/set-profile-photo/:id', isLoggedIn, setProfileUsersController)
-router.post('/profile/set-profile-photo/:id', isLoggedIn, upload.single('photo'), setPhotoProfileUsersController)
+router.post('/profile/set-profile-photo/:id', isLoggedIn, uploadProfilePhoto.single('photo'), setPhotoProfileUsersController)
 router.get('/newUser', isAdmin, getNewUserTest) 
 router.post('/newUser', isAdmin, createNewUserTest) 
 router.get('/edit/:id', isAdmin, getUserForEditByIdController) 
