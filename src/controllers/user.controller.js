@@ -223,6 +223,9 @@ export const getAllUsersPremiumController = async (req, res) => { // DAO + DTO A
 
 export const getDocumentsByUserController = async (req, res) => {
     const user = getUserFromToken(req);
+    if(user.document.length === 0) {
+        return res.render('error/notDocuments', { user });
+    }
     res.render('my-documents', { user });
 }
 
