@@ -1,7 +1,7 @@
 <section class="noAutorizado">
     <div class="container login usersss">
         {{#if user}}
-        <a href="/users/profile/set-profile-photo">
+        <a href="/users/profile/set-profile-photo/{{ user.userId }}">
             <img src="{{photo}}" alt="Foto de Perfil" class="perfil-photo">           
         </a>
         
