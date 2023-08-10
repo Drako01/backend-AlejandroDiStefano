@@ -12,7 +12,7 @@ import { sendResetPasswordEmailMethod, resetPassword } from '../helpers/function
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    
     try {
-        const user = getUserFromToken(req);
+        const user = new UsersDTO(getUserFromToken(req));
         const users = await UserService.getAll();
         let resultsDTO = users.map((user) => new UsersDTO(user));
         const userObjects = users.map(user => user.toObject());
@@ -23,14 +23,53 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
         res.status(500).render('error/error500', { user });
     }
 };
+
 export const getProfileUsersController = async (req, res) => { // Uso de DTO para el Profile del usuario
-    const user = new UsersDTO(getUserFromToken(req));
+    const user = getUserFromToken(req)
+    
     res.render('profileUser', { user });
 }
+
+export const setProfileUsersController = async (req, res) => { // Uso de DTO para el Profile del usuario
+    const user = new UsersDTO(getUserFromToken(req));
+    const userId = req.params.id;
+
+    res.render('profilePhoto', { user, userId });
+}
+
+export const setPhotoProfileUsersController = async (req, res) => {
+    let user = getUserFromToken(req);
+    try {
+        const userId = req.params.id;
+        const { file } = req;
+        if (file) {
+            user.photo = file.filename;
+        }else{
+            return res.status(404).render('error/error404', { user });
+        }
+        const newUserPhoto = await UserService.update(userId, {
+            photo: `/img/profile/${file.filename}`
+        });
+
+        if (!newUserPhoto) {
+            return res.status(404).render('error/error404', { user });
+        }
+
+        await newUserPhoto.save();
+        let photo = `/img/profile/${file.filename}`
+        res.render('profileUserChange', { user, photo, userId });
+    } catch (err) {
+        customError(err);
+        loggers.error('Error del servidor', err);
+        res.status(500).render('error/error500', { user });
+    }
+};
+
 export const getNewUserTest = async (req, res) => {
     const user = getUserFromToken(req);
     res.render('newUser', { user });
 }
+
 export const createNewUserTest = async (req, res) => {
     const users = [];
     loggers.info('req.body:', req.body);
@@ -55,6 +94,7 @@ export const createNewUserTest = async (req, res) => {
     users.push(user);
     res.redirect('/users');
 };
+
 export const getUserForEditByIdController = async (req, res) => { // DAO Aplicado
     try {
         const userId = req.params.id;
@@ -73,6 +113,7 @@ export const getUserForEditByIdController = async (req, res) => { // DAO Aplicad
         res.status(500).render('error/error500', { user });
     }
 };
+
 export const editUserByIdController = async (req, res) => { // DAO Aplicado
     try {
         const userId = req.params.id;
@@ -99,6 +140,7 @@ export const editUserByIdController = async (req, res) => { // DAO Aplicado
         res.status(500).render('error/error500', { user });
     }
 };
+
 export const deleteUserByIdController = async (req, res) => { // DAO Aplicado
     try {
         const userId = req.params.id;

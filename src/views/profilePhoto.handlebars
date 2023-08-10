@@ -1,0 +1,13 @@
+<section class="noAutorizado">
+    <div class="container login usersss">
+        <h1>Cargue su foto de Perfil</h1>
+        <form action="/users/profile/set-profile-photo/{{ user._id }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="photo">Foto de Perfil</label>
+                <input type="file" class="form-control" name="photo" id="photo" placeholder="Foto de Perfil">
+            </div>
+            <button type="submit" class="btn btn-primary">Cargar</button>
+        </form>
+        <a href="/profile" class="btn btn-secondary">Volver</a>       
+    </div>
+</section>

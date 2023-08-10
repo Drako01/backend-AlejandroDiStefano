@@ -2,13 +2,12 @@
     <section class="bienvenida">
         {{#if user}}
         <h1>Bienvenido <a href="/users/profile"> {{user.first_name}} {{user.last_name}} {{user.user.first_name }} </a> </span></h1>
+        
         {{else}}
         <h1>Bienvenido</h1>
         {{/if}}
         {{#if user}}
-        {{#ifEqual user.role "admin"}}
-        <img src="../img/corona.png" alt="Corona" srcset="">
-        {{/ifEqual}}
+        <img src="{{user.photo}}" alt="Corona" srcset="">        
         {{/if}}
     </section>
 <h2 class="hidden">{{user.email}}</h2>

@@ -3,6 +3,7 @@
     <table class="table table-striped">
         <thead class="headTable">
             <tr>
+                <th>Foto</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
@@ -18,6 +19,7 @@
         <tbody>
             {{#each users}}
             <tr>
+                <td><img src="{{this.photo}}" alt="" class="foto-perfil"></td>
                 <td>{{this.first_name}}</td>
                 <td>{{this.last_name}}</td>
                 <td>{{this.email}}</td>

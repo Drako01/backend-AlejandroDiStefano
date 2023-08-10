@@ -7,6 +7,8 @@ export default class UserDTO {
         this.email = user.email || user.user.email
         this.phone = user.phone 
         this.age = user.age 
+        this.premium = user.premium
+        this.photo = user.photo
         this.role = user.role || user.user.role
         this.updatedAt = user.updatedAt
         this.active = user.active

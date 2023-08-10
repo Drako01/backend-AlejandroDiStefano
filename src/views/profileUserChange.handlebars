@@ -1,11 +1,11 @@
 <section class="noAutorizado">
     <div class="container login usersss">
         {{#if user}}
-        <a href="/users/profile/set-profile-photo/{{ user.userId }}">
-            <img src="{{ user.photo }}" alt="Foto de Perfil" class="perfil-photo">           
+        <a href="/users/profile/set-profile-photo">
+            <img src="{{photo}}" alt="Foto de Perfil" class="perfil-photo">           
         </a>
         
-        <h1><span>ID: </span>{{ user.userId}}</h1>
+        <h1><span>ID: </span>{{ user.userId }}</h1>
         <h1><span> Nombre completo: </span>{{user.first_name}} {{user.last_name}} {{ user.user.first_name }}</h1>
         <h1><span>Correo: </span>{{user.email}} {{ user.user.email }}</h1>
         <h1><span>Role: </span>{{user.role}} {{ user.user.role }}</h1>
