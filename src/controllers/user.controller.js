@@ -117,7 +117,7 @@ export const getUserForEditByIdController = async (req, res) => { // DAO Aplicad
 export const editUserByIdController = async (req, res) => { // DAO Aplicado
     try {
         const userId = req.params.id;
-        const { first_name, last_name, email, phone, age, role, premium } = req.body;
+        const { first_name, last_name, email, phone, age, role, premium , photo} = req.body;
         let user = getUserFromToken(req);
         const updatedUser = await UserService.update(userId, {
             first_name,
@@ -126,7 +126,8 @@ export const editUserByIdController = async (req, res) => { // DAO Aplicado
             phone,
             age,
             role,
-            premium
+            premium,
+            photo
         });
 
         if (!updatedUser) {

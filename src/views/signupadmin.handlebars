@@ -2,6 +2,11 @@
     <div class="container login">
         <h1>Registro de usuario por Administrador</h1>
         <form action="/signupadmin" method="POST">
+            <div class="form-group hidden">
+                <label for="first_name">Foto de Perfil:</label>
+                <input type="text" class="form-control" id="photo" name="photo"
+                    value="/img/profile/photo-1691632024096.png" required>
+            </div>
             <div class="form-group">
                 <label for="first_name">Nombre:</label>
                 <input type="text" class="form-control" id="first_name" name="first_name" required>
@@ -21,7 +26,7 @@
             <div class="form-group">
                 <label for="number">Edad:</label>
                 <input type="number" class="form-control" id="age" name="age" required>
-            </div>            
+            </div>
             <div class="form-group">
                 <label for="password">Contraseña:</label>
                 <div class="password-input">
@@ -42,7 +47,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
-        <a href="/users"  class="btn btn-success">Volver</a>
+        <a href="/users" class="btn btn-success">Volver</a>
     </div>
 </div>
 <script src="/js/index.js"></script>

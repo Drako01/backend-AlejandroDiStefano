@@ -92,6 +92,7 @@ passport.use(
                     phone: req.body.phone,
                     age: req.body.age,
                     role: req.body.role,
+                    photo: req.body.photo,
                     password: hash
                 });
 
