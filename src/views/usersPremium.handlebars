@@ -7,7 +7,16 @@
             Usted tiene:
             <span>20%</span> de descuento en todos los productos
         </h2>
-        
+        <h1>Subir Documento</h1>
+        <form action="/users/profile/documents/{{user.userId}}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="document" class="label">Selecciona un documento:</label>
+            <input type="file" class="form-control" name="document" id="document" accept=".pdf,.doc,.docx">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Subir Documento</button>
+        </form>
+        <a href="/users/my-documents" class="btn btn-success">Ver mis Documentos</a>
         <a href="/" class="btn btn-danger">Volver</a>
     </div>
 </section>

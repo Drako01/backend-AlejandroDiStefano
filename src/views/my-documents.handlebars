@@ -1,0 +1,15 @@
+<section class="noAutorizado">
+    <div class="container  ">
+        <h1 class="red bienvenido">Hola</h1>
+        <h1 class="red bienvenido">{{user.first_name}} {{user.last_name}} {{user.user.first_name}}</h1>
+        <h1>¡Estos son Tus Documentos en Nuestra Base de Datos!</h1>
+        <ul>
+            {{#each user.document}}
+            <li>
+                <a href="{{this}}" target="_blank">Documento N°{{counter @index}}</a>
+            </li>
+            {{/each}}
+        </ul>
+        <a href="/" class="btn btn-success">Volver</a>
+    </div>
+</section>

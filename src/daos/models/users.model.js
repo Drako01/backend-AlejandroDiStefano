@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
     photo: {
         type: String
     },
+    document: [{
+        type: String
+    }]
+    ,
     cart: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cart',

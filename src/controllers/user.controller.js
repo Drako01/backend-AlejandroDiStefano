@@ -8,6 +8,7 @@ import UsersDTO from '../dtos/user.dto.js';
 import customError from '../services/error.log.js';
 import { sendCloseAccountEmail } from '../helpers/nodemailer.helpers.js';
 import { sendResetPasswordEmailMethod, resetPassword } from '../helpers/functions.helpers.js';
+import e from 'express';
 
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    
@@ -218,7 +219,35 @@ export const getAllUsersPremiumController = async (req, res) => { // DAO + DTO A
     res.render('usersPremium', { user });
 };
 
+// Subir Documentos
 
+export const getDocumentsByUserController = async (req, res) => {
+    const user = getUserFromToken(req);
+    res.render('my-documents', { user });
+}
+
+
+export const setDocumentsUsersController = async (req, res) => {
+    try {
+        let user = getUserFromToken(req);
+        const userId = req.params.id;
+        if (!req.file) {
+            return res.status(404).render('error/error404', { user });
+        }
+        const documentPath = `/documents/${req.file.filename}`
+        const newDocument = await UserService.update(userId, {           
+            $push: { document: documentPath }
+        });
+        
+        await newDocument.save();
+        res.status(200).render('my-documents', { user, documentPath, userId });
+    } catch (error) {
+        customError(error);
+        loggers.error('Ha ocurrido un error al procesar el archivo.' );
+        return res.status(500).render('error/error500');
+    }   
+    
+};
 
 
 

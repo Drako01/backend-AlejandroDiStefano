@@ -49,7 +49,8 @@ const views = [
     { path: '/forgot-password', router: forgotPassword },
     { path: '/reset-password', router: resetPassword },    
     { path: '/docs-api', router: documentRouter },  
-    { path: '/documents', router: usersPremiumRouter },
+    { path: '/users/profile/documents', router: usersPremiumRouter },
+    { path: '/users/my-documents', router: usersRouter },
 ];
 
 export default views;
