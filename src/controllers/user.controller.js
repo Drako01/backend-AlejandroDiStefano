@@ -8,7 +8,7 @@ import UsersDTO from '../dtos/user.dto.js';
 import customError from '../services/error.log.js';
 import { sendCloseAccountEmail } from '../helpers/nodemailer.helpers.js';
 import { sendResetPasswordEmailMethod, resetPassword } from '../helpers/functions.helpers.js';
-import e from 'express';
+
 
 // Ruta para crear un nuevo usuario
 export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicados    
@@ -27,7 +27,7 @@ export const getAllUsersController = async (req, res) => { // DAO + DTO Aplicado
 
 export const getProfileUsersController = async (req, res) => { // Uso de DTO para el Profile del usuario
     const user = getUserFromToken(req)
-    
+
     res.render('profileUser', { user });
 }
 
@@ -45,7 +45,7 @@ export const setPhotoProfileUsersController = async (req, res) => {
         const { file } = req;
         if (file) {
             user.photo = file.filename;
-        }else{
+        } else {
             return res.status(404).render('error/error404', { user });
         }
         const newUserPhoto = await UserService.update(userId, {
@@ -118,7 +118,7 @@ export const getUserForEditByIdController = async (req, res) => { // DAO Aplicad
 export const editUserByIdController = async (req, res) => { // DAO Aplicado
     try {
         const userId = req.params.id;
-        const { first_name, last_name, email, phone, age, role, premium , photo} = req.body;
+        const { first_name, last_name, email, phone, age, role, premium, photo } = req.body;
         let user = getUserFromToken(req);
         const updatedUser = await UserService.update(userId, {
             first_name,
@@ -222,11 +222,18 @@ export const getAllUsersPremiumController = async (req, res) => { // DAO + DTO A
 // Subir Documentos
 
 export const getDocumentsByUserController = async (req, res) => {
-    const user = getUserFromToken(req);
-    if(user.document.length === 0) {
-        return res.render('error/notDocuments', { user });
+    const user = getUserFromToken(req);   
+    try {
+        if (user.document.length === 0) {
+            return res.render('error/notDocuments', { user });
+        } else {
+            res.status(200).render('my-documents', { user, document: user.document });
+        }
+    } catch (error) {
+        customError(error);
+        loggers.error('Ha ocurrido un error al procesar la peticion.');
+        return res.status(500).render('error/error500');
     }
-    res.render('my-documents', { user });
 }
 
 
@@ -238,18 +245,18 @@ export const setDocumentsUsersController = async (req, res) => {
             return res.status(404).render('error/error404', { user });
         }
         const documentPath = `/documents/${req.file.filename}`
-        const newDocument = await UserService.update(userId, {           
+        const newDocument = await UserService.update(userId, {
             $push: { document: documentPath }
         });
-        
+
         await newDocument.save();
         res.status(200).render('my-documents', { user, documentPath, userId });
     } catch (error) {
         customError(error);
-        loggers.error('Ha ocurrido un error al procesar el archivo.' );
+        loggers.error('Ha ocurrido un error al procesar el archivo.');
         return res.status(500).render('error/error500');
-    }   
-    
+    }
+
 };
 
 

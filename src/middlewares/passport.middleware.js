@@ -22,8 +22,8 @@ export const generateToken = (user) => {
         active: user.active,
         premium: user.premium,        
         updatedAt: user.updatedAt,
-        photo: user.photo,
         document: user.document,
+        photo: user.photo,
     };
     
     const token = jwt.sign(payload, secret, {
