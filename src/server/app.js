@@ -150,6 +150,19 @@ function startServer() {
     chatApp(socketServer);
 }
 
+
+// Llamado a la funcion para eliminar usuarios inactivos
+// Cada vez que se inicia el servidor se eliminan los usuarios inactivos
+import { deleteInactiveUsersController } from '../controllers/user.controller.js';
+deleteInactiveUsersController()
+    .then(() => {
+        loggers.info('Usuarios Inactivos Eliminados');
+    })
+    .catch((error) => {
+        loggers.error(error.message);
+    });
+
+
 // Verificar si el puerto está en uso antes de iniciar el servidor
 import net from 'net';
 const serverTester = net.createServer();

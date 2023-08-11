@@ -6,7 +6,7 @@ import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
 import UsersDTO from '../dtos/user.dto.js';
 import customError from '../services/error.log.js';
-import { sendCloseAccountEmail } from '../helpers/nodemailer.helpers.js';
+import { sendCloseAccountEmail, sendCloseInactivitiAccountEmail } from '../helpers/nodemailer.helpers.js';
 import { sendResetPasswordEmailMethod, resetPassword } from '../helpers/functions.helpers.js';
 
 
@@ -167,6 +167,35 @@ export const deleteUserByIdController = async (req, res) => { // DAO Aplicado
         res.status(500).render('error/error500', { user });
     }
 };
+
+// Borrar Usuarios que no se conectan hace mas de 1 año
+export const deleteInactiveUsersController = async (req, res) => {
+    try {
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+        const inactiveUsers = await UserService.getAll(); 
+        
+        inactiveUsers.forEach(async (user) => {
+            if (user.updatedAt < oneYearAgo) {
+                try {
+                    await sendCloseInactivitiAccountEmail(user.email);
+                    await UserService.delete(user.id);
+                    loggers.warn(`Usuario inactivo eliminado: ${user.first_name} ${user.last_name}`);
+                } catch (err) {
+                    customError(err);
+                    loggers.error(`Error eliminando usuario inactivo: ${user.first_name} ${user.last_name}`);
+                }
+            }
+        });
+
+    } catch (err) {
+        customError(err);
+        loggers.error('Error del servidor', err);
+        res.status(500).loggers('Error en el servidor al eliminar usuarios inactivos');
+    }
+};
+
 
 
 // Reset Password
