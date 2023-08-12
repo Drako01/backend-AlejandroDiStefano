@@ -23,8 +23,7 @@ const configureMulter = (destinationPath) => {
         return upload;
     } catch (error) {
         customError(error);
-        loggers.error('Error en la configuración de Multer');
-        throw error;
+        loggers.error('Error en la configuración de Multer', error);        
     }
 };
 
