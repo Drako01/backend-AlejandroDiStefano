@@ -5,12 +5,12 @@ function togglePasswordVisibility() {
 
     if (isPasswordVisible) {
         passwordInput.setAttribute('type', 'password');
-        passwordToggle.innerHTML = 'Ver'; // Remove the text content
+        passwordToggle.innerHTML = `<i class="fa fa-eye"></i> `; // Remove the text content
         
     } else {
         passwordInput.setAttribute('type', 'text');
         passwordToggle.innerHTML = ''; // Remove the text content
-        passwordToggle.innerHTML = 'Ocultar'; 
+        passwordToggle.innerHTML = `<i class="fa fa-eye-slash"></i>`; 
     }
 }
 
