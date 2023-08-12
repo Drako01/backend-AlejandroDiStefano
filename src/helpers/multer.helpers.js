@@ -1,4 +1,3 @@
-// multerHelper.js
 import multer from 'multer';
 import path from 'path';
 import loggers from '../config/logger.js';
