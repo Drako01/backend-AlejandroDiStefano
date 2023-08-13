@@ -104,9 +104,9 @@
     flex-direction: row;
     margin: 3rem 0; 
 }
-.bienvenida img{
+/* .bienvenida img{
     width: 3rem;   
-}
+} */
 body{
     background-color: var(--light);
 }

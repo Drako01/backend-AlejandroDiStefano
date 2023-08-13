@@ -69,10 +69,18 @@
     width: 120px;
     object-fit: cover;
 }
-.foto-perfil{
-    width: 50px;
-    height: 50px;
+.foto-perfil-chica{
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
+    box-shadow: .15rem .15rem .15rem rgba(0,0,0,0.5);
+    object-fit: cover;   
+}
+.foto-perfil{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: .15rem .15rem .15rem rgba(0,0,0,0.5);
     object-fit: cover;   
 }
 .perfil-photo{
@@ -80,7 +88,7 @@
     height: 120px;
     border-radius: 50%;
     object-fit: cover;   
-    box-shadow: .5rem 0 .5rem rgba(0,0,0,0.5);
+    box-shadow: .15rem .15rem .5rem rgba(0,0,0,0.5);
 }
 .premium h2,
 .premium-h1,
