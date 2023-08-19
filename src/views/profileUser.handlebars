@@ -7,7 +7,7 @@
         <a href="/users/profile/set-profile-photo/{{ user.userId }}">
             <h5>Cambiar Avatar </h5>
         </a>
-        <h1><span>ID: </span>{{ user.userId}}</h1>
+        <h1><span>ID: </span>{{ user.userId}} {{ user.user._id}}</h1>
         <h1><span> Nombre completo: </span>{{user.first_name}} {{user.last_name}} {{ user.user.first_name }}</h1>
         <h1><span>Correo: </span>{{user.email}} {{ user.user.email }}</h1>
         <h1><span>Role: </span>{{user.role}} {{ user.user.role }}</h1>

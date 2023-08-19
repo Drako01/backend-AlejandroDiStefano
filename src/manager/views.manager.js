@@ -51,6 +51,7 @@ const views = [
     { path: '/docs-api', router: documentRouter },  
     { path: '/users/profile/documents', router: usersPremiumRouter },
     { path: '/users/my-documents', router: usersRouter },
+    { path: '/users/premium', router: usersRouter },
 ];
 
 export default views;

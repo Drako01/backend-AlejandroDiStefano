@@ -289,6 +289,23 @@ export const setDocumentsUsersController = async (req, res) => {
 };
 
 
-
-
+export const setPremiumUserController = async (req, res) => {
+    const userId = req.params.id;
+    try {
+        const user = await UserService.getById(userId);
+        if (!user) {
+            return res.status(404).render('error/userNotFound', { userId });
+        }
+        if (user.document.length > 0 && user.photo.length > 0) {           
+            await UserService.update(userId, { premium: true });
+            res.status(200).render('userPremiumValidate', { user });
+        } else {
+            res.status(200).render('error/notPremium', { user });
+        }
+    } catch (error) {
+        customError(error);
+        loggers.error('Ha ocurrido un error al procesar la petición.');
+        return res.status(500).render('error/error500');
+    }
+};
 

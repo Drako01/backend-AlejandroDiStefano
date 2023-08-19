@@ -14,7 +14,8 @@ import { getAllUsersController,
         setProfileUsersController,
         setPhotoProfileUsersController,
         setDocumentsUsersController,
-        getDocumentsByUserController
+        getDocumentsByUserController,
+        setPremiumUserController
 } from '../controllers/user.controller.js';
 import configureMulter from '../helpers/multer.helpers.js';
 const uploadProfilePhoto = configureMulter('img/profile');
@@ -30,7 +31,8 @@ router.post('/newUser', isAdmin, createNewUserTest)
 router.get('/edit/:id', isAdmin, getUserForEditByIdController) 
 router.post('/edit/:id', isAdmin, editUserByIdController)
 router.get('/delete/:id', isAdmin, deleteUserByIdController) 
-router.get('/my-documents', isAdmin, getDocumentsByUserController) 
+router.get('/my-documents', isLoggedIn, getDocumentsByUserController) 
+router.get('/premium/:id', setPremiumUserController) 
 
 
 

@@ -4,7 +4,7 @@
         <form action="/users/profile/set-profile-photo/{{ user._id }}" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="photo">Foto de Perfil</label>
-                <input type="file" class="form-control" name="photo" id="photo" placeholder="Foto de Perfil">
+                <input type="file" class="form-control" name="photo" id="photo" placeholder="Foto de Perfil" accept=".png,.jpg,.jpeg">
             </div>
             <button type="submit" class="btn btn-primary">Cargar</button>
         </form>

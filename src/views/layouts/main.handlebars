@@ -23,7 +23,7 @@
         <li class="nav-item">
             <a class="nav-link{{#ifEqual cart.length 0}} disabled{{/ifEqual}}" href="/carts">Carrito <i class="fa fa-cart-plus"></i></a>
         </li>
-        {{#if user.premium}}
+        {{#if user}}
         <li class="nav-item ">
             <a class="nav-link premium" href="/users/profile/documents">Premium</a>
         </li>
