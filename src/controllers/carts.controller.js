@@ -35,10 +35,6 @@ export async function getOrCreateCart(userEmail = null) { // DAO Aplicado
 // Visualizar el Carrito
 export const createCartController = async (req, res) => { // DAO Aplicado
     user = getUserFromToken(req);
-    let cart;
-    if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
-        return res.render('error/notCart', { user });
-    }
     try {
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
@@ -50,12 +46,15 @@ export const createCartController = async (req, res) => { // DAO Aplicado
             return res.redirect('/login');
         }      
         
+        let cart;
         if (userEmail) {
             cart = await getOrCreateCart(userEmail);
         } else {
             cart = await getOrCreateCart();
         }
-        
+        if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
+            return res.render('error/notCart', { user });
+        }
         const cartId = cart._id.toString();
 
         let sortedItems = [...cart.items];
