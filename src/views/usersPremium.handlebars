@@ -2,6 +2,9 @@
     <div class="container login nonono">
         <h1 class="red bienvenido">Hola</h1>
         <h1 class="red bienvenido">{{user.first_name}} {{user.last_name}} {{user.user.first_name}}</h1>
+        {{#if user.premium}}
+        <h2 class="premium-text">Usuario Premium</h2>
+        {{/if}}
         <h1>¡Por ser Usuario Premium!</h1>
         <h2 class="descuento">
             Usted tiene:
@@ -17,9 +20,9 @@
             <button type="submit" class="btn btn-primary">Subir Documento</button>
         </form>
         {{#if user.premium}}
-            <a href="/users/my-documents" class="btn btn-success">Ver mis Documentos</a>
+        <a href="/users/my-documents" class="btn btn-success">Ver mis Documentos</a>
         {{else}}
-            <a href="/users/premium/{{user.userId}}" class="btn btn-success">Verificar si soy Premium</a>
+        <a href="/users/premium/{{user.userId}}" class="btn btn-success">Verificar si soy Premium</a>
         {{/if}}
         <a href="/" class="btn btn-danger">Volver</a>
     </div>

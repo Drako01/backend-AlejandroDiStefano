@@ -132,3 +132,9 @@
 .bienvenido{
     font-size: 2rem !important;
 }
+.premium-text{
+    text-align: center;
+    font-size: 2rem;
+    color: gold;
+    text-shadow: 0.2rem 0.12rem .3rem #000000;
+}
