@@ -35,12 +35,9 @@ export const getIndexProductsController = async (req, res) => { // DAO Aplicado
 let user = null;
 // Obtener todos los productos
 export const getAllProductsController = async (req, res, next) => { // DAO Aplicado
-    try {
-        const userToken = req.cookies[cookieName];
-        if (userToken) {
-            user = getUserFromToken(req);
-        }
-
+    try {        
+        user = getUserFromToken(req);       
+        const userToken = req.cookies[cookieName];        
         const page = parseInt(req.query.page) || 1;
         const limit = 8;
         const category = req.query.category;
@@ -57,8 +54,8 @@ export const getAllProductsController = async (req, res, next) => { // DAO Aplic
         const nextLink = productos.length === limit ? `/products?page=${page + 1}` : '';
 
         const allCategories = await ProductService.getByCategory('category');
-        if (!user) {
-            res.render('products', { productos, prevLink, nextLink, allCategories });
+        if (!userToken || !user) {
+            res.render('products', { productos, prevLink, nextLink, allCategories, user: null });
         } else {
             res.render('products', { productos, prevLink, nextLink, allCategories, user });
         }
