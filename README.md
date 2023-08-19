@@ -33,6 +33,12 @@
 ## Tener en cuenta que el Servidor arranca con la instrucción: 
 ### npm start
 
+<br>
+
+
+## Módulo de Testing: 
+### npm test
+
 <br><br>
 
 <p align="center"> 
