@@ -48,7 +48,7 @@
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 10px;
     border-radius: 10px;
@@ -57,6 +57,13 @@
 .card-front {
     background-color: #007bff;
     color: white;
+}
+.visacard{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding-right: 1rem;
+    padding-top: .5rem;
 }
 
 .card-back {
