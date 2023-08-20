@@ -1,31 +1,25 @@
 {{!-- Seccion Administrador --}}
-<div class="container  text-center">
-    {{#if user}}
-    <h1>Bienvenido <span>{{user.first_name}} {{user.last_name}}</span></h1>
-    {{/if}}
-</div>
-
 {{#if user.role}}
 {{#ifEqual user.role "admin"}}
-<div class="line"></div>
+<br><br>
 <div class="container  text-center">
     <h1>Panel Administrativo</h1>
 </div>
-<div class="line"></div>
+<br>
 <div class="container botones_admin">
     <a class="btn btn-success btnusuaios" href="/users">Ver Usuarios</a>
     <a class="btn btn-success btnusuaios" href='/productstable'>Administrador de Productos</a>
     <a class="btn btn-success btnusuaios" href="/realtimeproducts">Productos Web Sockets</a>
 </div>
-<div class="line"></div>
 
+<br>
 <div class="container  text-center usuarios">
     <h2>Carga de Productos Nivel Administrador</h2>
 </div>
-
+<br>
 <section class="products">
     <div id="product-container" class="container products">
-        <div class="card" style="width: 18rem;">
+        <div class="card-product" style="width: 18rem;">
             <form action="/products" method="post" enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="form-group">
