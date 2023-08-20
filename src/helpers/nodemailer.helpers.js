@@ -523,7 +523,7 @@ export const sendPremiumUpgradeUser = async (usermail) => {
         const mailOptions = {
             from: 'Ventas Lonne Open <addistefano76@gmail.com>',
             to: usermail,
-            subject: '¡Bienvenido/a a Lonne Open!',
+            subject: '¡Hola de nuevo desde Lonne Open!',
             html: emailBody,
             attachments: [
                 {
