@@ -92,25 +92,25 @@
 
 
     </table>
-    <form action="/checkout" method="post">
-        <input type="hidden" name="cartId" value="{{ cartId }}">
-        <div class="input-group group-comprar">
-            <button type="submit" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                    class="bi bi-cart-check" viewBox="0 0 16 16">
-                    <path
-                        d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
-                    <path
-                        d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                </svg>
-                Comprar Carrito</button>
-        </div>
-    </form>
+
+
+    <div class="input-group group-comprar">
+        <button type="submit" class="btn btn-success" id="comprar-carro">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart-check"
+                viewBox="0 0 16 16">
+                <path
+                    d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                <path
+                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+            </svg>
+            Comprar Carrito</button>
+    </div>
+
 
     <form method="POST" action="/carts/{{ cartId }}/vaciar" id="emptyCartForm">
         <input type="hidden" name="cartId" value="{{ cartId }}">
         <div class="input-group group-comprar">
-            <button type="submit" class="btn btn-secondary">
+            <button type="submit" class="btn btn-secondary" id="vaciar-carro">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart-x"
                     viewBox="0 0 16 16">
                     <path
@@ -125,7 +125,7 @@
     <form action="/carts/{{ cartId }}/eliminar" method="POST">
         <input type="hidden" name="cartId" value="{{ cartId }}">
         <div class="input-group group-comprar">
-            <button type="submit" class="btn btn-danger">
+            <button type="submit" class="btn btn-danger" id="eliminar-carro">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart-x"
                     viewBox="0 0 16 16">
                     <path
@@ -136,6 +136,34 @@
                 Eliminar Carrito</button>
         </div>
     </form>
+    <section id="checkout-section" class="hidden">
+        <div class="card-container">
+        <div class="card">
+            <div class="card-front">
+                <div class="card-number" id="display-card-number">#### #### #### ####</div>
+                <div class="card-name" id="display-card-name">Nombre y Apellido del Titular</div>
+                <div class="card-expiration" id="display-card-expiration">MM/AA</div>
+            </div>
+            <div class="card-back">
+                <div class="card-cvv" id="display-card-cvv">CVV</div>
+            </div>
+        </div>
+        <div class="card-form">
+            <input type="text" class="form-control mb-2" placeholder="Número de tarjeta" id="card-number" required>
+            <input type="text" class="form-control mb-2" placeholder="Nombre en la tarjeta" id="card-name" required>
+            <input type="text" class="form-control mb-2" placeholder="Fecha de expiración" id="card-expiration" required>
+            <input type="text" class="form-control mb-2" placeholder="Código CVV" id="card-cvv" required>            
+            <form action="/checkout" method="post">
+            <input type="hidden" name="cartId" value="{{ cartId }}">
+            <div class="input-group group-comprar">
+                <button type="submit" class="btn btn-success" id="pagar-carro">Pagar</button>
+            </div>
+        </form>
+        </div>
+    </div>
 
-
+        
+    </section>
 </div>
+
+<script src="/js/checkout.js"></script>
