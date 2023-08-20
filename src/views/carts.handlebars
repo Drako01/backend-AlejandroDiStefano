@@ -137,6 +137,7 @@
         </div>
     </form>
     <section id="checkout-section" class="hidden">
+        <h1 class="premium-h1">Checkout</h1>
         <div class="card-container">
         <div class="card">
             <div class="card-front">
@@ -150,9 +151,9 @@
         </div>
         <div class="card-form">
             <input type="text" class="form-control mb-2" placeholder="Número de tarjeta" id="card-number" required>
-            <input type="text" class="form-control mb-2" placeholder="Nombre en la tarjeta" id="card-name" required>
+            <input type="text" class="form-control mb-2" placeholder="Nombre y Apellido del Titular" id="card-name" required>
             <input type="text" class="form-control mb-2" placeholder="Fecha de expiración" id="card-expiration" required>
-            <input type="text" class="form-control mb-2" placeholder="Código CVV" id="card-cvv" required>            
+            <input type="text" class="form-control mb-2" placeholder="Código de Seguridad" id="card-cvv" required>            
             <form action="/checkout" method="post">
             <input type="hidden" name="cartId" value="{{ cartId }}">
             <div class="input-group group-comprar">
