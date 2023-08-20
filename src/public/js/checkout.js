@@ -58,3 +58,20 @@ cardCVVInput.addEventListener('focus', () => {
 cardCVVInput.addEventListener('blur', () => {
     card.classList.remove('flipped');
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const pagarButton = document.getElementById('pagar-carro');
+    
+    const checkInputs = () => {
+        const allInputsFilled = cardNumberInput.value !== '' &&
+                                cardNameInput.value !== '' &&
+                                cardExpirationInput.value !== '' &&
+                                cardCVVInput.value !== '';
+        pagarButton.disabled = !allInputsFilled;
+    };
+    
+    cardNumberInput.addEventListener('input', checkInputs);
+    cardNameInput.addEventListener('input', checkInputs);
+    cardExpirationInput.addEventListener('input', checkInputs);
+    cardCVVInput.addEventListener('input', checkInputs);
+});

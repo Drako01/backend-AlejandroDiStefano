@@ -139,31 +139,35 @@
     <section id="checkout-section" class="hidden">
         <h1 class="premium-h1">Checkout</h1>
         <div class="card-container">
-        <div class="card">
-            <div class="card-front">
-                <div class="card-number" id="display-card-number">#### #### #### ####</div>
-                <div class="card-name" id="display-card-name">Nombre y Apellido del Titular</div>
-                <div class="card-expiration" id="display-card-expiration">MM/AA</div>
+            <div class="card">
+                <div class="card-front">
+                    <div class="card-number" id="display-card-number">#### #### #### ####</div>
+                    <div class="card-name" id="display-card-name">Nombre y Apellido del Titular</div>
+                    <div class="card-expiration" id="display-card-expiration">MM/AA</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-cvv" id="display-card-cvv">CVV</div>
+                </div>
             </div>
-            <div class="card-back">
-                <div class="card-cvv" id="display-card-cvv">CVV</div>
+            <div class="card-form">
+                <form action="/checkout" method="post">
+                    <input type="hidden" name="cartId" value="{{ cartId }}">
+                    <input type="number" class="form-control mb-2" placeholder="Número de tarjeta" id="card-number"
+                        name="cardNumber" min="0" max="9999999999999999" required>
+                    <input type="text" class="form-control mb-2" placeholder="Nombre y Apellido del Titular"
+                        id="card-name" name="cardName" required>
+                    <input type="number" class="form-control mb-2" placeholder="Fecha de expiración"
+                        id="card-expiration" name="cardExpiration" min="0" max="1300" required>
+                    <input type="number" class="form-control mb-2" placeholder="Código de Seguridad" id="card-cvv"
+                        name="cardCvv" min="0" max="999" required>
+                    <div class="input-group group-comprar">
+                        <button type="submit" class="btn btn-success" id="pagar-carro" disabled>Pagar</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="card-form">
-            <input type="text" class="form-control mb-2" placeholder="Número de tarjeta" id="card-number" required>
-            <input type="text" class="form-control mb-2" placeholder="Nombre y Apellido del Titular" id="card-name" required>
-            <input type="text" class="form-control mb-2" placeholder="Fecha de expiración" id="card-expiration" required>
-            <input type="text" class="form-control mb-2" placeholder="Código de Seguridad" id="card-cvv" required>            
-            <form action="/checkout" method="post">
-            <input type="hidden" name="cartId" value="{{ cartId }}">
-            <div class="input-group group-comprar">
-                <button type="submit" class="btn btn-success" id="pagar-carro">Pagar</button>
-            </div>
-        </form>
-        </div>
-    </div>
 
-        
+
     </section>
 </div>
 
