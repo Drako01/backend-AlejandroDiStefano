@@ -6,7 +6,7 @@ import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
 import UsersDTO from '../dtos/user.dto.js';
 import customError from '../services/error.log.js';
-import { sendCloseAccountEmail, sendCloseInactivitiAccountEmail, sendPremiumUpgradeUser } from '../helpers/nodemailer.helpers.js';
+import { sendCloseAccountEmail, sendCloseInactivitiAccountEmail, sendPremiumUpgradeUser, sendCloseAccountForUserEmail } from '../helpers/nodemailer.helpers.js';
 import { sendResetPasswordEmailMethod, resetPassword } from '../helpers/functions.helpers.js';
 
 
@@ -161,6 +161,32 @@ export const deleteUserByIdController = async (req, res) => { // DAO Aplicado
             loggers.error('Error sending close account email');
         }
         res.render('userDelete', { user });
+    } catch (err) {
+        customError(err);
+        loggers.error('Error del servidor');
+        res.status(500).render('error/error500', { user });
+    }
+};
+
+// Eliminar Usuario por el mismo Usuario
+export const deleteUserByUserController = async (req, res) => { // DAO Aplicado
+    try {
+        const userId = req.params.id;
+        const user = await UserService.getById(userId);
+
+        if (!user) {
+            return res.status(404).render('error/error404', { user });
+        }
+
+        // Eliminar el usuario de la base de datos
+        await UserService.delete(userId);
+        try {
+            await sendCloseAccountForUserEmail(user.email);
+        } catch (err) {
+            customError(err);
+            loggers.error('Error sending close account email');
+        }
+        res.render('userDeleteByMySelf', { user });
     } catch (err) {
         customError(err);
         loggers.error('Error del servidor');

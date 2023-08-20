@@ -18,6 +18,31 @@
         <h1><span>Telefono: </span>{{user.phone}} {{ user.user.phone }}</h1>
         <a href="/" class="btn btn-success">Volver</a>
         <a href="/logout" class="btn btn-danger">Logout</a>
+        <a href="/users/delete-for-my-self/{{user.userId}}" id="delete-forever">Eliminar Cuenta?</a>
+        <div id="confirmation-modal" style="display: none;">
+            <h3>¿Está seguro de que desea eliminar su cuenta?</h3>
+            <button id="confirm-delete" class="btn btn-danger">Confirmar</button>
+            <button id="cancel-delete" class="btn btn-secondary">Cancelar</button>
+        </div>
         {{/if}}
     </div>
 </section>
+<script>
+    const deleteBtn = document.getElementById('delete-forever');
+    const confirmationModal = document.getElementById('confirmation-modal');
+    const confirmDeleteBtn = document.getElementById('confirm-delete');
+    const cancelDeleteBtn = document.getElementById('cancel-delete');
+
+    deleteBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        confirmationModal.style.display = 'block';
+    });
+
+    confirmDeleteBtn.addEventListener('click', () => {
+        window.location.href = deleteBtn.getAttribute('href');
+    });
+
+    cancelDeleteBtn.addEventListener('click', () => {
+        confirmationModal.style.display = 'none';
+    });
+</script>
