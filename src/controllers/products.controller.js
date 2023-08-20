@@ -201,7 +201,7 @@ export const getPurchaseController = async (req, res) => {
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
-        const isPremium = user.premium || user.user.premium || false;
+        const isPremium = user.premium || (user.user && user.user.premium) || false;
         const discountMultiplier = isPremium ? 0.8 : 1;
         const cart = await CartService.getOne({ user: { email: user.email || user.user.email } })
 
