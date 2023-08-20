@@ -129,7 +129,7 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         }
     } catch (err) {
         customError(err);
-        loggers.error('Error al enviar el correo electrónico', err);
+        loggers.error('Error al enviar el correo electrónico');
     }
 };
 
