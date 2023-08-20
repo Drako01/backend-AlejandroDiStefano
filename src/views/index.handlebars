@@ -3,7 +3,7 @@
         {{#if user}}
         <div class="container">
             <div>
-                <img src="{{user.photo}}" alt="Corona" class="foto-perfil">
+                <img src="{{user.photo}} {{user.user.photo}}" alt="Corona" class="foto-perfil">
             </div>
             {{#if user.premium}}
                 <h2 class="premium-text">Usuario Premium</h2>

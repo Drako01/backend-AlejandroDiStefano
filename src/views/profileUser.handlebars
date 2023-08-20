@@ -2,7 +2,7 @@
     <div class="container login usersss">
         {{#if user}}
         <a href="/users/profile/set-profile-photo/{{ user.userId }}">
-            <img src="{{ user.photo }}" alt="Foto de Perfil" class="perfil-photo">
+            <img src="{{ user.photo }} {{user.user.photo}}" alt="Foto de Perfil" class="perfil-photo">
         </a>
         <a href="/users/profile/set-profile-photo/{{ user.userId }}">
             <h5>Cambiar Avatar </h5>
