@@ -33,7 +33,9 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
                 },
             },
         });
-        const isPremium = user.premium || user.user.premium || false;
+        
+        const isPremium = user && (user.premium || (user.user && user.user.premium));
+
         const discountMultiplier = isPremium ? 0.8 : 1;
 
         const subTotal = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
@@ -127,7 +129,7 @@ export const sendPurchaseConfirmationEmail = async (userEmail, cart, user) => {
         }
     } catch (err) {
         customError(err);
-        loggers.error('Error al enviar el correo electrónico');
+        loggers.error('Error al enviar el correo electrónico', err);
     }
 };
 
@@ -486,3 +488,60 @@ export const sendPasswordChangedEmail = async (usermail) => {
     }
 };
 
+export const sendPremiumUpgradeUser = async (usermail) => {
+    try {
+        const mailGenerator = new Mailgen({
+            theme: 'default',
+            product: {
+                name: 'Lonne Open',
+                link: {
+                    href: 'https://www.lonneopen.com/',
+                    image: 'cid:logo@lonneopen.com',
+                    width: 60,
+                    alt: 'Lonne Open Logo',
+                },
+            },
+        });
+
+        const emailContent = {
+            body: {
+                greeting: `¡En hora buena  ${usermail}!`,
+                intro: ['Ahora eres Usuario Premium.!! ',
+                        'Podrás acceder a Importantes descuentos y Beneficios.!!'
+                        ],
+
+                outro: [
+                    'Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.',
+                    `Correo de contacto: ventas@lonneopen.com`,
+                    `<img src="cid:logo@lonneopen.com" alt="Lonne Open" width="60">`,
+                ],
+            },
+        };
+
+        const emailBody = mailGenerator.generate(emailContent);
+
+        const mailOptions = {
+            from: 'Ventas Lonne Open <addistefano76@gmail.com>',
+            to: usermail,
+            subject: '¡Bienvenido/a a Lonne Open!',
+            html: emailBody,
+            attachments: [
+                {
+                    filename: 'logo.webp',
+                    path: 'https://lonneopen.com/img/logo.webp',
+                    cid: 'logo@lonneopen.com',
+                },
+                {
+                    filename: '116356.png',
+                    path: 'https://cdn-icons-png.flaticon.com/512/116/116356.png',
+                    cid: 'carrito@lonneopen.com',
+                },
+            ],
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (err) {
+        customError(err);
+        loggers.error('Error al enviar el correo electrónico', err);
+    }
+};

@@ -6,7 +6,7 @@ import EErros from '../services/errors/enums.js'
 import { generateUserErrorInfo } from '../services/errors/info.js'
 import UsersDTO from '../dtos/user.dto.js';
 import customError from '../services/error.log.js';
-import { sendCloseAccountEmail, sendCloseInactivitiAccountEmail } from '../helpers/nodemailer.helpers.js';
+import { sendCloseAccountEmail, sendCloseInactivitiAccountEmail, sendPremiumUpgradeUser } from '../helpers/nodemailer.helpers.js';
 import { sendResetPasswordEmailMethod, resetPassword } from '../helpers/functions.helpers.js';
 
 
@@ -298,6 +298,8 @@ export const setPremiumUserController = async (req, res) => {
         }
         if (user.document.length > 0 && user.photo.length > 0) {           
             await UserService.update(userId, { premium: true });
+            const usermail = user.email 
+            sendPremiumUpgradeUser(usermail)
             res.status(200).render('userPremiumValidate', { user });
         } else {
             res.status(200).render('error/notPremium', { user });

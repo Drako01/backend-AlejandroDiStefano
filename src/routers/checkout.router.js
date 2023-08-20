@@ -9,6 +9,6 @@ const router = Router();
 // Endpoint para mostrar el carrito de compras
 router.get('/', checkPremiumUser, getPurchaseController);
 
-router.post('/', sendPurchaseController);
+router.post('/', checkPremiumUser, sendPurchaseController);
 
 export default router;

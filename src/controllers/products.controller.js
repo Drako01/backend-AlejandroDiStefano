@@ -199,8 +199,9 @@ export const getPurchaseController = async (req, res) => {
 }
 
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
+    const user = getUserFromToken(req);
     try {
-        const user = getUserFromToken(req);
+        
         const isPremium = user.premium || (user.user && user.user.premium) || false;
         const discountMultiplier = isPremium ? 0.8 : 1;
         const cart = await CartService.getOne({ user: { email: user.email || user.user.email } })
@@ -251,8 +252,8 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
         }
         const subTotal = cart.items.reduce((total, item) => total + (item.producto.price * item.cantidad), 0);
         const totalPrice = (subTotal * discountMultiplier).toFixed(2);
-
-        await sendPurchaseConfirmationEmail(user.email || user.user.email, cart, user);
+        const useremail = user.email || user.user.email || false        
+        await sendPurchaseConfirmationEmail(useremail, cart, user);
         //await sendSMS(user.phone); // Descomentar para enviar un SMS
 
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
