@@ -34,17 +34,23 @@ export async function getOrCreateCart(userEmail = null) { // DAO Aplicado
 
 // Visualizar el Carrito
 export const createCartController = async (req, res) => { // DAO Aplicado
-    user = getUserFromToken(req);
+    
     try {
+        const user = getUserFromToken(req);
+        if (!user) {
+            return res.redirect('/login'); // Redirect to login if user is not authenticated
+        }
+        
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
-        const isPremium = user.premium || user.user.premium || false;
+        
+        const isPremium = user.premium || (user.user && user.user.premium) || false;
         const discountMultiplier = isPremium ? 0.8 : 1;
-        if (userToken) {
-            userEmail = user.email || user.user.email;
-        } else {
-            return res.redirect('/login');
-        }      
+        
+        let userEmail = user.email || (user.user && user.user.email) || '';
+        if (!userToken) {
+            return res.redirect('/login'); // Redirect to login if token is missing
+        }     
         
         let cart;
         if (userEmail) {
@@ -91,6 +97,7 @@ export const createCartController = async (req, res) => { // DAO Aplicado
         const totalPrice = (subTotal * discountMultiplier).toFixed(2);
 
         res.render('carts', { cart: { ...cart, items: sortedItems }, totalPrice, cartId, user });
+        
     } catch (error) {
         customError(error);
         loggers.error("El carrito no fue encontrado");

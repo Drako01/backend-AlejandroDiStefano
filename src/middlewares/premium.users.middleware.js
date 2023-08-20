@@ -1,10 +1,17 @@
 import { getUserFromToken } from './user.middleware.js';
-export const checkPremiumUser = (req, res, next) => {   
+export const checkPremiumUser = (req, res, next) => {
     const user = getUserFromToken(req);
-    if (user && ( user.premium || user.user.premium) === true) {
-        req.session.isPremium = true;
-    } else {
-        req.session.isPremium = false;
+    
+    let isPremium = false;
+    
+    if (user) {
+        if (user.premium) {
+            isPremium = true;
+        } else if (user.user && user.user.premium) {
+            isPremium = true;
+        }
     }
+    
+    req.session.isPremium = isPremium;
     next();
 };
