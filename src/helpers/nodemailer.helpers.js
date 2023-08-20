@@ -439,7 +439,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
         });
 
         const local = `${url}:${port}`
-        const resetLink = `${local}/reset-password/${token}`;
+        const resetLink = `http://proshop.us-east-1.elasticbeanstalk.com/reset-password/${token}`;
 
         const emailContent = {
             body: {
