@@ -34,24 +34,24 @@ export async function getOrCreateCart(userEmail = null) { // DAO Aplicado
 
 // Visualizar el Carrito
 export const createCartController = async (req, res) => { // DAO Aplicado
-    
+
     try {
         const user = getUserFromToken(req);
         if (!user) {
-            return res.redirect('/login'); 
+            return res.redirect('/login');
         }
-        
+
         const { sortOption } = req.query;
         const userToken = req.cookies[cokieName];
-        
+
         const isPremium = user.premium || (user.user && user.user.premium) || false;
         const discountMultiplier = isPremium ? 0.8 : 1;
-        
+
         let userEmail = user.email || (user.user && user.user.email) || '';
         if (!userToken) {
-            return res.redirect('/login'); 
-        }     
-        
+            return res.redirect('/login');
+        }
+
         let cart;
         if (userEmail) {
             cart = await getOrCreateCart(userEmail);
@@ -97,7 +97,7 @@ export const createCartController = async (req, res) => { // DAO Aplicado
         const totalPrice = (subTotal * discountMultiplier).toFixed(2);
 
         res.render('carts', { cart: { ...cart, items: sortedItems }, totalPrice, cartId, user });
-        
+
     } catch (error) {
         customError(error);
         loggers.error("El carrito no fue encontrado");
@@ -162,39 +162,61 @@ export const deleteCartById = async (req, res) => { // DAO Aplicado
 // Actualizar la cantidad de un producto en el carrito
 export const updateProductsToCartById = async (req, res) => { // DAO Aplicado
     const userToken = req.cookies[cokieName];
-
-    if (userToken) {
-        user = getUserFromToken(req);
-        userEmail = user.email || user.user.email;
+    
+    const user = getUserFromToken(req);
+    const userEmail = user.email || user.user.email;
+    
+    if (!userToken) {
+        return res.redirect('/login');
     }
 
     try {
-        const cartId = req.params.cartId;
-        const itemId = req.params.itemId;
+        const { cartId, itemId } = req.params;
         const { cantidad } = req.body;
 
         if (!mongoose.Types.ObjectId.isValid(cartId)) {
             return res.redirect('/');
         }
 
-        const cart = await CartService.update(
-            { _id: cartId, 'user.email': userEmail, 'items._id': itemId },
-            { $set: { 'items.$.cantidad': cantidad } },
-            { new: true }
+        // Fetch the cart from the database
+        const cart = await CartService.getOnePopulate(
+            { _id: cartId, 'user.email': userEmail }
         );
 
         if (!cart) {
             return res.redirect('/');
         }
 
+        // Construct updatedItemsArray as shown in your previous code
+        const updatedItemsArray = cart.items.map(item => {
+            if (item._id.toString() === itemId) {
+                return {
+                    ...item,
+                    cantidad: cantidad
+                };
+            }
+            return item;
+        });
+
+        // Update the cart's items with the updated array
+        cart.items = updatedItemsArray;
+
+        // Save the updated cart
+        await cart.save();
+
         res.redirect('/carts');
 
     } catch (error) {
         customError(error);
-        loggers.error("Error al actualizar la cantidad del producto");
+        loggers.error("Error al actualizar la cantidad del producto en el Carrito", error);
         res.status(500).render('error/notCart', { user });
     }
 };
+
+
+
+
+
 
 // Agregar productos al carrito
 export const addProductToCartController = async (req, res) => { // DAO Aplicado
@@ -248,7 +270,7 @@ export const deleteCartByIdController = async (req, res) => { // DAO Aplicado
 
     try {
         const cart = await CartService.getById(cartId);
-        
+
         if (!cart) {
             return res.status(404).render('error/error404', { user });
         }
