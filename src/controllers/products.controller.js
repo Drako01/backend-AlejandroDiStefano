@@ -200,7 +200,7 @@ export const getPurchaseController = async (req, res) => {
 
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
-    const { cardNumber, cardName, cardExpiration, cardCvv } = req.body;
+    // const { cardNumber, cardName, cardExpiration, cardCvv } = req.body;
     
     // Aca deberia verificar los datos de la tarjeta de credito
     try {
@@ -237,7 +237,7 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
                     product.stock += (item.cantidad - product.stock);
                     await product.save();
                 }
-                
+
             } catch (error) {
                 customError(error);
                 loggers.error('Error al checkear los productos del carrito')
