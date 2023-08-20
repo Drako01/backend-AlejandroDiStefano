@@ -213,11 +213,6 @@ export const updateProductsToCartById = async (req, res) => { // DAO Aplicado
     }
 };
 
-
-
-
-
-
 // Agregar productos al carrito
 export const addProductToCartController = async (req, res) => { // DAO Aplicado
     try {
@@ -258,7 +253,6 @@ export const addProductToCartController = async (req, res) => { // DAO Aplicado
         res.status(500).redirect('/login');
     }
 };
-
 
 // Eliminar un producto del carrito
 export const deleteCartByIdController = async (req, res) => { // DAO Aplicado  
