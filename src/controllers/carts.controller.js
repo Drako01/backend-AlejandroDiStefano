@@ -38,7 +38,7 @@ export const createCartController = async (req, res) => { // DAO Aplicado
     try {
         const user = getUserFromToken(req);
         if (!user) {
-            return res.redirect('/login'); // Redirect to login if user is not authenticated
+            return res.redirect('/login'); 
         }
         
         const { sortOption } = req.query;
@@ -49,7 +49,7 @@ export const createCartController = async (req, res) => { // DAO Aplicado
         
         let userEmail = user.email || (user.user && user.user.email) || '';
         if (!userToken) {
-            return res.redirect('/login'); // Redirect to login if token is missing
+            return res.redirect('/login'); 
         }     
         
         let cart;
