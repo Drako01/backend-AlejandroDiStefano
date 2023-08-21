@@ -258,7 +258,7 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
         const totalPrice = (subTotal * discountMultiplier).toFixed(2);
         const useremail = user.email || user.user.email || false        
         await sendPurchaseConfirmationEmail(useremail, cart, user);
-        //await sendSMS(user.phone); // Descomentar para enviar un SMS
+        await sendSMS(user.phone); // Descomentar para enviar un SMS
 
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (error) {
