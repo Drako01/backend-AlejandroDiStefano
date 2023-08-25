@@ -43,5 +43,8 @@ export default {
     },
     log: {
         level: process.env.ENVIROMENT
+    },
+    stripe: {
+        secretKey: process.env.STRIPE_SECRET_KEY
     }
 }

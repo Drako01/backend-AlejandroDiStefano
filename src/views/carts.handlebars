@@ -165,25 +165,24 @@
                 </div>
             </div>
             <div class="card-form">
-                <input type="number" class="form-control mb-2" placeholder="Número de tarjeta" id="card-number"
-                    name="cardNumber" min="0" max="9999999999999999" required>
-                <input type="text" class="form-control mb-2" placeholder="Nombre y Apellido del Titular" id="card-name"
-                    name="cardName" required>
-                <input type="number" class="form-control mb-2" placeholder="MM/AA" id="card-expiration"
-                    name="cardExpiration" min="0" max="1300" required>
-                <input type="number" class="form-control mb-2" placeholder="Código de Seguridad" id="card-cvv"
-                    name="cardCvv" min="0" max="999" required>
-                <form action="/checkout" method="post">
-                    <input type="hidden" name="cartId" value="{{ cartId }}">
-                    <div class="input-group group-comprar">
-                        <button type="submit" class="btn btn-success" id="pagar-carro" disabled>Pagar</button>
-                    </div>
-                </form>
+                <form action="/checkout/payment-intent" method="post">
+                <input type="hidden" name="cartId" value="{{ cartId }}">
+                <input type="hidden" name="cardPrice" value="{{totalPrice}}">
+                    <input type="number" class="form-control mb-2" placeholder="Número de tarjeta" id="card-number"
+                        name="cardNumber" min="1000000000000000" max="9999999999999999" required>
+                    <input type="text" class="form-control mb-2" placeholder="Nombre y Apellido del Titular"
+                        id="card-name" name="cardName" required>
+                    <input type="number" class="form-control mb-2" placeholder="MM/AA" id="card-expiration"
+                        name="cardExpiration" min="100" max="1300" required>
+                    <input type="number" class="form-control mb-2" placeholder="Código de Seguridad" id="card-cvv"
+                        name="cardCvv" min="1" max="999" required>
+                    <button type="submit" class="btn btn-success" id="pagar-carro" disabled>Pagar</button>
+                </form>                
             </div>
         </div>
 
 
     </section>
 </div>
-
+<script src="https://js.stripe.com/v3/"></script>
 <script src="/js/checkout.js"></script>

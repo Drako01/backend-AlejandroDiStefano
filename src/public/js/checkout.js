@@ -22,9 +22,6 @@ comprar.addEventListener('click', () => {
     eliminar.classList.add('hidden')
 });
 
-pagar.addEventListener('click', () => {
-    checkoutSection.classList.add('hidden')
-})
 
 for (let input of cardInputs) {
     input.addEventListener('focus', () => {
@@ -59,19 +56,40 @@ cardCVVInput.addEventListener('blur', () => {
     card.classList.remove('flipped');
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const pagarButton = document.getElementById('pagar-carro');
-    
+
     const checkInputs = () => {
         const allInputsFilled = cardNumberInput.value !== '' &&
-                                cardNameInput.value !== '' &&
-                                cardExpirationInput.value !== '' &&
-                                cardCVVInput.value !== '';
+            cardNameInput.value !== '' &&
+            cardExpirationInput.value !== '' &&
+            cardCVVInput.value !== '';
         pagarButton.disabled = !allInputsFilled;
     };
-    
+
     cardNumberInput.addEventListener('input', checkInputs);
     cardNameInput.addEventListener('input', checkInputs);
     cardExpirationInput.addEventListener('input', checkInputs);
     cardCVVInput.addEventListener('input', checkInputs);
+});
+
+
+pagar.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { paymentIntent, error } = await stripe.confirmCardPayment(
+        clientSecret, 
+        {
+            payment_method: {
+                card: elements.getElement('card'),
+                billing_details: {
+                    name: cardNameInput.value
+                }
+            }
+        });
+
+    if (error) {
+        console.error(error.message);
+    } else if (paymentIntent.status === 'succeeded') {
+        console.log('Pago completado correctamente');
+    }
 });

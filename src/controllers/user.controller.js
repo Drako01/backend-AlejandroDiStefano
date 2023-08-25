@@ -194,16 +194,16 @@ export const deleteUserByUserController = async (req, res) => { // DAO Aplicado
     }
 };
 
-// Borrar Usuarios que no se conectan hace mas de 1 año
+// Borrar Usuarios que no se conectan hace mas de 48hrs
 export const deleteInactiveUsersController = async (req, res) => {
     try {
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        const fortyEightHoursAgo = new Date();
+        fortyEightHoursAgo.setHours(fortyEightHoursAgo.getHours() - 48);
 
         const inactiveUsers = await UserService.getAll(); 
         
         inactiveUsers.forEach(async (user) => {
-            if (user.updatedAt < oneYearAgo) {
+            if (user.updatedAt < fortyEightHoursAgo) {
                 try {
                     await sendCloseInactivitiAccountEmail(user.email);
                     await UserService.delete(user.id);
@@ -214,13 +214,14 @@ export const deleteInactiveUsersController = async (req, res) => {
                 }
             }
         });
-
+        
     } catch (err) {
         customError(err);
         loggers.error('Error del servidor', err);
-        res.status(500).loggers('Error en el servidor al eliminar usuarios inactivos');
+        res.status(500).send('Error en el servidor al eliminar usuarios inactivos');
     }
 };
+
 
 
 

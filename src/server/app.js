@@ -153,6 +153,7 @@ function startServer() {
 
 // Llamado a la funcion para eliminar usuarios inactivos
 // Cada vez que se inicia el servidor se eliminan los usuarios inactivos
+import cron from 'node-cron';
 import { deleteInactiveUsersController } from '../controllers/user.controller.js';
 deleteInactiveUsersController()
     .then(() => {
@@ -161,6 +162,17 @@ deleteInactiveUsersController()
     .catch((error) => {
         loggers.error(error.message);
     });
+
+// Programación de tarea para ejecutar cada 24 horas
+cron.schedule('0 0 */1 * *', () => {
+    deleteInactiveUsersController()
+        .then(() => {
+            loggers.info('Proceso Automático de Eliminación de Usuarios Inactivos cada 24Hr');
+        })
+        .catch((error) => {
+            loggers.error(error.message);
+        });
+});
 
 
 // Verificar si el puerto está en uso antes de iniciar el servidor
@@ -177,7 +189,7 @@ serverTester.once('error', (error) => {
             EErros.EADDRINUSE
         );
         customError(error);
-        loggers.fatal(error.message);        
+        loggers.fatal(error.message);
     } else {
         loggers.error('Error starting the server:', error);
     }

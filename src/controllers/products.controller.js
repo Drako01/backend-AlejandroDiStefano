@@ -7,6 +7,7 @@ import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js'
 import customError from '../services/error.log.js';
 import { generateMockProducts } from '../services/mocking.service.js';
 import { removeProductFromCart } from '../helpers/functions.helpers.js';
+import PaymentsService from '../services/payments.service.js';
 
 import { sendSMS } from '../helpers/twilio.helpers.js';
 const cookieName = config.jwt.cookieName;
@@ -198,11 +199,49 @@ export const getPurchaseController = async (req, res) => {
     }
 }
 
+export const sendPayloadController = async (req, res, next) => {
+    const user = getUserFromToken(req);
+    try {
+        const payload = {            
+            numero: req.body.cardNumber,
+            nombre: req.body.cardName,
+            fecha: req.body.cardExpiration,
+            cvv: req.body.cardCvv,
+            amount: req.body.cardPrice
+        };
+        const paymentIntentInfo = {
+            amount: parseInt(req.body.cardPrice),// Me aseguro que sea un numero entero sin decimales. Porque Stripe no acepta decimales
+            currency: 'usd',
+            metadata: {
+                email: user.email || user.user.email,
+                name: user.first_name || user.user.first_name,
+                lastName: user.last_name || null,
+                phone: user.phone || user.user.phone || null,
+                cartId: req.body.cartId,
+            }
+        }        
+        if (payload.numero && payload.nombre && payload.fecha && payload.cvv && payload.amount) {
+            const service = new PaymentsService();
+            const paymentIntent = await service.createPaymentIntent(paymentIntentInfo);
+            res.locals.clientSecret = paymentIntent.client_secret;
+            next();
+        } else {
+            res.render('error/cartsErrorPayload', { user });
+        }
+        
+    } catch (error) {
+        customError(error);
+        loggers.error('Error al procesar la compra', error);
+        res.render('error/cartsErrorPayload', { user });
+    }
+};
+
+
+
+
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
-    //const { cardNumber, cardName, cardExpiration, cardCvv } = req.body;
     
-    // Aca deberia verificar los datos de la tarjeta de credito
     try {
         
         const isPremium = user.premium || (user.user && user.user.premium) || false;
@@ -258,7 +297,7 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
         const totalPrice = (subTotal * discountMultiplier).toFixed(2);
         const useremail = user.email || user.user.email || false        
         await sendPurchaseConfirmationEmail(useremail, cart, user);
-        await sendSMS(user.phone); // Descomentar para enviar un SMS
+        //await sendSMS(user.phone); // Descomentar para enviar un SMS
 
         res.render('checkout', { cart, code: cart.code, purchaseDatetime: cart.purchase_datetime, totalPrice, user });
     } catch (error) {

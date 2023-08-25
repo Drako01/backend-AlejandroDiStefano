@@ -40,6 +40,7 @@ const views = [
     { path: '/realTimeProducts', router: productsInRealTimeRouter },
     { path: '/cartsDeleteById', router: cartRouter },
     { path: '/checkout', router: checkoutRouter },
+    { path: '/checkout/payment-intent', router: checkoutRouter },
     { path: '/users', router: usersRouter },
     { path: '/users/newUser', router: usersRouter },
     { path: '/users/profile', router: usersRouter },
