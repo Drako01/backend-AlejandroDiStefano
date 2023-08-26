@@ -95,10 +95,12 @@
 
     {{!-- Compra del carrito --}}
     <div class="input-group group-comprar">
-        <button type="submit" class="btn btn-success" id="comprar-carro">
-            <i class="fa fa-cart-plus"></i>
-            Comprar Carrito</button>
-    </div>
+    <button type="button" class="btn btn-success" id="comprar-carro" data-cartId="{{ cartId }}">
+        <i class="fa fa-cart-plus"></i>
+        Comprar Carrito
+    </button>
+</div>
+
 
 
     <form method="POST" action="/carts/{{ cartId }}/vaciar" id="emptyCartForm">
@@ -120,14 +122,6 @@
     </form>
 
 
-    {{!-- Finalizacion de la compra --}}
-    <form action="/checkout" method="post" class="hidden">
-        <input type="hidden" name="cartId" value="{{ cartId }}">
-        <div class="input-group group-comprar">
-            <button type="submit" class="btn btn-success" id="comprar-carro">
-                Finalizar</button>
-        </div>
-    </form>
 </div>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="/js/checkout.js"></script>

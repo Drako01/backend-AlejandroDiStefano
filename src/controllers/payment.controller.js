@@ -1,36 +1,42 @@
-import Stripe from 'stripe'
-import config from '../config/config.js'
-const stripe = new Stripe(config.stripe.secretKey)
+import Stripe from 'stripe';
+import config from '../config/config.js';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
+// import { CartService } from '../repositories/index.js';
+import Cart from '../daos/models/carts.model.js';
+const stripe = new Stripe(config.stripe.secretKey);
 
 export const createSession = async (req, res) => {
-    const session = await stripe.checkout.sessions.create({
-        line_items: [
-            {
-                price_data: {
-                    product_data: {
-                        name: 'Laptop',
-                        description: 'Gamming Laptop'
-                    },
-                    currency: 'usd',
-                    unit_amount: 200000 // USD 2000.00
+    try {
+        const user = getUserFromToken(req);
+        const cartId = req.body.cartId; 
+        const cart = await Cart.findById(cartId).populate('items.producto');
+        
+        if (!cart) {
+            return res.status(404).render('error/error404', { user });
+        }
+        
+        const lineItems = cart.items.map(item => ({
+            price_data: {
+                product_data: {
+                    name: item.producto.title,
+                    description: item.producto.description
                 },
-                quantity: 1
+                currency: 'usd',
+                unit_amount: item.producto.price * 100,
             },
-            {
-                price_data: {
-                    product_data: {
-                        name: 'TV',
-                        description: 'Smart TV'
-                    },
-                    currency: 'usd',
-                    unit_amount: 300000 // USD 3000.00
-                },
-                quantity: 2
-            },
-        ],
-        mode: 'payment',
-        success_url: 'http://localhost:8080/api/success',
-        cancel_url: 'http://localhost:8080/api/cancel'
-    })
-    return res.json(session)
-}
+            quantity: item.cantidad,
+        }));
+
+        const session = await stripe.checkout.sessions.create({
+            line_items: lineItems,
+            mode: 'payment',
+            success_url: 'http://localhost:8080/api/success',
+            cancel_url: 'http://localhost:8080/api/cancel',
+        });
+
+        return res.json(session);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error creating session' });
+    }
+};
