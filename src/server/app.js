@@ -116,11 +116,6 @@ import cors from 'cors';
 app.use(cors())
 
 
-// Test de Logger para probar todos los niveles de logs
-// import loggerTest from '../test/logger.test.js';
-// loggerTest();
-
-
 // Configuracion de Swagger
 import swaggerUiExpress from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
