@@ -2,6 +2,8 @@ import Stripe from 'stripe';
 import config from '../config/config.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 import { CartService } from '../repositories/index.js';
+import loggers from '../config/logger.js'
+import customError from '../services/error.log.js';
 
 const stripe = new Stripe(config.stripe.secretKey);
 
@@ -38,7 +40,8 @@ export const createSession = async (req, res) => {
 
         return res.json(session);
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Error creating session' });
+        customError(error);
+        loggers.error(`Error al obtener los datos solicitados de la base de datos`);
+        res.status(500).render('error/error500', { user });
     }
 };
