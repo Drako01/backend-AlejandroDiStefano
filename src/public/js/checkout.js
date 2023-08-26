@@ -9,7 +9,6 @@ comprar.addEventListener('click', async () => {
         },
         body: JSON.stringify({ cartId })
     });
-    const data = await res.json();
-    console.log(data);
+    const data = await res.json();    
     window.location.href = data.url;
 });
