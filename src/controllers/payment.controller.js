@@ -8,13 +8,15 @@ const stripe = new Stripe(config.stripe.secretKey);
 export const createSession = async (req, res) => {
     try {
         const user = getUserFromToken(req);
-        const cartId = req.body.cartId; 
+        const cartId = req.body.cartId;
+        const isPremium = user.premium || (user.user && user.user.premium) || false;
+        const discountMultiplier = isPremium ? 0.8 : 1;
         const cart = await CartService.getCartByUserId(cartId);
-        
+
         if (!cart) {
             return res.status(404).render('error/error404', { user });
         }
-        
+
         const lineItems = cart.items.map(item => ({
             price_data: {
                 product_data: {
@@ -22,7 +24,7 @@ export const createSession = async (req, res) => {
                     description: item.producto.description
                 },
                 currency: 'usd',
-                unit_amount: item.producto.price * 100,
+                unit_amount: Math.round(item.producto.price * 100 * discountMultiplier),
             },
             quantity: item.cantidad,
         }));
