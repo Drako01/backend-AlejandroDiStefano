@@ -66,35 +66,6 @@ export const setPhotoProfileUsersController = async (req, res) => {
     }
 };
 
-export const getNewUserTest = async (req, res) => {
-    const user = getUserFromToken(req);
-    res.render('newUser', { user });
-}
-
-export const createNewUserTest = async (req, res) => {
-    const users = [];
-    loggers.info('req.body:', req.body);
-    const user = req.body;
-
-    if (!user.first_name || !user.last_name || !user.email) {
-        try {
-            throw new CustomError(
-                'Error de Creacion de Usuario',
-                generateUserErrorInfo(user),
-                'Error típico al crear un usuario nuevo cuando no se completan los campos obligatorios',
-                EErros.INVALID_TYPES_ERROR
-            );
-        } catch (error) {
-            loggers.error(`Error de Creacion de Usuario: ${error.message}`);
-            loggers.error(`Información adicional del error: ${error.cause}`);
-
-            return res.redirect('/users/newUser');
-        }
-    }
-
-    users.push(user);
-    res.redirect('/users');
-};
 
 export const getUserForEditByIdController = async (req, res) => { // DAO Aplicado
     try {
@@ -223,8 +194,6 @@ export const deleteInactiveUsersController = async (req, res) => {
 };
 
 
-
-
 // Reset Password
 export const getForgotPassword = async (req, res) => {
     res.render('resetPasswordSent');
@@ -338,3 +307,34 @@ export const setPremiumUserController = async (req, res) => {
     }
 };
 
+
+//#region Test de usuarios
+export const getNewUserTest = async (req, res) => {
+    const user = getUserFromToken(req);
+    res.render('newUser', { user });
+}
+export const createNewUserTest = async (req, res) => {
+    const users = [];
+    loggers.info('req.body:', req.body);
+    const user = req.body;
+
+    if (!user.first_name || !user.last_name || !user.email) {
+        try {
+            throw new CustomError(
+                'Error de Creacion de Usuario',
+                generateUserErrorInfo(user),
+                'Error típico al crear un usuario nuevo cuando no se completan los campos obligatorios',
+                EErros.INVALID_TYPES_ERROR
+            );
+        } catch (error) {
+            loggers.error(`Error de Creacion de Usuario: ${error.message}`);
+            loggers.error(`Información adicional del error: ${error.cause}`);
+
+            return res.redirect('/users/newUser');
+        }
+    }
+
+    users.push(user);
+    res.redirect('/users');
+};
+//#endregion
