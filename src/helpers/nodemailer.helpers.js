@@ -438,7 +438,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
             },
         });
 
-        const resetLink = `${urlProduction}reset-password/${token}`;
+        const resetLink = `${url}:${port}/reset-password/${token}`;
 
         const emailContent = {
             body: {
