@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import { sendPayloadController } from '../controllers/products.controller.js';
-import { checkPremiumUser } from '../middlewares/premium.users.middleware.js';
+import { createSession } from '../controllers/payment.controller.js'
+import { sendPurchaseController } from '../controllers/products.controller.js';
 const router = Router();
 
-router.post('/payment-intent', checkPremiumUser, sendPayloadController);
 
-export default router;
+router.post('/create-checkout-session', createSession)
+router.get('/success', sendPurchaseController)
+router.get('/cancel', (req, res) => res.render('cartsErrorPayload'))
+
+export default router
