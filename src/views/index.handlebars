@@ -6,7 +6,7 @@
                 <img src="{{user.photo}} {{user.user.photo}}" alt="Corona" class="foto-perfil">
             </div>
             {{#if user.premium}}
-                <h2 class="premium-text">Usuario Premium</h2>
+            <h2 class="premium-text">Usuario Premium</h2>
             {{/if}}
             <div>
                 <h1>Bienvenido <a href="/users/profile"> {{user.first_name}} {{user.last_name}} {{user.user.first_name
@@ -37,7 +37,7 @@
     <div id="product-container" class="container products">
         {{#each products}}
         <div class="card" style="width: 18rem; height:33rem;">
-            <img class="card-img-top" src="{{ this.thumbnail }}" alt="Card image cap">            
+            <img class="card-img-top" src="{{ this.thumbnail }}" alt="Card image cap">
             <div class="card-body">
                 <h4 class="card-title">{{ this.title }}</h4>
                 <p class="card-text">{{ this.description }} </p>
@@ -49,8 +49,8 @@
                             <input type="number" name="cantidad" class="form-control" value="1" min="1"
                                 max={{this.stock}}>
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-success">Agregar al Carrito <i
-                                        class="fa fa-cart-plus"></i></button>
+                                <button type="submit" class="btn btn-success" id="agregar-carrito">
+                                    Agregar al Carrito <i class="fa fa-cart-plus"></i></button>
                             </div>
                             {{else}}
                             <h1 class="NoHayStock">¡No hay stock!</h1>
@@ -67,11 +67,24 @@
     </div>
 </section>
 
-
 <script>
     document.getElementById("verBtn").addEventListener("click", function () {
         let cantidad = document.getElementsByName("cantidad")[0].value;
         let verBtn = document.getElementById("verBtn");
         verBtn.href = "/?limit=" + cantidad;
+    });
+
+
+    const btnAddToCart = document.querySelector('#agregar-carrito');
+    btnAddToCart.addEventListener('click', () => {
+        Swal.fire({
+            title: 'Producto agregado al carrito',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1200,
+            timerProgressBar: true
+        });
     });
 </script>

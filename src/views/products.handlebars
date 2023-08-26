@@ -33,7 +33,8 @@
                             <input type="number" name="cantidad" class="form-control" value="1" min="1"
                                 max={{this.stock}}>
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-success">Agregar al Carrito <i class="fa fa-cart-plus"></i></button>
+                                <button type="submit" class="btn btn-success" id="agregar-carrito-desde-productos">
+                                    Agregar al Carrito <i class="fa fa-cart-plus"></i></button>
                             </div>
                             {{else}}
                             <h1 class="NoHayStock">¡No hay stock!</h1>
@@ -80,3 +81,18 @@
     </div>
 
 </section>
+
+<script>
+    const btnAddToCart2 = document.querySelector('#agregar-carrito-desde-productos');
+    btnAddToCart2.addEventListener('click', () => {
+    Swal.fire({
+        title: 'Producto agregado al carrito',
+        icon: 'success',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1200,
+        timerProgressBar: true
+    });
+});
+</script>
