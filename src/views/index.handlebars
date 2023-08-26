@@ -76,8 +76,8 @@
 
 
     const btnAddToCart = document.querySelector('#agregar-carrito');
-    btnAddToCart.addEventListener('click', () => {
-        Swal.fire({
+    btnAddToCart.addEventListener('click', async () => {
+        await Swal.fire({
             title: 'Producto agregado al carrito',
             icon: 'success',
             toast: true,

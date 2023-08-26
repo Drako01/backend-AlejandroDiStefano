@@ -33,7 +33,7 @@
                             <input type="number" name="cantidad" class="form-control" value="1" min="1"
                                 max={{this.stock}}>
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-success" id="agregar-carrito-desde-productos">
+                                <button type="submit" class="btn btn-success" id="agregar-carrito">
                                     Agregar al Carrito <i class="fa fa-cart-plus"></i></button>
                             </div>
                             {{else}}
@@ -51,7 +51,7 @@
         {{!-- Paginación --}}
 
         <nav aria-label="Pagination">
-            
+
 
             <ul class="pagination justify-content-center">
                 {{#if prevLink}}
@@ -83,16 +83,16 @@
 </section>
 
 <script>
-    const btnAddToCart2 = document.querySelector('#agregar-carrito-desde-productos');
-    btnAddToCart2.addEventListener('click', () => {
-    Swal.fire({
-        title: 'Producto agregado al carrito',
-        icon: 'success',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1200,
-        timerProgressBar: true
+    const btnAddToCart = document.querySelector('#agregar-carrito');
+    btnAddToCart.addEventListener('click', async () => {
+        await Swal.fire({
+            title: 'Producto agregado al carrito',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1200,
+            timerProgressBar: true
+        });
     });
-});
 </script>
