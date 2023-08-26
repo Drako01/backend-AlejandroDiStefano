@@ -1,15 +1,15 @@
 import Stripe from 'stripe';
 import config from '../config/config.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
-// import { CartService } from '../repositories/index.js';
-import Cart from '../daos/models/carts.model.js';
+import { CartService } from '../repositories/index.js';
+
 const stripe = new Stripe(config.stripe.secretKey);
 
 export const createSession = async (req, res) => {
     try {
         const user = getUserFromToken(req);
         const cartId = req.body.cartId; 
-        const cart = await Cart.findById(cartId).populate('items.producto');
+        const cart = await CartService.getCartByUserId(cartId);
         
         if (!cart) {
             return res.status(404).render('error/error404', { user });
