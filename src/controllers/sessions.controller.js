@@ -64,7 +64,11 @@ export const sendLogginController = async (req, res) => { // DAO Aplicado
                     const message = `El Usuario ${decodedToken.first_name} ${decodedToken.last_name} con ID  #${userId} se ha Logueado con éxito.!`;
                     customMessageSessions(message)
 
-                    res.cookie(cookieName, userToken).redirect('/');
+                    const oneWeekInSeconds = 7 * 24 * 60 * 60; 
+                    const expirationDate = new Date(Date.now() + oneWeekInSeconds * 1000); 
+
+                    res.cookie(cookieName, userToken, { expires: expirationDate, httpOnly: true }).redirect('/');
+
                 } else {
                     loggers.error('Error to login user');
                     return res.status(401).render('error/notLoggedIn');
