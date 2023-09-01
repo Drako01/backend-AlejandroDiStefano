@@ -30,6 +30,8 @@
 
 ## npm install
 
+## Una vez instaladas las Librerias, se recomienda generar el archivo .ENV para las variables de Entorno y ubicarlo en la carpeta src/server/
+
 ## Tener en cuenta que el Servidor arranca con la instrucción: 
 ### npm start
 
