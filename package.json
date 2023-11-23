@@ -1,6 +1,6 @@
 {
   "name": "backend-alejandrodistefano",
-  "version": "4.3.2",
+  "version": "5.0.0",
   "type": "module",
   "description": "eCommerce para Venta de Productos de Tenis",
   "main": "start.js",
@@ -79,6 +79,7 @@
     "mongoose": "^7.0.4",
     "mongoose-paginate-v2": "^1.7.1",
     "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.2",
     "nodemailer": "^6.9.3",
     "passport": "^0.6.0",
     "passport-github2": "^0.1.12",
@@ -87,6 +88,7 @@
     "shortid": "^2.2.16",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
+    "stripe": "^13.3.0",
     "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
@@ -97,6 +99,6 @@
   },
   "devDependencies": {
     "chai": "^4.3.7",
-    "mocha": "^10.2.0"   
+    "mocha": "^10.2.0"
   }
 }

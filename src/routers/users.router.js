@@ -16,7 +16,8 @@ import { getAllUsersController,
         setDocumentsUsersController,
         getDocumentsByUserController,
         setPremiumUserController,
-        deleteUserByUserController
+        deleteUserByUserController,
+        deleteInactiveUsersController
 } from '../controllers/user.controller.js';
 import configureMulter from '../helpers/multer.helpers.js';
 const uploadProfilePhoto = configureMulter('img/profile');
@@ -35,6 +36,6 @@ router.get('/delete/:id', isAdmin, deleteUserByIdController)
 router.get('/my-documents', isLoggedIn, getDocumentsByUserController) 
 router.get('/premium/:id', setPremiumUserController) 
 router.get('/delete-for-my-self/:id', deleteUserByUserController) 
-
+router.post('/deleteInactiveUsers', isAdmin, deleteInactiveUsersController)
 
 export default router

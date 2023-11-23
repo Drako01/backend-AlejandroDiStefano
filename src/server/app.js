@@ -116,11 +116,6 @@ import cors from 'cors';
 app.use(cors())
 
 
-// Test de Logger para probar todos los niveles de logs
-// import loggerTest from '../test/logger.test.js';
-// loggerTest();
-
-
 // Configuracion de Swagger
 import swaggerUiExpress from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
@@ -153,6 +148,7 @@ function startServer() {
 
 // Llamado a la funcion para eliminar usuarios inactivos
 // Cada vez que se inicia el servidor se eliminan los usuarios inactivos
+import cron from 'node-cron';
 import { deleteInactiveUsersController } from '../controllers/user.controller.js';
 deleteInactiveUsersController()
     .then(() => {
@@ -161,6 +157,17 @@ deleteInactiveUsersController()
     .catch((error) => {
         loggers.error(error.message);
     });
+
+// Programación de tarea para ejecutar cada 24 horas
+cron.schedule('0 0 */1 * *', () => {
+    deleteInactiveUsersController()
+        .then(() => {
+            loggers.info('Proceso Automático de Eliminación de Usuarios Inactivos cada 24Hr');
+        })
+        .catch((error) => {
+            loggers.error(error.message);
+        });
+});
 
 
 // Verificar si el puerto está en uso antes de iniciar el servidor
@@ -177,7 +184,7 @@ serverTester.once('error', (error) => {
             EErros.EADDRINUSE
         );
         customError(error);
-        loggers.fatal(error.message);        
+        loggers.fatal(error.message);
     } else {
         loggers.error('Error starting the server:', error);
     }

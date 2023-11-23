@@ -11,4 +11,5 @@ router.get('/', checkPremiumUser, getPurchaseController);
 
 router.post('/', checkPremiumUser, sendPurchaseController);
 
+
 export default router;
