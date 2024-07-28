@@ -26,20 +26,113 @@
 ---
 <br><br>
 
-# Para arrancar:
+---
 
-## npm install
+## Descripción del Proyecto: E-commerce Backend
 
-## Una vez instaladas las Librerias, se recomienda generar el archivo .ENV para las variables de Entorno y ubicarlo en la carpeta src/server/
+### Descripción General
 
-## Tener en cuenta que el Servidor arranca con la instrucción: 
-### npm start
+Este proyecto es un backend completo para una aplicación de e-commerce, desarrollado con Node.js y Express, y utilizando MongoDB como base de datos. La aplicación permite la gestión de productos, carritos de compras, niveles de usuario, y cuenta con diversas características de seguridad y funcionalidad avanzada, como la integración de una pasarela de pagos. Las vistas se han implementado utilizando Handlebars para ofrecer una experiencia de usuario dinámica y eficiente.
+
+### Características Principales
+
+1. **Gestión de Productos**:
+    - CRUD (Crear, Leer, Actualizar, Eliminar) de productos.
+    - Categorías y subcategorías de productos.
+    - Gestión de inventario y precios.
+
+2. **Carrito de Compras**:
+    - Añadir, actualizar y eliminar productos en el carrito.
+    - Persistencia de carritos de compras para usuarios autenticados.
+
+3. **Niveles de Usuario**:
+    - Roles de usuario: administrador, vendedor y cliente.
+    - Control de acceso basado en roles para ciertas rutas y acciones.
+
+4. **Seguridad**:
+    - Autenticación y autorización de usuarios utilizando JSON Web Tokens (JWT).
+    - Encriptación de contraseñas utilizando bcrypt.
+    - Protección contra ataques comunes como XSS y CSRF.
+
+5. **Pasarela de Pagos**:
+    - Integración con pasarelas de pago populares para procesar transacciones.
+    - Gestión de órdenes y confirmaciones de pago.
+
+6. **Middlewares**:
+    - Middlewares personalizados para la validación de datos, autenticación de usuarios, y manejo de errores.
+    - Logger para el registro de actividades y errores.
+
+7. **Arquitectura por Capas**:
+    - **Controladores**: Manejan las solicitudes HTTP y responden con los datos apropiados.
+    - **Modelos**: Definen la estructura de los datos y las operaciones de la base de datos.
+    - **Servicios**: Contienen la lógica de negocio y operaciones complejas.
+    - **Middlewares**: Gestión de autenticación, validación y manejo de errores.
+    - **Config**: Configuración de la aplicación, incluyendo variables de entorno y configuraciones de la base de datos.
+    - **Test**: Pruebas unitarias y de integración para asegurar la calidad y funcionalidad del código.
+
+### Tecnologías Utilizadas
+
+- **Node.js**: Entorno de ejecución para JavaScript en el servidor.
+- **Express**: Framework web para Node.js que facilita la creación de aplicaciones web y APIs.
+- **MongoDB**: Base de datos NoSQL orientada a documentos.
+- **Mongoose**: ODM (Object Data Modeling) para MongoDB, que facilita la interacción con la base de datos.
+- **Handlebars**: Motor de plantillas para generar vistas dinámicas en HTML.
+- **JWT**: JSON Web Tokens para la autenticación y autorización.
+- **bcrypt**: Librería para el hash de contraseñas.
+- **Pasarelas de Pago**: Integración con servicios de pago como Stripe o PayPal.
+- **Jest/Mocha**: Frameworks de testing para realizar pruebas unitarias y de integración.
+
+### Configuración del Proyecto
+
+El proyecto se organiza de la siguiente manera:
+
+- **src/server**: Carpeta principal del servidor.
+  - **controllers**: Contiene los controladores de la aplicación.
+  - **models**: Define los esquemas y modelos de MongoDB.
+  - **services**: Contiene la lógica de negocio.
+  - **middlewares**: Middlewares para validación, autenticación, etc.
+  - **config**: Archivos de configuración y variables de entorno.
+  - **views**: Plantillas Handlebars para las vistas.
+  - **tests**: Pruebas unitarias y de integración.
+
+### Ejecución del Proyecto
+
+Para ejecutar el proyecto, sigue estos pasos:
+
+1. **Instalación de Dependencias**:
+    ```bash
+    npm install
+    ```
+
+2. **Configuración de Variables de Entorno**:
+    Crea un archivo `.env` con las variables necesarias como la URL de MongoDB, las claves para JWT, y las credenciales de la pasarela de pagos.
+
+3. **Ejecución del Servidor**:
+    ```bash
+    npm start
+    ```
+
+### Documentación de API
+
+La documentación de la API se encuentra disponible y es accesible a través de Swagger en la ruta:
+```
+http://localhost:8080/docs-api
+```
+
+Esta documentación proporciona detalles sobre todas las rutas disponibles, los métodos HTTP soportados, y los datos esperados.
+
+---
+
+
 
 <br>
 
 
 ## Módulo de Testing: 
-### npm test
+```bash
+    npm test
+```
+
 
 <br><br>
 
