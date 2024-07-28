@@ -111,6 +111,11 @@ Para ejecutar el proyecto, sigue estos pasos:
     ```bash
     npm start
     ```
+4. **Ejecución del Módulo de Test**:
+    ```bash
+    npm test
+    ```
+
 
 ### Documentación de API
 
@@ -122,16 +127,6 @@ La documentación de la API se encuentra disponible y es accesible a través de 
 Esta documentación proporciona detalles sobre todas las rutas disponibles, los métodos HTTP soportados, y los datos esperados.
 
 ---
-
-
-
-<br>
-
-
-## Módulo de Testing: 
-  ```bash
-  npm test
-  ```
 
 
 <br><br>
