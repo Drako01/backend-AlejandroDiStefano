@@ -115,9 +115,9 @@ Para ejecutar el proyecto, sigue estos pasos:
 ### Documentación de API
 
 La documentación de la API se encuentra disponible y es accesible a través de Swagger en la ruta:
-```
-http://localhost:8080/docs-api
-```
+  ```
+  http://localhost:8080/docs-api
+  ```
 
 Esta documentación proporciona detalles sobre todas las rutas disponibles, los métodos HTTP soportados, y los datos esperados.
 
@@ -129,9 +129,9 @@ Esta documentación proporciona detalles sobre todas las rutas disponibles, los 
 
 
 ## Módulo de Testing: 
-```bash
-    npm test
-```
+  ```bash
+  npm test
+  ```
 
 
 <br><br>
