@@ -7,8 +7,7 @@ import { sendPurchaseConfirmationEmail } from '../helpers/nodemailer.helpers.js'
 import customError from '../services/error.log.js';
 import { generateMockProducts } from '../services/mocking.service.js';
 import { removeProductFromCart } from '../helpers/functions.helpers.js';
-
-import { sendSMS } from '../helpers/twilio.helpers.js';
+import { sendSMS } from '../helpers/twilio.helpers.js'; 
 const cookieName = config.jwt.cookieName;
 
 export const getIndexProductsController = async (req, res) => { // DAO Aplicado
@@ -198,11 +197,10 @@ export const getPurchaseController = async (req, res) => {
     }
 }
 
+
 export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     const user = getUserFromToken(req);
-    //const { cardNumber, cardName, cardExpiration, cardCvv } = req.body;
     
-    // Aca deberia verificar los datos de la tarjeta de credito
     try {
         
         const isPremium = user.premium || (user.user && user.user.premium) || false;
@@ -268,21 +266,6 @@ export const sendPurchaseController = async (req, res) => { // DAO Aplicado
     }
 }
 
-export const getMockingProductsController = async (req, res, next) => { // DAO Aplicado
-    let user = getUserFromToken(req);
-    try {
-        await generateMockProducts();
-        // Obtener los productos generados
-        const limit = 100
-        const products = await ProductService.getAllLimit(limit);
-        res.status(200).render('index', { products, user });
-    } catch (error) {
-        customError(error);
-        loggers.error('Error al generar productos de prueba', error);
-        res.status(500).render('error/error500', { user });
-    }
-}
-
 export const getProductForEditByIdController = async (req, res) => { // DAO Aplicado
     const productId = req.params.pid;
     const user = getUserFromToken(req);
@@ -299,3 +282,21 @@ export const getProductForEditByIdController = async (req, res) => { // DAO Apli
         res.status(500).render('error/notProduct', { user })
     }
 }
+
+//#region Mocking Products
+export const getMockingProductsController = async (req, res, next) => { // DAO Aplicado
+    let user = getUserFromToken(req);
+    try {
+        await generateMockProducts();
+        // Obtener los productos generados
+        const limit = 100
+        const products = await ProductService.getAllLimit(limit);
+        res.status(200).render('index', { products, user });
+    } catch (error) {
+        customError(error);
+        loggers.error('Error al generar productos de prueba', error);
+        res.status(500).render('error/error500', { user });
+    }
+}
+//#endregion
+

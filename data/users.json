@@ -7,14 +7,52 @@
   "email": "addistefano76@gmail.com",
   "age": "47",
   "role": "admin",
-  "password": "$2b$10$mOoGrJd3eH86bwiTQmBLyewceNlH2pkxQ17xRHqMBWf.Wm8qzi/na",
-  "__v": 0,
+  "password": "$2b$10$pc728E9a9R2ixJxGm2bLEeFB5HcUS85IxKaKh59AwF9UcdKkr2yOO",
+  "__v": 2,
   "phone": "+541140843848",
-  "active": false,
+  "active": true,
   "updatedAt": {
-    "$date": "2023-08-09T16:47:14.428Z"
+    "$date": "2023-08-25T20:06:47.624Z"
   },
-  "premium": true
+  "premium": true,
+  "photo": "/img/profile/photo-1691959768375.jpg",
+  "document": [
+    "/documents/document-1691694718370.pdf",
+    "/documents/document-1691694763424.pdf",
+    "/documents/document-1691694795750.pdf",
+    "/documents/document-1691959965005.pdf",
+    "/documents/document-1691959969766.pdf",
+    "/documents/document-1692469288335.pdf",
+    "/documents/document-1692476775171.pdf",
+    "/documents/document-1692476781924.pdf",
+    "/documents/document-1692570863938.pdf",
+    "/documents/document-1692570912166.pdf"
+  ]
+},
+{
+  "_id": {
+    "$oid": "64e909390efa3b00fc0bddbc"
+  },
+  "first_name": "Alex Marin",
+  "last_name": "Mendez",
+  "email": "alexmarinmendez@gmail.com",
+  "phone": "51942270712",
+  "age": "50",
+  "role": "admin",
+  "password": "$2b$10$/CSz1tQISkKyyhhobq5MuOF3qAt4DahKvS.z5tCw3YhnpCb6kUL.2",
+  "photo": "/img/profile/photo-1692993894736.png",
+  "document": [
+    "/documents/document-1692993922114.pdf"
+  ],
+  "active": false,
+  "premium": true,
+  "createdAt": {
+    "$date": "2023-08-25T20:04:09.909Z"
+  },
+  "updatedAt": {
+    "$date": "2023-08-25T20:06:36.979Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -29,30 +67,10 @@
   "phone": "",
   "active": false,
   "updatedAt": {
-    "$date": "2023-08-09T16:48:02.849Z"
+    "$date": "2023-08-25T16:48:02.849Z"
   },
-  "premium": false
-},
-{
-  "_id": {
-    "$oid": "64cd58d55a992a41af015c14"
-  },
-  "first_name": "Alex",
-  "last_name": "Marin Mendez",
-  "email": "alexmarinmendez@gmail.com",
-  "phone": "51942270712",
-  "age": "50",
-  "role": "admin",
-  "password": "$2b$10$I14mOjdKeRNGZE3zF82HGeW7RNqXJGSjcxVavKjnIH9nDEsWp.wIK",
-  "active": false,
-  "createdAt": {
-    "$date": "2023-08-04T20:00:21.436Z"
-  },
-  "updatedAt": {
-    "$date": "2023-08-08T18:11:55.414Z"
-  },
-  "__v": 0,
-  "premium": true
+  "premium": false,
+  "photo": "/img/profile/photo-1692993894736.png"
 },
 {
   "_id": {
@@ -70,10 +88,11 @@
     "$date": "2020-08-05T14:16:29.743Z"
   },
   "updatedAt": {
-    "$date": "2020-08-08T18:18:52.782Z"
+    "$date": "2023-08-25T18:18:52.782Z"
   },
   "__v": 0,
-  "premium": false
+  "premium": false,
+  "photo": "/img/profile/photo-1692993894736.png"
 },
 {
   "_id": {
@@ -87,9 +106,10 @@
   "password": "$2b$10$EH75nZrsN/JFjoIc/fO25ufwVCzCg2FHpQtPlPDUP4ThtO0yNdftW",
   "__v": 0,
   "phone": "1155554444",
-  "active": true,
+  "active": false,
   "updatedAt": {
-    "$date": "2020-08-08T18:18:07.235Z"
+    "$date": "2023-08-25T18:18:07.235Z"
   },
-  "premium": false
+  "premium": false,
+  "photo": "/img/profile/photo-1692993894736.png"
 }]

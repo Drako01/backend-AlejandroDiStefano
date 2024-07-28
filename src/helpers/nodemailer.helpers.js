@@ -324,7 +324,7 @@ export const sendCloseInactivitiAccountEmail = async (usermail) => {
                 greeting: `Hola ${usermail}`,
                 intro: ['Lamentamos informarte que tu cuenta en Lonne Open ha sido cerrada por Inactividad.',
                     'Si deseas volver a utilizar nuestros servicios, puedes registrarte nuevamente en nuestra página web.',
-                    'Según nuestros registros, tu cuenta no ha sido utilizada en los últimos 12 meses.',
+                    'Según nuestros registros, tu cuenta no ha sido utilizada en las últimas 48hr.',
                     'Gracias por haber formado parte de nuestra comunidad.'],
 
                 outro: [
@@ -438,7 +438,7 @@ export const sendResetPasswordEmail = async (usermail, token) => {
             },
         });
 
-        const resetLink = `${urlProduction}reset-password/${token}`;
+        const resetLink = `${url}:${port}/reset-password/${token}`;
 
         const emailContent = {
             body: {
