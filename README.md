@@ -30,8 +30,6 @@
 
 ## Descripción del Proyecto: E-commerce Backend
 
-### Descripción General
-
 Este proyecto es un backend completo para una aplicación de e-commerce, desarrollado con Node.js y Express, y utilizando MongoDB como base de datos. La aplicación permite la gestión de productos, carritos de compras, niveles de usuario, y cuenta con diversas características de seguridad y funcionalidad avanzada, como la integración de una pasarela de pagos. Las vistas se han implementado utilizando Handlebars para ofrecer una experiencia de usuario dinámica y eficiente.
 
 ### Características Principales
